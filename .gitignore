@@ -1,0 +1,115 @@
+# ============================================================
+#  UZSL loyihasi — umumiy .gitignore (Python bot + Flutter)
+# ============================================================
+
+# ------------------- MAXFIY / SOZLAMALAR -------------------
+# Hech qachon commit qilinmasin!
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+credentials.json
+
+# ------------------- PYTHON (uzsl_bot) -------------------
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Bytecode / kesh
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Test / coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Paketlash
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ------------------- BOT MA'LUMOTLARI -------------------
+# Ma'lumotlar bazasi (foydalanuvchilar, videolar, file_id)
+uzsl_bot/data/
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Persistence (suhbat holati)
+*.pkl
+
+# Eksport qilingan videolar va metadata
+uzsl_bot/exports/
+exports/
+
+# Yaratilgan sertifikatlar
+*.pdf
+
+# ------------------- FLUTTER / DART (uzsl_translator) -------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/build/
+/coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+app.*.symbols
+app.*.map.json
+
+# Android
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/.gradle/
+**/android/.kotlin/
+**/android/local.properties
+**/android/key.properties
+**/*.keystore
+**/*.jks
+
+# iOS / macOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/Podfile.lock
+**/macos/Pods/
+
+# ------------------- AI VOSITA SOZLAMALARI -------------------
+# Gemini va Kiro konfiguratsiya fayllari (mahalliy, vositaga xos)
+.gemini/
+.kiro/
+
+# ------------------- IDE / MUHARRIR -------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.swo
+.history/
+
+# ------------------- OPERATSION TIZIM -------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

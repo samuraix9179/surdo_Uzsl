@@ -1,0 +1,18 @@
+# Maxfiy sozlamalar
+.env
+
+# Ma'lumotlar bazasi va eksport
+data/
+exports/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
