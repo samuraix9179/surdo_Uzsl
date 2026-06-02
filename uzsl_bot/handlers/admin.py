@@ -277,10 +277,10 @@ async def upload_example_start(update: Update, context: ContextTypes.DEFAULT_TYP
 
     context.user_data["example_label_id"] = label_id
     await update.message.reply_text(
-        f"📹 *{label['word_uz']}* belgisi uchun namuna videoni yuboring.\n"
+        f"📹 <b>{label['word_uz']}</b> belgisi uchun namuna videoni yuboring.\n"
         "Bu video foydalanuvchilarga 'qanday ko'rsatish kerak' deb ko'rsatiladi.\n\n"
         "Bekor qilish: /cancel",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.HTML,
     )
     return EXAMPLE_WAIT_VIDEO
 
