@@ -8,14 +8,15 @@ from telegram.ext import (
 
 from database import (
     get_labels_needing_videos, get_label_by_id, save_video, get_user,
+    get_labels_by_category, get_or_create_custom_label,
 )
 from config import (
     MIN_VIDEO_DURATION, MAX_VIDEO_DURATION, MAX_FILE_SIZE_MB, VIDEO_COOLDOWN_SECONDS,
 )
-from keyboards import labels_kb, waiting_video_kb, main_menu_kb
+from keyboards import labels_kb, waiting_video_kb, main_menu_kb, categories_kb
 from utils.rewards import check_and_award_badge, generate_certificate
 
-CHOOSE_LABEL, WAITING_VIDEO = range(10, 12)
+CHOOSE_CATEGORY, CHOOSE_LABEL, WAITING_FREE_TEXT, WAITING_VIDEO = range(10, 14)
 
 INSTRUCTIONS = (
     "📹 Belgi: *{word}*\n\n"
@@ -29,19 +30,14 @@ INSTRUCTIONS = (
 )
 
 
-async def _show_labels(message, context):
-    labels = await get_labels_needing_videos(limit=8)
-    if not labels:
-        await message.reply_text("Hozircha barcha belgilar uchun yetarli video yig'ilgan. Rahmat! 🎉")
-        return ConversationHandler.END
-
+async def _show_categories(message, context):
     await message.reply_text(
-        "Qaysi belgini ko'rsatmoqchisiz?\n"
-        "_Ro'yxatdagi belgilar eng kam videoga ega bo'lganlar._",
-        reply_markup=labels_kb(labels),
+        "Quyidagi kategoriyalardan birini tanlang yoki *Erkin tarjima* orqali o'z so'zingizni kiritib video yuboring:\n\n"
+        "_Kategoriyalar so'zlarni guruhlab topishni osonlashtiradi._",
+        reply_markup=categories_kb(),
         parse_mode="Markdown",
     )
-    return CHOOSE_LABEL
+    return CHOOSE_CATEGORY
 
 
 async def submit_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -49,7 +45,7 @@ async def submit_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not user or not user["age_group"]:
         await update.message.reply_text("Avval /start orqali ro'yxatdan o'ting.")
         return ConversationHandler.END
-    return await _show_labels(update.message, context)
+    return await _show_categories(update.message, context)
 
 
 async def submit_start_from_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -59,7 +55,81 @@ async def submit_start_from_menu(update: Update, context: ContextTypes.DEFAULT_T
     if not user or not user["age_group"]:
         await query.message.reply_text("Avval /start orqali ro'yxatdan o'ting.")
         return ConversationHandler.END
-    return await _show_labels(query.message, context)
+    return await _show_categories(query.message, context)
+
+
+async def category_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    data = query.data
+    if data == "cat_free":
+        await query.message.reply_text(
+            "✍️ *Erkin tarjima rejimiga o'tdingiz.*\n\n"
+            "Ushbu videoda qaysi so'z yoki gapni imo-ishorada ko'rsatmoqchisiz? "
+            "Iltimos, uning o'zbekcha tarjimasini yozib yuboring (Masalan: *yaxshi boring*, *rahmat*).\n\n"
+            "/cancel — bekor qilish",
+            parse_mode="Markdown",
+        )
+        return WAITING_FREE_TEXT
+
+    category = data.split("_")[1]
+    context.user_data["current_category"] = category
+
+    return await _show_labels_for_category(query.message, context, category)
+
+
+async def _show_labels_for_category(message, context, category):
+    labels = await get_labels_by_category(category, limit=8)
+    if not labels:
+        await message.reply_text(
+            f"Hozircha '{category}' kategoriyasidagi barcha belgilar uchun yetarli video yig'ilgan. "
+            "Boshqa kategoriya tanlang! 🎉",
+            reply_markup=categories_kb()
+        )
+        return CHOOSE_CATEGORY
+
+    cat_title = category.capitalize()
+    await message.reply_text(
+        f"📂 Kategoriya: *{cat_title}*\n\n"
+        "Qaysi belgini ko'rsatmoqchisiz?\n"
+        "_Ushbu ro'yxatdagi belgilar eng kam videoga ega bo'lganlar._",
+        reply_markup=labels_kb(labels),
+        parse_mode="Markdown",
+    )
+    return CHOOSE_LABEL
+
+
+async def back_to_categories(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    context.user_data.pop("current_category", None)
+    return await _show_categories(query.message, context)
+
+
+async def receive_free_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+    if not text:
+        await update.message.reply_text("Iltimos, faqat matn yuboring.")
+        return WAITING_FREE_TEXT
+
+    word_uz = text.strip()
+    if len(word_uz) < 2 or len(word_uz) > 60:
+        await update.message.reply_text("Matn uzunligi 2 dan 60 tagacha harf bo'lishi kerak. Qaytadan yozing.")
+        return WAITING_FREE_TEXT
+
+    label_id = await get_or_create_custom_label(word_uz)
+    context.user_data["current_label_id"] = label_id
+    context.user_data["current_label_word"] = word_uz
+    context.user_data["is_free_translation"] = True
+
+    instructions = INSTRUCTIONS.format(word=word_uz)
+    await update.message.reply_text(
+        instructions,
+        parse_mode="Markdown",
+        reply_markup=waiting_video_kb(),
+    )
+    return WAITING_VIDEO
 
 
 async def label_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -95,9 +165,14 @@ async def skip_label(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """'Bu belgini bilmayman' — boshqa belgilar ro'yxatini qayta ko'rsatadi."""
     query = update.callback_query
     await query.answer("Boshqa belgi tanlang")
+    category = context.user_data.get("current_category")
     context.user_data.pop("current_label_id", None)
     context.user_data.pop("current_label_word", None)
-    return await _show_labels(query.message, context)
+
+    if context.user_data.pop("is_free_translation", False) or not category:
+        return await _show_categories(query.message, context)
+
+    return await _show_labels_for_category(query.message, context, category)
 
 
 async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -186,12 +261,16 @@ async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data.pop("current_label_id", None)
     context.user_data.pop("current_label_word", None)
+    context.user_data.pop("is_free_translation", None)
+    context.user_data.pop("current_category", None)
     return ConversationHandler.END
 
 
 async def cancel_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.pop("current_label_id", None)
     context.user_data.pop("current_label_word", None)
+    context.user_data.pop("is_free_translation", None)
+    context.user_data.pop("current_category", None)
     await update.message.reply_text("Bekor qilindi.", reply_markup=main_menu_kb())
     return ConversationHandler.END
 
@@ -201,6 +280,8 @@ async def cancel_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     context.user_data.pop("current_label_id", None)
     context.user_data.pop("current_label_word", None)
+    context.user_data.pop("is_free_translation", None)
+    context.user_data.pop("current_category", None)
     await query.message.reply_text("Bekor qilindi.", reply_markup=main_menu_kb())
     return ConversationHandler.END
 
@@ -211,9 +292,18 @@ submit_handler = ConversationHandler(
         CallbackQueryHandler(submit_start_from_menu, pattern="^menu_submit$"),
     ],
     states={
+        CHOOSE_CATEGORY: [
+            CallbackQueryHandler(category_chosen, pattern="^cat_"),
+            CallbackQueryHandler(cancel_callback, pattern="^submit_cancel$"),
+        ],
         CHOOSE_LABEL: [
             CallbackQueryHandler(label_chosen, pattern="^label_"),
+            CallbackQueryHandler(back_to_categories, pattern="^submit_back_to_categories$"),
             CallbackQueryHandler(cancel_callback, pattern="^submit_cancel$"),
+        ],
+        WAITING_FREE_TEXT: [
+            MessageHandler(filters.TEXT & ~filters.COMMAND, receive_free_text),
+            CommandHandler("cancel", cancel_cmd),
         ],
         WAITING_VIDEO: [
             MessageHandler(filters.VIDEO | filters.VIDEO_NOTE, receive_video),

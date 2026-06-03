@@ -23,6 +23,7 @@ class _CameraScreenState extends State<CameraScreen> {
   HolisticResult? _result;
   String? _error;
   int _frameCount = 0;
+  final List<HolisticResult> _sequenceBuffer = [];
 
   @override
   void initState() {
@@ -44,7 +45,13 @@ class _CameraScreenState extends State<CameraScreen> {
       _resultSub = _holistic.results.listen((event) {
         if (!mounted) return;
         if (event is HolisticResult) {
-          setState(() => _result = event);
+          setState(() {
+            _result = event;
+            _sequenceBuffer.add(event);
+            if (_sequenceBuffer.length > 30) {
+              _sequenceBuffer.removeAt(0);
+            }
+          });
         } else if (event is Map && event['error'] != null) {
           debugPrint("Holistic xato: ${event['error']}");
         }
@@ -146,7 +153,10 @@ class _CameraScreenState extends State<CameraScreen> {
     await _cameraController?.dispose();
     _cameraController = null;
     _isFront = !_isFront;
-    setState(() => _result = null);
+    setState(() {
+      _result = null;
+      _sequenceBuffer.clear();
+    });
     await _initCamera();
   }
 
@@ -230,6 +240,10 @@ class _CameraScreenState extends State<CameraScreen> {
                       "Chap qo'l: ${r.leftHand.length ~/ 2} • O'ng qo'l: ${r.rightHand.length ~/ 2}",
                       style: const TextStyle(color: Colors.white70, fontSize: 13),
                     ),
+                  Text(
+                    "Bufer: ${_sequenceBuffer.length} / 30 kadr (sliding window)",
+                    style: const TextStyle(color: Colors.greenAccent, fontSize: 12),
+                  ),
                   Text(
                     "Frame: $_frameCount",
                     style: const TextStyle(color: Colors.white38, fontSize: 11),

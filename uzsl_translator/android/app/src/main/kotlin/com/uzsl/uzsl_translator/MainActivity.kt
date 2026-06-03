@@ -61,7 +61,7 @@ class MainActivity : FlutterActivity() {
         if (processor != null) return
         processor = HolisticProcessor(
             context = this,
-            modelPath = "holistic_landmarker.task",
+            modelPath = "flutter_assets/assets/holistic_landmarker.task",
             onResult = { res, w, h -> sendResult(res, w, h) },
             onError = { msg ->
                 runOnUiThread {

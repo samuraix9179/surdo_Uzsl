@@ -14,7 +14,7 @@ from handlers.start import (
 from handlers.submit_video import submit_handler
 from handlers.profile import (
     profile_handler, leaderboard_handler, labels_handler,
-    help_handler, menu_callback_handler,
+    help_handler, menu_callback_handler, translate_handler,
 )
 from handlers.admin import (
     admin_panel_handler, stats_handler, moderate_handler, export_handler,
@@ -38,6 +38,7 @@ async def _post_init(application: Application) -> None:
     await application.bot.set_my_commands([
         BotCommand("start", "Boshlash / asosiy menyu"),
         BotCommand("submit", "Video yuborish"),
+        BotCommand("translate", "UZSL Smart Tarjimon namoyishi"),
         BotCommand("labels", "Belgilar ro'yxati"),
         BotCommand("profile", "Mening profilim"),
         BotCommand("leaderboard", "Top hissa qo'shuvchilar"),
@@ -88,6 +89,7 @@ def main():
     app.add_handler(leaderboard_handler)
     app.add_handler(labels_handler)
     app.add_handler(help_handler)
+    app.add_handler(translate_handler)
     app.add_handler(delete_data_handler)
 
     # --- Admin komandalari ---

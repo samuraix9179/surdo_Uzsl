@@ -1,5 +1,6 @@
 from telegram import Update
 from telegram.ext import ContextTypes, CommandHandler, CallbackQueryHandler
+from utils.grammar_translator import translate_uzsl_to_uzbek
 
 from database import (
     get_user, get_user_stats, get_leaderboard, get_all_labels,
@@ -164,10 +165,30 @@ async def menu_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(text, parse_mode="Markdown")
 
 
+async def translate_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    args = context.args
+    if not args:
+        await update.message.reply_text(
+            "✍️ *UZSL Aqlli Tarjimon*\n\n"
+            "Foydalanish: `/translate <so'zlar ketma-ketligi>`\n"
+            "Masalan: `/translate men do'kon bormoq`",
+            parse_mode="Markdown"
+        )
+        return
+
+    sentence = translate_uzsl_to_uzbek(args)
+    await update.message.reply_text(
+        f"📝 *UZSL:* `{' '.join(args)}`\n"
+        f"🔄 *O'zbekcha tarjimasi:* *{sentence}*",
+        parse_mode="Markdown"
+    )
+
+
 profile_handler = CommandHandler("profile", profile)
 leaderboard_handler = CommandHandler("leaderboard", leaderboard)
 labels_handler = CommandHandler("labels", labels_list)
 help_handler = CommandHandler("help", help_cmd)
+translate_handler = CommandHandler("translate", translate_cmd)
 # menu_submit submit_handler tomonidan boshqariladi
 menu_callback_handler = CallbackQueryHandler(
     menu_callback, pattern="^menu_(profile|leaderboard|labels|help)$"

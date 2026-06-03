@@ -6,6 +6,8 @@ from database import get_user_stats, get_user_badges, add_achievement
 
 # Unicode (o'zbek lotin + kirill) shriftlarni turli OS'larda topish
 _FONT_CANDIDATES = [
+    # Bundled custom fonts (highest priority for production portability)
+    (os.path.join("data", "font.ttf"), os.path.join("data", "font_bold.ttf")),
     # Windows
     (r"C:\Windows\Fonts\arial.ttf", r"C:\Windows\Fonts\arialbd.ttf"),
     (r"C:\Windows\Fonts\verdana.ttf", r"C:\Windows\Fonts\verdanab.ttf"),

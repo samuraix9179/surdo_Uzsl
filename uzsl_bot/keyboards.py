@@ -17,6 +17,28 @@ def main_menu_kb() -> InlineKeyboardMarkup:
     ])
 
 
+def categories_kb() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("🤝 Salomlashish", callback_data="cat_salomlashish"),
+            InlineKeyboardButton("❓ Savollar", callback_data="cat_savol"),
+        ],
+        [
+            InlineKeyboardButton("💬 Javoblar", callback_data="cat_javob"),
+            InlineKeyboardButton("🏠 Joylar", callback_data="cat_joy"),
+        ],
+        [
+            InlineKeyboardButton("🏃 Harakatlar", callback_data="cat_harakat"),
+            InlineKeyboardButton("🍏 Tovarlar", callback_data="cat_tovar"),
+        ],
+        [
+            InlineKeyboardButton("😊 His-tuyg'ular", callback_data="cat_his"),
+            InlineKeyboardButton("✍️ Erkin tarjima", callback_data="cat_free"),
+        ],
+        [InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")],
+    ])
+
+
 def labels_kb(labels) -> InlineKeyboardMarkup:
     buttons = []
     for label in labels:
@@ -25,7 +47,10 @@ def labels_kb(labels) -> InlineKeyboardMarkup:
             f"{label['word_uz']}  ({progress})",
             callback_data=f"label_{label['label_id']}",
         )])
-    buttons.append([InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")])
+    buttons.append([
+        InlineKeyboardButton("« Orqaga", callback_data="submit_back_to_categories"),
+        InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel"),
+    ])
     return InlineKeyboardMarkup(buttons)
 
 

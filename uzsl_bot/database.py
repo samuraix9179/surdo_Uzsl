@@ -262,6 +262,40 @@ async def set_example_video(label_id: int, file_id: str):
         await db.close()
 
 
+async def get_labels_by_category(category: str, limit: int = 10):
+    db = await _connect()
+    try:
+        cursor = await db.execute(
+            """SELECT * FROM labels
+               WHERE is_active = 1 AND category = ? AND current_count < target_count
+               ORDER BY current_count ASC, word_uz ASC
+               LIMIT ?""",
+            (category, limit),
+        )
+        return await cursor.fetchall()
+    finally:
+        await db.close()
+
+
+async def get_or_create_custom_label(word_uz: str, target_count: int = 50) -> int:
+    db = await _connect()
+    try:
+        word_uz = word_uz.strip().lower()
+        cursor = await db.execute("SELECT label_id FROM labels WHERE word_uz = ?", (word_uz,))
+        row = await cursor.fetchone()
+        if row:
+            return row["label_id"]
+
+        cursor = await db.execute(
+            "INSERT INTO labels (word_uz, category, target_count) VALUES (?, 'erkin_tarjima', ?)",
+            (word_uz, target_count),
+        )
+        await db.commit()
+        return cursor.lastrowid
+    finally:
+        await db.close()
+
+
 # ------------------- VIDEOS -------------------
 
 async def save_video(user_id: int, label_id: int, file_id: str,
