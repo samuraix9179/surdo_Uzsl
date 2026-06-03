@@ -33,7 +33,7 @@ def categories_kb() -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton("😊 His-tuyg'ular", callback_data="cat_his"),
-            InlineKeyboardButton("✍️ Erkin tarjima", callback_data="cat_free"),
+            InlineKeyboardButton("✍️ Lug'atda yo'q so'z (Erkin)", callback_data="cat_free"),
         ],
         [InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")],
     ])

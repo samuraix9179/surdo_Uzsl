@@ -32,8 +32,8 @@ INSTRUCTIONS = (
 
 async def _show_categories(message, context):
     await message.reply_text(
-        "Quyidagi kategoriyalardan birini tanlang yoki *Erkin tarjima* orqali o'z so'zingizni kiritib video yuboring:\n\n"
-        "_Kategoriyalar so'zlarni guruhlab topishni osonlashtiradi._",
+        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni kiritib video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
+        "_Kategoriyalar mavjud so'zlarni guruhlab osonroq topish uchun xizmat qiladi._",
         reply_markup=categories_kb(),
         parse_mode="Markdown",
     )
@@ -65,7 +65,7 @@ async def category_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
     if data == "cat_free":
         await query.message.reply_text(
-            "✍️ *Erkin tarjima rejimiga o'tdingiz.*\n\n"
+            "✍️ *Lug'atda yo'q so'z yuborish (Erkin tarjima) rejimiga o'tdingiz.*\n\n"
             "Ushbu videoda qaysi so'z yoki gapni imo-ishorada ko'rsatmoqchisiz? "
             "Iltimos, uning o'zbekcha tarjimasini yozib yuboring (Masalan: *yaxshi boring*, *rahmat*).\n\n"
             "/cancel — bekor qilish",
