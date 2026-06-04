@@ -2,6 +2,7 @@ import asyncio
 import io
 import json
 from functools import wraps
+from typing import Tuple
 
 from telegram import Update
 from telegram.ext import (
@@ -315,7 +316,6 @@ async def upload_example_cancel(update: Update, context: ContextTypes.DEFAULT_TY
 
 # ------------------- EKSPORT (JSON metadata) -------------------
 
-from typing import Tuple
 
 async def _export_json() -> Tuple[io.BytesIO, int]:
     rows = await get_approved_videos_metadata()
@@ -333,7 +333,7 @@ async def export_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Tasdiqlangan video yo'q.")
         return
     await update.message.reply_document(
-        document=buf, filename="uzsl_metadata.json", # type: ignore
+        document=buf, filename="uzsl_metadata.json",  # type: ignore
         caption=f"📦 {count} ta tasdiqlangan video metadata'si.\n"
                 "Videolarni yuklab olish: `python -m utils.export`",
         parse_mode=ParseMode.MARKDOWN,

@@ -1,5 +1,6 @@
 import aiosqlite
 import asyncpg
+from typing import Optional, Tuple
 
 from config import DB_PATH, SUPABASE_DB_URL
 
@@ -175,7 +176,7 @@ class DBWrapper:
         self.conn = conn
         self.is_postgres = is_postgres
 
-    async def execute(self, query: str, params: tuple = None):
+    async def execute(self, query: str, params: Optional[tuple] = None):
         query, params = self._translate(query, params)
         if self.is_postgres:
             if "RETURNING" in query.upper():
@@ -193,11 +194,11 @@ class DBWrapper:
             cursor = await self.conn.execute(query, params or ())
             return cursor
 
-    async def fetchone(self, query: str, params: tuple = None):
+    async def fetchone(self, query: str, params: Optional[tuple] = None):
         cursor = await self.execute(query, params)
         return await cursor.fetchone()
 
-    async def fetchall(self, query: str, params: tuple = None):
+    async def fetchall(self, query: str, params: Optional[tuple] = None):
         cursor = await self.execute(query, params)
         return await cursor.fetchall()
 
@@ -217,7 +218,7 @@ class DBWrapper:
     async def close(self):
         await self.conn.close()
 
-    def _translate(self, query: str, params: tuple) -> tuple:
+    def _translate(self, query: str, params: Optional[tuple]) -> Tuple[str, Optional[tuple]]:
         if not self.is_postgres:
             if params:
                 new_params = tuple(1 if x is True else (0 if x is False else x) for x in params)
@@ -398,9 +399,12 @@ async def get_label_by_id(label_id: int):
         await db.close()
 
 
-from typing import Optional
-
-async def add_label(word_uz: str, word_ru: Optional[str] = None, category: Optional[str] = None, target_count: int = 50):
+async def add_label(
+    word_uz: str,
+    word_ru: Optional[str] = None,
+    category: Optional[str] = None,
+    target_count: int = 50
+):
     db = await _connect()
     try:
         await db.execute(

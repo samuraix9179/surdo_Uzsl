@@ -1,5 +1,6 @@
 from telegram import Update
 from telegram.ext import ContextTypes, CommandHandler, CallbackQueryHandler
+from typing import Dict, List, Any
 from utils.grammar_translator import translate_uzsl_to_uzbek
 
 from database import (
@@ -98,8 +99,6 @@ async def leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     top = await get_leaderboard(10)
     await update.message.reply_text(_leaderboard_text(top), parse_mode="Markdown")
 
-
-from typing import Dict, List, Any
 
 def _labels_text(labels) -> str:
     lines = ["📚 *Belgilar ro'yxati* (progress)\n"]

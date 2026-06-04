@@ -7,8 +7,8 @@ import aiohttp
 
 # Add parent dir to path so we can import from database
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from database import _connect
-from config import BOT_TOKEN, EXPORT_DIR
+from database import _connect  # noqa: E402
+from config import BOT_TOKEN, EXPORT_DIR  # noqa: E402
 
 
 async def _fetch_approved():
