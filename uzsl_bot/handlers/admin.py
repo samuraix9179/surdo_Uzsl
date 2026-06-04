@@ -201,7 +201,7 @@ async def addlabel_save(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ADD_WORD
 
     try:
-        await add_label(word_uz, word_ru, category)
+        await add_label(word_uz, word_ru, category if category else "boshqa")
         await update.message.reply_text(f"✅ '{word_uz}' belgisi qo'shildi.")
     except Exception:
         await update.message.reply_text(f"⚠️ '{word_uz}' allaqachon mavjud yoki xato yuz berdi.")
@@ -315,7 +315,9 @@ async def upload_example_cancel(update: Update, context: ContextTypes.DEFAULT_TY
 
 # ------------------- EKSPORT (JSON metadata) -------------------
 
-async def _export_json() -> io.BytesIO:
+from typing import Tuple
+
+async def _export_json() -> Tuple[io.BytesIO, int]:
     rows = await get_approved_videos_metadata()
     data = [dict(r) for r in rows]
     payload = json.dumps(data, ensure_ascii=False, indent=2)
@@ -331,7 +333,7 @@ async def export_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Tasdiqlangan video yo'q.")
         return
     await update.message.reply_document(
-        document=buf, filename="uzsl_metadata.json",
+        document=buf, filename="uzsl_metadata.json", # type: ignore
         caption=f"📦 {count} ta tasdiqlangan video metadata'si.\n"
                 "Videolarni yuklab olish: `python -m utils.export`",
         parse_mode=ParseMode.MARKDOWN,

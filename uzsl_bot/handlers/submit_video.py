@@ -32,7 +32,8 @@ INSTRUCTIONS = (
 
 async def _show_categories(message, context):
     await message.reply_text(
-        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni kiritib video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
+        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni "
+        "kiritib video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
         "_Kategoriyalar mavjud so'zlarni guruhlab osonroq topish uchun xizmat qiladi._",
         reply_markup=categories_kb(),
         parse_mode="Markdown",
