@@ -55,7 +55,7 @@ _TRANSITIVE_VERBS = {
 
 # Locations/places in UZSL
 _PLACES = {
-    "uy", "do'kon", "shifoxona", "avtobus", "maktab", "bozor", "bank", 
+    "uy", "do'kon", "shifoxona", "avtobus", "maktab", "bozor", "bank",
     "toshkent", "ish", "o'qish", "qishloq", "shahar", "bog'", "xona", "universitet"
 }
 
@@ -272,20 +272,20 @@ if __name__ == "__main__":
         (["sen", "shifoxona", "kelmoq"], "Sen shifoxonaga kelyapsan."),
         (["u", "maktab", "bormoq"], "U maktabga boryapti."),
         (["biz", "bozor", "bormoq"], "Biz bozorga boryapmiz."),
-        
+
         # 2. Case consonant harmony tests
         (["men", "bank", "bormoq"], "Men bankka boryapman."),
         (["men", "qishloq", "bormoq"], "Men qishloqqa boryapman."),
         (["men", "uy", "bormoq"], "Men uyga boryapman."),
-        
+
         # 3. Transitive accusative object suffixes
         (["men", "suv", "ichmoq"], "Men suvni ichyapman."),
         (["biz", "non", "yemoq"], "Biz nonni yeyapmiz."),
-        
+
         # 4. Past Tense Conjugations
         (["kecha", "men", "ish", "bormoq"], "Kecha men ishga bordim."),
         (["o'tgan", "biz", "maktab", "bormoq"], "O'tgan biz maktabga bordik."),
-        
+
         # 5. Future Tense Conjugations
         (["ertaga", "sen", "uy", "kelmoq"], "Ertaga sen uyga kelmoqchisan."),
         (["keyin", "ular", "bozor", "bormoq"], "Keyin ular bozorga bormoqchilar."),
@@ -299,7 +299,7 @@ if __name__ == "__main__":
         (["men", "yaxshi"], "Men yaxshiman."),
         (["biz", "xursand"], "Biz xursandmiz."),
         (["rahmat", "men", "yaxshi"], "Rahmat, men yaxshiman."),
-        
+
         # 8. Place Predication (implicit locative + person)
         (["men", "do'kon"], "Men do'kondaman."),
         (["biz", "maktab"], "Biz maktabdamiz.")

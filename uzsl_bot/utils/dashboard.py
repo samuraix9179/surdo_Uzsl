@@ -61,11 +61,13 @@ data = load_metadata()
 
 # Sidebar Config
 st.sidebar.markdown("## ⚙️ Sozlamalar")
-st.sidebar.info("O'zbek Imo-ishora Tili (UZSL) datasetlarini visual tahlil qilish va 3D skelet nuqtalarini ko'rish uchun interaktiv panel.")
+st.sidebar.info("O'zbek Imo-ishora Tili (UZSL) datasetlarini visual tahlil qilish va 3D skelet nuqtalarini "
+                "ko'rish uchun interaktiv panel.")
 
 if data is None:
     st.markdown("<div class='main-title'>📊 UZSL Dataset Visual Dashboard</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-title'>O'zbek Surdo Tili Dataset monitoringi va 3D skelet visualizatori</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>O'zbek Surdo Tili Dataset monitoringi va "
+                "3D skelet visualizatori</div>", unsafe_allow_html=True)
 
     st.warning("⚠️ **Dataset ma'lumotlari topilmadi!**")
     st.markdown("""
@@ -85,10 +87,13 @@ else:
 
     # 1. Header Section
     st.markdown("<div class='main-title'>📊 UZSL Dataset Visual Dashboard</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='sub-title'>Jami {len(df)} ta tasdiqlangan UZSL video datasetlari va 3D harakat nuqtalari tahlili</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-title'>Jami {len(df)} ta tasdiqlangan UZSL video datasetlari va "
+                f"3D harakat nuqtalari tahlili</div>", unsafe_allow_html=True)
 
     # Tabs
-    tab_stats, tab_3d, tab_progress = st.tabs(["📊 Global Tahlil (Analytics)", "🧬 3D Skelet Visualizatori", "📈 Progress Tracker"])
+    tab_stats, tab_3d, tab_progress = st.tabs(
+        ["📊 Global Tahlil (Analytics)", "🧬 3D Skelet Visualizatori", "📈 Progress Tracker"]
+    )
 
     # --- TAB 1: Global Stats ---
     with tab_stats:
@@ -161,14 +166,16 @@ else:
         # Searchable Table
         st.subheader("📋 Barcha tasdiqlangan videolar ro'yxati")
         st.dataframe(
-            df[['video_id', 'user_id', 'word_uz', 'category', 'duration_seconds', 'file_size_bytes', 'submitted_at']],
+            df[['video_id', 'user_id', 'word_uz', 'category', 'duration_seconds',
+                'file_size_bytes', 'submitted_at']],
             use_container_width=True
         )
 
     # --- TAB 2: 3D Skeleton Visualizer ---
     with tab_3d:
         st.subheader("🧬 3D Kadr nuqtalari tahlili")
-        st.markdown("Ushbu bo'limda yuborilgan videolardan MediaPipe Holistic ajratib olgan **543 ta nuqtalarning** 3D harakatini kadrlar bo'yicha interaktiv kuzatishingiz mumkin.")
+        st.markdown("Ushbu bo'limda yuborilgan videolardan MediaPipe Holistic ajratib olgan **543 ta nuqtalarning** "
+                    "3D harakatini kadrlar bo'yicha interaktiv kuzatishingiz mumkin.")
 
         # Selection controls
         sel_col1, sel_col2, sel_col3 = st.columns(3)
@@ -191,7 +198,8 @@ else:
         json_path = os.path.join(LANDMARKS_DIR, sel_word, json_filename)
 
         if not os.path.exists(json_path):
-            st.error(f"❌ '{json_path}' fayli topilmadi. Avval nuqtalarni ajratish uchun `python -m utils.extract_landmarks` skriptini ishga tushiring.")
+            st.error(f"❌ '{json_path}' fayli topilmadi. Avval nuqtalarni ajratish uchun "
+                     f"`python -m utils.extract_landmarks` skriptini ishga tushiring.")
         else:
             with open(json_path, "r", encoding="utf-8") as f:
                 landmark_data = json.load(f)
@@ -314,19 +322,22 @@ else:
     # --- TAB 3: Progress Tracker ---
     with tab_progress:
         st.subheader("📈 Belgilar bo'yicha progress (Target: 50 ta video)")
-        st.markdown("Neyron tarmoqni mukammal o'qitish uchun har bir surdo belgisiga kamida **50 ta tasdiqlangan video** kerak. Quyida joriy yig'ilish progressini ko'rishingiz mumkin:")
+        st.markdown("Neyron tarmoqni mukammal o'qitish uchun har bir surdo belgisiga kamida **50 ta tasdiqlangan "
+                    "video** kerak. Quyida joriy yig'ilish progressini ko'rishingiz mumkin:")
 
         # Calculate counts per label
         counts = df['word_uz'].value_counts().reset_index()
         counts.columns = ['Word', 'Current']
 
         # Merge with categories to show full info
-        word_info = df[['word_uz', 'category']].drop_duplicates().merge(counts, left_on='word_uz', right_on='Word')
+        word_info = df[['word_uz', 'category']].drop_duplicates()
+        word_info = word_info.merge(counts, left_on='word_uz', right_on='Word')
         word_info['Target'] = 50
         word_info['Progress (%)'] = (word_info['Current'] / word_info['Target'] * 100).clip(upper=100.0).round(1)
 
         # Style layout bars
+        df_display = word_info[['word_uz', 'category', 'Current', 'Target', 'Progress (%)']]
         st.dataframe(
-            word_info[['word_uz', 'category', 'Current', 'Target', 'Progress (%)']].sort_values(by='Current', ascending=True),
+            df_display.sort_values(by='Current', ascending=True),
             use_container_width=True
         )

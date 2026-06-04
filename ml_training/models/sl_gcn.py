@@ -1,5 +1,5 @@
 import torch.nn as nn
-from models.gcn import GraphConvolution, TemporalConvolution
+from ml_training.models.gcn import GraphConvolution, TemporalConvolution
 
 
 class STGCNBlock(nn.Module):

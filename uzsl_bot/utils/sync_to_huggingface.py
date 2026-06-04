@@ -21,7 +21,7 @@ EXPORT_DIR = "exports"
 
 
 def sync_dataset():
-    """Yig'ilgan va ajratilgan UZSL landmarks va metadata fayllarini Hugging Face platformasiga sinxronizatsiya qiladi."""
+    """Yig'ilgan UZSL landmarks va metadata fayllarini Hugging Face'ga sinxronizatsiya qiladi."""
     if not HF_TOKEN:
         print("❌ HUGGINGFACE_TOKEN topilmadi! .env faylida HUGGINGFACE_TOKEN-ni belgilang.")
         print("   Yordam: Hugging Face profilingiz sozlamalaridan 'Write' huquqi bilan Token oling.")
