@@ -1,4 +1,4 @@
-import re
+
 
 # Predicative personal endings for verbs and adjectives
 # Morphotactic suffixes for Uzbek grammar
@@ -225,7 +225,7 @@ def translate_uzsl_to_uzbek(words: list[str]) -> str:
                 if w in _PLACES:
                     result_words.append(get_dative_suffix(w))
                     continue
-            
+
             # O'tishli fe'l oldidagi to'g'ri ob'ektlar (-ni)
             if next_word in _TRANSITIVE_VERBS or has_transitive_verb:
                 if w in _OBJECTS:

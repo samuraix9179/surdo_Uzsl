@@ -51,7 +51,7 @@ def sync_dataset():
     # 2. Butun exports/landmarks va exports/metadata.json fayllarini yuklash
     try:
         print(f"⏳ Fayllar yuklanmoqda (yo'nalish: {EXPORT_DIR} ──► {HF_REPO}) ...")
-        
+
         # Metadata.json ni alohida yuklaymiz
         meta_path = os.path.join(EXPORT_DIR, "metadata.json")
         if os.path.exists(meta_path):
@@ -74,7 +74,7 @@ def sync_dataset():
             )
             print("   └─ ✅ barcha landmark JSON fayllari yuklandi.")
 
-        print(f"\n🎉 Muvaffaqiyatli yakunlandi! UZSL dataset Hugging Face-ga yuklandi.")
+        print("\n🎉 Muvaffaqiyatli yakunlandi! UZSL dataset Hugging Face-ga yuklandi.")
         print(f"🔗 Dataset havolasi: https://huggingface.co/datasets/{HF_REPO}")
 
     except Exception as e:

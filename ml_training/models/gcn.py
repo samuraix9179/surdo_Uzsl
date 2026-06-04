@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 
@@ -31,9 +32,6 @@ class GraphConvolution(nn.Module):
         Input shape: (batch_size, num_nodes, in_channels)
         Output shape: (batch_size, num_nodes, out_channels)
         """
-        # Batch size
-        bs = x.size(0)
-
         # Apply edge importance weights to adjacency
         a_weighted = adjacency * self.edge_importance
 
@@ -79,4 +77,3 @@ class TemporalConvolution(nn.Module):
         return self.relu(out)
 
 
-import math  # imported here for reset_parameters compatibility

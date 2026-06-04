@@ -4,7 +4,6 @@ import sys
 
 try:
     import cv2
-    import numpy as np
     import mediapipe as mp
 except ImportError:
     print("⚠️ Ushbu skriptni ishlatish uchun quyidagi paketlarni o'rnating:")

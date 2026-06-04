@@ -66,16 +66,16 @@ st.sidebar.info("O'zbek Imo-ishora Tili (UZSL) datasetlarini visual tahlil qilis
 if data is None:
     st.markdown("<div class='main-title'>📊 UZSL Dataset Visual Dashboard</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-title'>O'zbek Surdo Tili Dataset monitoringi va 3D skelet visualizatori</div>", unsafe_allow_html=True)
-    
+
     st.warning("⚠️ **Dataset ma'lumotlari topilmadi!**")
     st.markdown("""
     Dashboard ishlashi uchun avval ko'ngillilar yuborgan videolarni eksport qilishingiz kerak.
     Quyidagi buyruqlarni terminalda bajaring:
-    
+
     ```bash
     # 1. Videolarni va metadatani yuklab olish
     python -m utils.export
-    
+
     # 2. Videolardan landmark nuqtalarini ajratib olish
     python -m utils.extract_landmarks
     ```
@@ -319,7 +319,7 @@ else:
         # Calculate counts per label
         counts = df['word_uz'].value_counts().reset_index()
         counts.columns = ['Word', 'Current']
-        
+
         # Merge with categories to show full info
         word_info = df[['word_uz', 'category']].drop_duplicates().merge(counts, left_on='word_uz', right_on='Word')
         word_info['Target'] = 50

@@ -7,7 +7,7 @@ from telegram.ext import (
 )
 
 from database import (
-    get_labels_needing_videos, get_label_by_id, save_video, get_user,
+    get_label_by_id, save_video, get_user,
     get_labels_by_category, get_or_create_custom_label,
 )
 from config import (
