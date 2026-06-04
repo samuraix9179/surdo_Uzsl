@@ -74,7 +74,9 @@ async def check_and_award_badge(user_id: int):
     return None
 
 
-def generate_certificate(full_name: str, badge_name: str, video_count: int) -> io.BytesIO:
+from typing import Optional
+
+def generate_certificate(full_name: str, badge_name: str, video_count: int) -> Optional[io.BytesIO]:
     """UZSL hissa qo'shuvchi uchun PDF sertifikat yaratadi.
 
     reportlab o'rnatilmagan bo'lsa, None qaytaradi.

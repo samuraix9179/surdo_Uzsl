@@ -75,5 +75,3 @@ class TemporalConvolution(nn.Module):
         out = self.conv(x)
         out = self.bn(out)
         return self.relu(out)
-
-

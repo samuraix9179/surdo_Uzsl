@@ -238,7 +238,9 @@ async def get_label_by_id(label_id: int):
         await db.close()
 
 
-async def add_label(word_uz: str, word_ru: str = None, category: str = None, target_count: int = 50):
+from typing import Optional
+
+async def add_label(word_uz: str, word_ru: Optional[str] = None, category: Optional[str] = None, target_count: int = 50):
     db = await _connect()
     try:
         await db.execute(
@@ -386,7 +388,7 @@ async def get_video_owner(video_id: int):
         await db.close()
 
 
-async def moderate_video(video_id: int, status: str, moderator_id: int, reason: str = None):
+async def moderate_video(video_id: int, status: str, moderator_id: int, reason: Optional[str] = None):
     db = await _connect()
     try:
         await db.execute(

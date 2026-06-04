@@ -99,9 +99,11 @@ async def leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(_leaderboard_text(top), parse_mode="Markdown")
 
 
+from typing import Dict, List, Any
+
 def _labels_text(labels) -> str:
     lines = ["📚 *Belgilar ro'yxati* (progress)\n"]
-    by_cat = {}
+    by_cat: Dict[str, List[Any]] = {}
     for lb in labels:
         by_cat.setdefault(lb["category"] or "boshqa", []).append(lb)
     for cat, items in by_cat.items():

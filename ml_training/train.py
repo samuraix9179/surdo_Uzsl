@@ -14,8 +14,8 @@ except ImportError:
     print("   pip install torch")
     sys.exit(1)
 
-from models.sl_gcn import SLGCN
-from models.sstcn import SSTCN
+from ml_training.models.sl_gcn import SLGCN
+from ml_training.models.sstcn import SSTCN
 
 EXPORT_DIR = "../uzsl_bot/exports"
 LANDMARKS_DIR = os.path.join(EXPORT_DIR, "landmarks")
