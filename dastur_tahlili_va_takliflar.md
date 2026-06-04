@@ -22,3 +22,9 @@ Loyiha doirasida avtomatlashtirilgan unit va integratsiya testlar bazasi (masala
 **Taklif:** Dasturning kritik funksiyalari (video qabul qilish logiclari, UZSL-dan O'zbek tiliga NLP o'girish qismi, modellar ehtimolligi thresholdlari) ustida testlar qoplanishi ishlab chiqilishi zarur.
 
 Umuman olganda loyiha arxitekturasi va maqsadi a'lo darajada tanlangan. Agar ushbu infratuzilma va CI/CD muhitlari mustahkamlanib, ma'lumotlar oqimi to'g'ri boshqarilsa, UZSL Translator mukammal tarjimon dasturiga aylanish imkoniyati yuqori.
+
+## 5. Jahon Tajribasi (GitHub Sign Language Topics Tahlili)
+Global miqyosdagi Ochiq Kodli (Open Source) SLR (Sign Language Recognition) hamjamiyatini kuzatsak quyidagi xulosalarni olish mumkin:
+- **SAM-SLR va Graph Convolutional Networks (GCN)**: CVPR 2021 musobaqasida g'olib chiqqan [CVPR21Chal-SLR (jackyjsy)](https://github.com/jackyjsy/CVPR21Chal-SLR) kabi loyihalar skelet nuqtalarini grafiklarga aylantiruvchi SAM-SLR modelidan foydalanib juda katta aniqlikka erishishgan. UZSL loyihasida mavjud `ml_training/models/sl_gcn.py` moduli xuddi shunga moslashtirilgani (Spatial Temporal Graph Convolution) juda to'g'ri strategiyadir. Ushbu modelni O'zbek tili grammatikasining o'ziga xosligi bilan birgalikda o'qitish bizning loyihamizni sezilarli darajada kuchaytiradi.
+- **Continuous vs Isolated SLR**: GitHub'dagi aksariyat loyihalar alohida belgilarni (Isolated SLR) aniqlashga yo'naltirilgan. UZSL loyihasida Transformer yoki STGCN modellarini ulab *gaplarni ketma-ket aniqlashga* (Continuous Sign Language Recognition - CSLR) urg'u berish dasturni mintaqadagi muqobilsiz loyihaga aylantiradi.
+- **YOLOv8 statik aniqlash:** Harflar (daktilologiya) va tezkor statik ishoralar uchun `MuhammadMoinFaisal` kabi foydalanuvchilarning YOLOv8 modeliga suyangan loyihalari eng tezkor natija beryapti. Bizning ilova ham statik barmoq harflarini klassifikatsiya qilishda YOLO-ga o'tsa unumdorlik ortadi.
