@@ -1,4 +1,4 @@
-from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import (
     ContextTypes, ConversationHandler, CommandHandler,
     MessageHandler, CallbackQueryHandler, filters,
@@ -10,7 +10,7 @@ from database import (
 from config import UZSL_LEVEL_MAP
 from keyboards import main_menu_kb, confirm_delete_kb
 
-AGE, UZSL_LEVEL, IS_DEAF = range(3)
+CONSENT, AGE, UZSL_LEVEL, IS_DEAF = range(4)
 
 WELCOME_BACK = (
     "Xush kelibsiz, {name}! 👋\n\n"
@@ -34,25 +34,59 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return ConversationHandler.END
 
-    await create_user(user.id, user.username or "", user.full_name)
-
-    await update.message.reply_text(
+    # GDPR Consent request screen
+    consent_text = (
         f"Assalomu alaykum, {user.first_name}! 🤝\n\n"
         "Bu bot O'zbek imo-ishora tili (UZSL) uchun dataset yig'adi.\n"
         "Sizning videolaringiz kar va soqovlar uchun tarjima ilovasini yaratishga yordam beradi.\n\n"
-        "🔒 *Maxfiylik:* yuborilgan videolar faqat UZSL tarjima ilovasini o'rgatish "
-        "uchun ishlatiladi va shaxsiy maqsadda tarqatilmaydi. Istalgan vaqtda "
-        "/delete\\_my\\_data orqali ma'lumotlaringizni o'chirishingiz mumkin.\n\n"
-        "Boshlash uchun bir nechta savolga javob bering.\n\n"
-        "*1/3:* Yoshingiz qaysi guruhda?",
-        reply_markup=ReplyKeyboardMarkup(
-            [["<18", "18-30"], ["30-50", "50+"]],
-            one_time_keyboard=True,
-            resize_keyboard=True,
-        ),
+        "🔒 *Maxfiylik va Ruxsatnomalar (GDPR):*\n"
+        "1. Siz taqdim etgan shaxsiy ma'lumotlar va videolar faqatgina UZSL tarjimon modellarini "
+        "o'rgatish uchun foydalaniladi.\n"
+        "2. Ma'lumotlaringiz uchinchi shaxslarga berilmaydi va shaxsiy maqsadlarda foydalanilmaydi.\n"
+        "3. Istalgan vaqtda /delete_my_data buyrug'i orqali profilingiz va barcha videolaringizni "
+        "butunlay o'chirib tashlashingiz mumkin (O'zbekiston Shaxsiy ma'lumotlarni muhofaza qilish "
+        "to'g'risidagi qonuniga muvofiq).\n\n"
+        "Bizning maxfiylik kelishuvimizga rozimisiz?"
+    )
+    await update.message.reply_text(
+        consent_text,
+        reply_markup=InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton("✅ Roziman (Accept)", callback_data="consent_accept"),
+                InlineKeyboardButton("❌ Rad etaman (Decline)", callback_data="consent_decline")
+            ]
+        ]),
         parse_mode="Markdown",
     )
-    return AGE
+    return CONSENT
+
+
+async def consent_response(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    if query.data == "consent_accept":
+        user = query.from_user
+        await create_user(user.id, user.username or "", user.full_name)
+
+        await query.message.reply_text(
+            "Rahmat! Ro'yxatdan o'tishni davom ettiramiz.\n\n"
+            "*1/3:* Yoshingiz qaysi guruhda?",
+            reply_markup=ReplyKeyboardMarkup(
+                [["<18", "18-30"], ["30-50", "50+"]],
+                one_time_keyboard=True,
+                resize_keyboard=True,
+            ),
+            parse_mode="Markdown",
+        )
+        await query.edit_message_text("✅ Maxfiylik kelishuviga rozilik berildi.")
+        return AGE
+    else:
+        await query.edit_message_text(
+            "❌ Afsuski, maxfiylik kelishuvini qabul qilmasangiz, botdan foydalana olmaysiz.\n"
+            "Agar fikringiz o'zgarsa, istalgan vaqtda qayta /start buyrug'ini bosing."
+        )
+        return ConversationHandler.END
 
 
 async def ask_uzsl_level(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -142,6 +176,7 @@ async def handle_delete_callback(update: Update, context: ContextTypes.DEFAULT_T
 registration_handler = ConversationHandler(
     entry_points=[CommandHandler("start", start)],
     states={
+        CONSENT: [CallbackQueryHandler(consent_response, pattern="^consent_")],
         AGE: [MessageHandler(filters.Regex(r"^(<18|18-30|30-50|50\+)$"), ask_uzsl_level)],
         UZSL_LEVEL: [MessageHandler(filters.Regex("^(Boshlang'ich|O'rta|Mutaxassis.*)$"), ask_is_deaf)],
         IS_DEAF: [MessageHandler(filters.Regex("^(Ha|Yo'q)$"), finish_registration)],

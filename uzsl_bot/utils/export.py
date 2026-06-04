@@ -1,16 +1,19 @@
 import asyncio
 import json
 import os
+import sys
 
 import aiohttp
-import aiosqlite
 
-from config import DB_PATH, BOT_TOKEN, EXPORT_DIR
+# Add parent dir to path so we can import from database
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from database import _connect
+from config import BOT_TOKEN, EXPORT_DIR
 
 
 async def _fetch_approved():
-    async with aiosqlite.connect(DB_PATH) as db:
-        db.row_factory = aiosqlite.Row
+    db = await _connect()
+    try:
         cursor = await db.execute(
             """SELECT v.*, l.word_uz, l.word_ru, l.category
                FROM videos v
@@ -19,10 +22,20 @@ async def _fetch_approved():
                ORDER BY l.word_uz, v.video_id"""
         )
         return await cursor.fetchall()
+    finally:
+        await db.close()
+
+
+try:
+    from utils.s3_storage import upload_file_to_s3
+    from utils.sync_to_huggingface import sync_dataset
+except ImportError:
+    from s3_storage import upload_file_to_s3
+    from sync_to_huggingface import sync_dataset
 
 
 async def download_all_approved():
-    """Tasdiqlangan videolarni belgi bo'yicha papkalarga yuklab oladi va metadata yozadi."""
+    """Tasdiqlangan videolarni belgi bo'yicha papkalarga yuklab oladi, HF Bucketga yuklaydi va metadata yozadi."""
     if not BOT_TOKEN:
         raise RuntimeError("BOT_TOKEN topilmadi. .env faylini tekshiring.")
 
@@ -55,6 +68,10 @@ async def download_all_approved():
                 with open(output_path, "wb") as f:
                     f.write(content)
 
+            # S3-ga yuklash (Hugging Face Bucket)
+            s3_key = f"videos/{v['word_uz']}/{filename}"
+            s3_url = await upload_file_to_s3(output_path, s3_key)
+
             metadata.append({
                 "video_id": v["video_id"],
                 "user_id": v["user_id"],
@@ -65,15 +82,23 @@ async def download_all_approved():
                 "file_size_bytes": v["file_size_bytes"],
                 "width": v["width"],
                 "height": v["height"],
-                "submitted_at": v["submitted_at"],
+                "submitted_at": str(v["submitted_at"]),
                 "path": os.path.relpath(output_path, EXPORT_DIR),
+                "s3_url": s3_url,
             })
-            print(f"✅ Saved: {output_path}")
+            print(f"✅ Saved & Uploaded S3: {output_path} -> {s3_url or 'Failed'}")
 
     meta_path = os.path.join(EXPORT_DIR, "metadata.json")
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
     print(f"\n📦 Jami {len(metadata)} ta video. Metadata: {meta_path}")
+
+    # Landmarklar va metadatalarni Hugging Face Dataset-ga sinxronlash
+    try:
+        print("\n⏳ Hugging Face Datasetga sinxronizatsiya boshlandi...")
+        sync_dataset()
+    except Exception as e:
+        print(f"⚠️ Hugging Face Datasetga yuklashda xatolik: {e}")
 
 
 if __name__ == "__main__":

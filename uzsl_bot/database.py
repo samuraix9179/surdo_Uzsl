@@ -1,6 +1,7 @@
 import aiosqlite
+import asyncpg
 
-from config import DB_PATH
+from config import DB_PATH, SUPABASE_DB_URL
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
@@ -59,6 +60,64 @@ CREATE INDEX IF NOT EXISTS idx_videos_user ON videos(user_id);
 CREATE INDEX IF NOT EXISTS idx_videos_label ON videos(label_id);
 """
 
+POSTGRES_SCHEMA = """
+CREATE TABLE IF NOT EXISTS users (
+    user_id BIGINT PRIMARY KEY,
+    username TEXT,
+    full_name TEXT,
+    age_group TEXT,
+    uzsl_level TEXT,
+    is_deaf BOOLEAN DEFAULT FALSE,
+    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    videos_submitted INTEGER DEFAULT 0,
+    videos_approved INTEGER DEFAULT 0,
+    is_admin BOOLEAN DEFAULT FALSE,
+    is_blocked BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS labels (
+    label_id SERIAL PRIMARY KEY,
+    word_uz TEXT NOT NULL UNIQUE,
+    word_ru TEXT,
+    category TEXT,
+    example_video_id TEXT,
+    target_count INTEGER DEFAULT 50,
+    current_count INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS videos (
+    video_id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    label_id INTEGER NOT NULL,
+    telegram_file_id TEXT NOT NULL,
+    duration_seconds REAL,
+    file_size_bytes BIGINT,
+    width INTEGER,
+    height INTEGER,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TEXT DEFAULT 'pending',
+    moderator_id BIGINT,
+    moderated_at TIMESTAMP,
+    rejection_reason TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (label_id) REFERENCES labels(label_id)
+);
+
+CREATE TABLE IF NOT EXISTS achievements (
+    achievement_id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    badge_name TEXT NOT NULL,
+    earned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_videos_status ON videos(status);
+CREATE INDEX IF NOT EXISTS idx_videos_user ON videos(user_id);
+CREATE INDEX IF NOT EXISTS idx_videos_label ON videos(label_id);
+"""
+
+
 # Boshlang'ich belgilar (MVP uchun 30 ta)
 INITIAL_LABELS = [
     ("salom", "привет", "salomlashish"),
@@ -94,27 +153,128 @@ INITIAL_LABELS = [
 ]
 
 
+class PGCursor:
+    def __init__(self, rows, lastrowid=None):
+        self.rows = rows
+        self.lastrowid = lastrowid
+        self._index = 0
+
+    async def fetchone(self):
+        if self._index < len(self.rows):
+            row = self.rows[self._index]
+            self._index += 1
+            return row
+        return None
+
+    async def fetchall(self):
+        return self.rows
+
+
+class DBWrapper:
+    def __init__(self, conn, is_postgres=False):
+        self.conn = conn
+        self.is_postgres = is_postgres
+
+    async def execute(self, query: str, params: tuple = None):
+        query, params = self._translate(query, params)
+        if self.is_postgres:
+            if "RETURNING" in query.upper():
+                rows = await self.conn.fetch(query, *(params or ()))
+                lastrowid = rows[0][0] if rows else None
+                return PGCursor(rows, lastrowid)
+            else:
+                if "SELECT" in query.upper():
+                    rows = await self.conn.fetch(query, *(params or ()))
+                    return PGCursor(rows)
+                else:
+                    await self.conn.execute(query, *(params or ()))
+                    return PGCursor([])
+        else:
+            cursor = await self.conn.execute(query, params or ())
+            return cursor
+
+    async def fetchone(self, query: str, params: tuple = None):
+        cursor = await self.execute(query, params)
+        return await cursor.fetchone()
+
+    async def fetchall(self, query: str, params: tuple = None):
+        cursor = await self.execute(query, params)
+        return await cursor.fetchall()
+
+    async def executemany(self, query: str, params_list: list):
+        if self.is_postgres:
+            count = query.count("?")
+            for i in range(1, count + 1):
+                query = query.replace("?", f"${i}", 1)
+            await self.conn.executemany(query, params_list)
+        else:
+            await self.conn.executemany(query, params_list)
+
+    async def commit(self):
+        if not self.is_postgres:
+            await self.conn.commit()
+
+    async def close(self):
+        await self.conn.close()
+
+    def _translate(self, query: str, params: tuple) -> tuple:
+        if not self.is_postgres:
+            if params:
+                new_params = tuple(1 if x is True else (0 if x is False else x) for x in params)
+                return query, new_params
+            return query, params
+
+        count = query.count("?")
+        for i in range(1, count + 1):
+            query = query.replace("?", f"${i}", 1)
+
+        if "INSERT OR IGNORE INTO users" in query:
+            query = query.replace("INSERT OR IGNORE INTO users", "INSERT INTO users")
+            query += " ON CONFLICT (user_id) DO NOTHING"
+        elif "INSERT OR IGNORE INTO labels" in query:
+            query = query.replace("INSERT OR IGNORE INTO labels", "INSERT INTO labels")
+            query += " ON CONFLICT (word_uz) DO NOTHING"
+
+        if "INSERT INTO videos" in query and "RETURNING" not in query.upper():
+            query += " RETURNING video_id"
+        elif "INSERT INTO labels" in query and "RETURNING" not in query.upper():
+            query += " RETURNING label_id"
+
+        return query, params
+
+
 async def _connect():
-    db = await aiosqlite.connect(DB_PATH)
-    db.row_factory = aiosqlite.Row
-    await db.execute("PRAGMA foreign_keys = ON")
-    await db.execute("PRAGMA journal_mode = WAL")
-    return db
+    if SUPABASE_DB_URL:
+        conn = await asyncpg.connect(SUPABASE_DB_URL)
+        return DBWrapper(conn, is_postgres=True)
+    else:
+        conn = await aiosqlite.connect(DB_PATH)
+        conn.row_factory = aiosqlite.Row
+        await conn.execute("PRAGMA foreign_keys = ON")
+        await conn.execute("PRAGMA journal_mode = WAL")
+        return DBWrapper(conn, is_postgres=False)
 
 
 async def init_db(admin_ids=None):
-    async with aiosqlite.connect(DB_PATH) as db:
-        await db.execute("PRAGMA journal_mode = WAL")
-        await db.executescript(SCHEMA)
+    db = await _connect()
+    try:
+        if db.is_postgres:
+            await db.conn.execute(POSTGRES_SCHEMA)
+        else:
+            await db.conn.execute("PRAGMA journal_mode = WAL")
+            await db.conn.executescript(SCHEMA)
 
         cursor = await db.execute("SELECT COUNT(*) FROM labels")
-        count = (await cursor.fetchone())[0]
+        row = await cursor.fetchone()
+        count = row[0] if row else 0
         if count == 0:
             await db.executemany(
                 "INSERT INTO labels (word_uz, word_ru, category) VALUES (?, ?, ?)",
                 INITIAL_LABELS,
             )
-        await db.commit()
+            await db.commit()
+    finally:
+        await db.close()
 
 
 # ------------------- USERS -------------------

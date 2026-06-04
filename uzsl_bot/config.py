@@ -14,6 +14,15 @@ DB_PATH = os.path.join(DATA_DIR, "bot.db")
 EXPORT_DIR = "exports"
 PERSISTENCE_PATH = os.path.join(DATA_DIR, "bot_persistence.pkl")
 
+# --- Supabase & Hugging Face Sozlamalari ---
+SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL")  # postgresql://...
+HF_S3_ENDPOINT = os.getenv("HF_S3_ENDPOINT", "https://s3.huggingface.co")
+HF_ACCESS_KEY_ID = os.getenv("HF_ACCESS_KEY_ID")
+HF_SECRET_ACCESS_KEY = os.getenv("HF_SECRET_ACCESS_KEY")
+HF_BUCKET_NAME = os.getenv("HF_BUCKET_NAME", "Uz_Sign_language-bucket")
+HUGGINGFACE_REPO = os.getenv("HUGGINGFACE_REPO", "Qudratulloh/Uz_Sign_language")
+
+
 # --- Video cheklovlari ---
 MIN_VIDEO_DURATION = 1.0      # soniya
 MAX_VIDEO_DURATION = 10.0     # soniya

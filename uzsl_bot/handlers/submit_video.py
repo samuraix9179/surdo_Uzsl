@@ -1,6 +1,8 @@
 import time
+import asyncio
 
 from telegram import Update
+from utils.moderator import auto_moderate_video
 from telegram.ext import (
     ContextTypes, ConversationHandler, CommandHandler,
     MessageHandler, CallbackQueryHandler, filters,
@@ -32,7 +34,8 @@ INSTRUCTIONS = (
 
 async def _show_categories(message, context):
     await message.reply_text(
-        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni kiritib video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
+        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni kiritib "
+        "video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
         "_Kategoriyalar mavjud so'zlarni guruhlab osonroq topish uchun xizmat qiladi._",
         reply_markup=categories_kb(),
         parse_mode="Markdown",
@@ -220,7 +223,7 @@ async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
     label_id = context.user_data["current_label_id"]
     label_word = context.user_data["current_label_word"]
 
-    await save_video(
+    video_id = await save_video(
         user_id=user_id,
         label_id=label_id,
         file_id=video.file_id,
@@ -230,9 +233,12 @@ async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
         height=getattr(video, "height", 0),
     )
 
+    # Orqa fonda avtomatik moderatsiyani ishga tushirish (MediaPipe)
+    asyncio.create_task(auto_moderate_video(video_id, video.file_id, label_word))
+
     await update.message.reply_text(
         f"✅ Rahmat! Sizning '*{label_word}*' videongiz qabul qilindi.\n"
-        "Tez orada moderator tekshirib chiqadi.",
+        "Tizim avtomatik tekshiruvdan o'tkazmoqda, so'ngra moderatorlar ko'rib chiqishadi.",
         parse_mode="Markdown",
         reply_markup=main_menu_kb(),
     )
