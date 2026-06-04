@@ -1,3 +1,4 @@
+from typing import Optional
 import io
 import os
 
@@ -73,8 +74,6 @@ async def check_and_award_badge(user_id: int):
             }
     return None
 
-
-from typing import Optional
 
 def generate_certificate(full_name: str, badge_name: str, video_count: int) -> Optional[io.BytesIO]:
     """UZSL hissa qo'shuvchi uchun PDF sertifikat yaratadi.

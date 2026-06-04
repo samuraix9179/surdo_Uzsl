@@ -1,3 +1,4 @@
+from typing import Optional
 import aiosqlite
 
 from config import DB_PATH
@@ -238,9 +239,9 @@ async def get_label_by_id(label_id: int):
         await db.close()
 
 
-from typing import Optional
-
-async def add_label(word_uz: str, word_ru: Optional[str] = None, category: Optional[str] = None, target_count: int = 50):
+async def add_label(
+    word_uz: str, word_ru: Optional[str] = None, category: Optional[str] = None, target_count: int = 50
+):
     db = await _connect()
     try:
         await db.execute(
