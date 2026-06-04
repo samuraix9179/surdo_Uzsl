@@ -1,0 +1,6 @@
+ml_training/models/gcn.py: error: Source file found twice under different module names: "gcn" and "models.gcn"
+ml_training/models/gcn.py: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#mapping-file-paths-to-modules for more info
+ml_training/models/gcn.py: note: Common resolutions include:
+ml_training/models/gcn.py: note:     a) adding `__init__.py` somewhere,
+ml_training/models/gcn.py: note:     b) using `--explicit-package-bases` or adjusting `MYPYPATH`
+Found 1 error in 1 file (errors prevented further checking)
