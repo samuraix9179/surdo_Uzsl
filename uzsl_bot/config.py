@@ -15,12 +15,13 @@ EXPORT_DIR = "exports"
 PERSISTENCE_PATH = os.path.join(DATA_DIR, "bot_persistence.pkl")
 
 # --- Supabase & Hugging Face Sozlamalari ---
-SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL")  # postgresql://...
+SUPABASE_DB_URL = os.getenv("DATABASE_URL", os.getenv("SUPABASE_DB_URL"))  # postgresql://...
 HF_S3_ENDPOINT = os.getenv("HF_S3_ENDPOINT", "https://s3.huggingface.co")
 HF_ACCESS_KEY_ID = os.getenv("HF_ACCESS_KEY_ID")
 HF_SECRET_ACCESS_KEY = os.getenv("HF_SECRET_ACCESS_KEY")
 HF_BUCKET_NAME = os.getenv("HF_BUCKET_NAME", "Uz_Sign_language-bucket")
 HUGGINGFACE_REPO = os.getenv("HUGGINGFACE_REPO", "Qudratulloh/Uz_Sign_language")
+HF_TOKEN = os.getenv("HF_TOKEN", os.getenv("HUGGINGFACE_TOKEN"))
 
 
 # --- Video cheklovlari ---
@@ -63,4 +64,28 @@ UZSL_LEVEL_LABELS = {
     "beginner": "Boshlang'ich",
     "intermediate": "O'rta",
     "native": "Mutaxassis (ona tili)",
+}
+
+# --- Kategoriyalar (multimedia lug'at) ---
+CATEGORIES = {
+    "muloqot": "🤝 Muloqot",
+    "savol": "❓ Savollar",
+    "javob": "💬 Javoblar",
+    "oila": "👨\u200d👩\u200d👧 Oila",
+    "sonlar": "🔢 Sonlar",
+    "vaqt": "🕐 Vaqt",
+    "joy": "📍 Joylar",
+    "harakat": "🏃 Harakatlar",
+    "ovqat": "🍽️ Ovqat",
+    "tovar": "🛒 Tovarlar",
+    "pul": "💰 Pul",
+    "his": "😊 His-tuyg'ular",
+    "ranglar": "🎨 Ranglar",
+    "transport": "🚌 Transport",
+    "yordam": "🆘 Yordam",
+    "talim": "📚 Ta'lim",
+    "tibbiyot": "🏥 Tibbiyot",
+    "kasblar": "💼 Kasblar",
+    "salomlashish": "🤝 Salomlashish",
+    "erkin_tarjima": "✍️ Erkin tarjima",
 }

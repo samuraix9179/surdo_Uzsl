@@ -18,25 +18,26 @@ def main_menu_kb() -> InlineKeyboardMarkup:
 
 
 def categories_kb() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton("🤝 Salomlashish", callback_data="cat_salomlashish"),
-            InlineKeyboardButton("❓ Savollar", callback_data="cat_savol"),
-        ],
-        [
-            InlineKeyboardButton("💬 Javoblar", callback_data="cat_javob"),
-            InlineKeyboardButton("🏠 Joylar", callback_data="cat_joy"),
-        ],
-        [
-            InlineKeyboardButton("🏃 Harakatlar", callback_data="cat_harakat"),
-            InlineKeyboardButton("🍏 Tovarlar", callback_data="cat_tovar"),
-        ],
-        [
-            InlineKeyboardButton("😊 His-tuyg'ular", callback_data="cat_his"),
-            InlineKeyboardButton("✍️ Lug'atda yo'q so'z (Erkin)", callback_data="cat_free"),
-        ],
-        [InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")],
-    ])
+    from config import CATEGORIES
+    buttons = []
+    current_row = []
+    
+    # Barcha kategoriyalarni 2 tadan qilib joylashtiramiz (erkin_tarjima dan tashqari)
+    for key, label in CATEGORIES.items():
+        if key == "erkin_tarjima":
+            continue
+        current_row.append(InlineKeyboardButton(label, callback_data=f"cat_{key}"))
+        if len(current_row) == 2:
+            buttons.append(current_row)
+            current_row = []
+            
+    if current_row:
+        buttons.append(current_row)
+        
+    # Erkin tarjima va bekor qilish tugmalari
+    buttons.append([InlineKeyboardButton("✍️ Lug'atda yo'q so'z (Erkin)", callback_data="cat_free")])
+    buttons.append([InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")])
+    return InlineKeyboardMarkup(buttons)
 
 
 def labels_kb(labels) -> InlineKeyboardMarkup:

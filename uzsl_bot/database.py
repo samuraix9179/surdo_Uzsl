@@ -23,11 +23,19 @@ CREATE TABLE IF NOT EXISTS labels (
     label_id INTEGER PRIMARY KEY AUTOINCREMENT,
     word_uz TEXT NOT NULL UNIQUE,
     word_ru TEXT,
+    word_en TEXT,
+    gloss TEXT,
     category TEXT,
     example_video_id TEXT,
     target_count INTEGER DEFAULT 50,
     current_count INTEGER DEFAULT 0,
-    is_active BOOLEAN DEFAULT 1
+    is_active BOOLEAN DEFAULT 1,
+    difficulty INTEGER DEFAULT 1,
+    handshape TEXT,
+    location TEXT,
+    movement TEXT,
+    expression TEXT,
+    usage_example TEXT
 );
 
 CREATE TABLE IF NOT EXISTS videos (
@@ -44,7 +52,20 @@ CREATE TABLE IF NOT EXISTS videos (
     moderator_id INTEGER,
     moderated_at DATETIME,
     rejection_reason TEXT,
+    s3_url TEXT,
+    landmarks_url TEXT,
+    annotation_notes TEXT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (label_id) REFERENCES labels(label_id)
+);
+
+CREATE TABLE IF NOT EXISTS sign_variants (
+    variant_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    label_id INTEGER NOT NULL,
+    region TEXT NOT NULL,
+    video_file_id TEXT,
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (label_id) REFERENCES labels(label_id)
 );
 
@@ -80,11 +101,19 @@ CREATE TABLE IF NOT EXISTS labels (
     label_id SERIAL PRIMARY KEY,
     word_uz TEXT NOT NULL UNIQUE,
     word_ru TEXT,
+    word_en TEXT,
+    gloss TEXT,
     category TEXT,
     example_video_id TEXT,
     target_count INTEGER DEFAULT 50,
     current_count INTEGER DEFAULT 0,
-    is_active BOOLEAN DEFAULT TRUE
+    is_active BOOLEAN DEFAULT TRUE,
+    difficulty INTEGER DEFAULT 1,
+    handshape TEXT,
+    location TEXT,
+    movement TEXT,
+    expression TEXT,
+    usage_example TEXT
 );
 
 CREATE TABLE IF NOT EXISTS videos (
@@ -101,7 +130,20 @@ CREATE TABLE IF NOT EXISTS videos (
     moderator_id BIGINT,
     moderated_at TIMESTAMP,
     rejection_reason TEXT,
+    s3_url TEXT,
+    landmarks_url TEXT,
+    annotation_notes TEXT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (label_id) REFERENCES labels(label_id)
+);
+
+CREATE TABLE IF NOT EXISTS sign_variants (
+    variant_id SERIAL PRIMARY KEY,
+    label_id INTEGER NOT NULL,
+    region TEXT NOT NULL,
+    video_file_id TEXT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (label_id) REFERENCES labels(label_id)
 );
 
@@ -119,38 +161,168 @@ CREATE INDEX IF NOT EXISTS idx_videos_label ON videos(label_id);
 """
 
 
-# Boshlang'ich belgilar (MVP uchun 30 ta)
+# Boshlang'ich belgilar — to'liq multimedia lug'at (120+ ta so'z)
+# Format: (word_uz, word_ru, category)
 INITIAL_LABELS = [
-    ("salom", "привет", "salomlashish"),
-    ("xayr", "пока", "salomlashish"),
-    ("rahmat", "спасибо", "salomlashish"),
-    ("kechirasiz", "извините", "salomlashish"),
-    ("ha", "да", "javob"),
-    ("yo'q", "нет", "javob"),
+    # --- Muloqot / Salomlashish (10) ---
+    ("salom", "привет", "muloqot"),
+    ("xayr", "пока", "muloqot"),
+    ("rahmat", "спасибо", "muloqot"),
+    ("kechirasiz", "извините", "muloqot"),
+    ("marhamat", "пожалуйста", "muloqot"),
+    ("assalomu alaykum", "мир вам", "muloqot"),
+    ("xush kelibsiz", "добро пожаловать", "muloqot"),
+    ("ko'rishguncha", "до встречи", "muloqot"),
+    ("qandaysiz", "как дела", "muloqot"),
+    ("yaxshi", "хорошо", "muloqot"),
+
+    # --- Savollar (10) ---
     ("nima", "что", "savol"),
-    ("qancha", "сколько", "savol"),
+    ("kim", "кто", "savol"),
     ("qayerda", "где", "savol"),
     ("qachon", "когда", "savol"),
-    ("kim", "кто", "savol"),
-    ("yordam", "помощь", "yordam"),
+    ("qanday", "какой/как", "savol"),
+    ("nima uchun", "почему", "savol"),
+    ("qancha", "сколько", "savol"),
+    ("qaysi", "который", "savol"),
+    ("bormi", "есть ли", "savol"),
+    ("mumkinmi", "можно ли", "savol"),
+
+    # --- Javoblar (5) ---
+    ("ha", "да", "javob"),
+    ("yo'q", "нет", "javob"),
+    ("bilmayman", "не знаю", "javob"),
+    ("tushundim", "понял", "javob"),
+    ("to'g'ri", "правильно", "javob"),
+
+    # --- Oila (10) ---
+    ("ona", "мама", "oila"),
+    ("ota", "папа", "oila"),
+    ("aka", "старший брат", "oila"),
+    ("opa", "старшая сестра", "oila"),
+    ("bola", "ребёнок", "oila"),
+    ("er", "муж", "oila"),
+    ("xotin", "жена", "oila"),
+    ("buvi", "бабушка", "oila"),
+    ("bobo", "дедушка", "oila"),
+    ("oila", "семья", "oila"),
+
+    # --- Sonlar (15) ---
+    ("nol", "ноль", "sonlar"),
+    ("bir", "один", "sonlar"),
+    ("ikki", "два", "sonlar"),
+    ("uch", "три", "sonlar"),
+    ("to'rt", "четыре", "sonlar"),
+    ("besh", "пять", "sonlar"),
+    ("olti", "шесть", "sonlar"),
+    ("yetti", "семь", "sonlar"),
+    ("sakkiz", "восемь", "sonlar"),
+    ("to'qqiz", "девять", "sonlar"),
+    ("o'n", "десять", "sonlar"),
+    ("yigirma", "двадцать", "sonlar"),
+    ("ellik", "пятьдесят", "sonlar"),
+    ("yuz", "сто", "sonlar"),
+    ("ming", "тысяча", "sonlar"),
+
+    # --- Vaqt (10) ---
+    ("bugun", "сегодня", "vaqt"),
+    ("ertaga", "завтра", "vaqt"),
+    ("kecha", "вчера", "vaqt"),
+    ("hozir", "сейчас", "vaqt"),
+    ("soat", "час", "vaqt"),
+    ("daqiqa", "минута", "vaqt"),
+    ("hafta", "неделя", "vaqt"),
+    ("oy", "месяц", "vaqt"),
+    ("yil", "год", "vaqt"),
+    ("ertalab", "утром", "vaqt"),
+
+    # --- Joylar (10) ---
     ("uy", "дом", "joy"),
     ("do'kon", "магазин", "joy"),
-    ("avtobus", "автобус", "joy"),
+    ("maktab", "школа", "joy"),
     ("shifoxona", "больница", "joy"),
+    ("bank", "банк", "joy"),
+    ("masjid", "мечеть", "joy"),
+    ("bozor", "базар/рынок", "joy"),
+    ("restoran", "ресторан", "joy"),
+    ("dorixona", "аптека", "joy"),
+    ("universitet", "университет", "joy"),
+
+    # --- Harakatlar (15) ---
     ("bormoq", "идти", "harakat"),
     ("kelmoq", "приходить", "harakat"),
     ("olmoq", "брать", "harakat"),
     ("bermoq", "давать", "harakat"),
-    ("non", "хлеб", "tovar"),
+    ("ko'rmoq", "видеть", "harakat"),
+    ("eshitmoq", "слышать", "harakat"),
+    ("yemoq", "есть/кушать", "harakat"),
+    ("ichmoq", "пить", "harakat"),
+    ("o'qimoq", "читать", "harakat"),
+    ("yozmoq", "писать", "harakat"),
+    ("gapirmoq", "говорить", "harakat"),
+    ("ishlamoq", "работать", "harakat"),
+    ("o'rganmoq", "учиться", "harakat"),
+    ("uxlamoq", "спать", "harakat"),
+    ("kutmoq", "ждать", "harakat"),
+
+    # --- Ovqat (10) ---
+    ("non", "хлеб", "ovqat"),
+    ("go'sht", "мясо", "ovqat"),
+    ("sabzavot", "овощи", "ovqat"),
+    ("meva", "фрукты", "ovqat"),
+    ("guruch", "рис", "ovqat"),
+    ("osh", "плов", "ovqat"),
+    ("sho'rva", "суп", "ovqat"),
+    ("choy", "чай", "ovqat"),
+    ("tuz", "соль", "ovqat"),
+    ("shakar", "сахар", "ovqat"),
+
+    # --- Tovarlar / Ichimliklar (5) ---
     ("suv", "вода", "tovar"),
     ("sut", "молоко", "tovar"),
-    ("pul", "деньги", "tovar"),
-    ("bugun", "сегодня", "vaqt"),
-    ("ertaga", "завтра", "vaqt"),
-    ("kecha", "вчера", "vaqt"),
+    ("dori", "лекарство", "tovar"),
+    ("kiyim", "одежда", "tovar"),
+    ("telefon", "телефон", "tovar"),
+
+    # --- Pul (5) ---
+    ("pul", "деньги", "pul"),
+    ("narx", "цена", "pul"),
+    ("qancha turadi", "сколько стоит", "pul"),
+    ("qimmat", "дорого", "pul"),
+    ("arzon", "дешёво", "pul"),
+
+    # --- His-tuyg'ular (10) ---
     ("yaxshi", "хорошо", "his"),
     ("yomon", "плохо", "his"),
     ("og'rimoq", "болеть", "his"),
+    ("xursand", "радостный", "his"),
+    ("g'amgin", "грустный", "his"),
+    ("charchagan", "усталый", "his"),
+    ("qo'rqmoq", "бояться", "his"),
+    ("sevmoq", "любить", "his"),
+    ("xafa", "обиженный", "his"),
+    ("hayron", "удивлённый", "his"),
+
+    # --- Ranglar (5) ---
+    ("qizil", "красный", "ranglar"),
+    ("ko'k", "синий", "ranglar"),
+    ("yashil", "зелёный", "ranglar"),
+    ("oq", "белый", "ranglar"),
+    ("qora", "чёрный", "ranglar"),
+
+    # --- Transport (5) ---
+    ("avtobus", "автобус", "transport"),
+    ("metro", "метро", "transport"),
+    ("taksi", "такси", "transport"),
+    ("poyezd", "поезд", "transport"),
+    ("samolyot", "самолёт", "transport"),
+
+    # --- Yordam (5) ---
+    ("yordam", "помощь", "yordam"),
+    ("kerak", "нужно", "yordam"),
+    ("tez yordam", "скорая помощь", "yordam"),
+    ("politsiya", "полиция", "yordam"),
+    ("o't o'chirish", "пожарная", "yordam"),
 ]
 
 
@@ -246,7 +418,12 @@ class DBWrapper:
 
 async def _connect():
     if SUPABASE_DB_URL:
-        conn = await asyncpg.connect(SUPABASE_DB_URL)
+        # Supabase requires SSL for remote connections
+        kwargs = {}
+        if "supabase.com" in SUPABASE_DB_URL or "sslmode=require" in SUPABASE_DB_URL:
+            kwargs["ssl"] = "require"
+        
+        conn = await asyncpg.connect(SUPABASE_DB_URL, **kwargs)
         return DBWrapper(conn, is_postgres=True)
     else:
         conn = await aiosqlite.connect(DB_PATH)
@@ -265,17 +442,72 @@ async def init_db(admin_ids=None):
             await db.conn.execute("PRAGMA journal_mode = WAL")
             await db.conn.executescript(SCHEMA)
 
-        cursor = await db.execute("SELECT COUNT(*) FROM labels")
-        row = await cursor.fetchone()
-        count = row[0] if row else 0
-        if count == 0:
-            await db.executemany(
-                "INSERT INTO labels (word_uz, word_ru, category) VALUES (?, ?, ?)",
-                INITIAL_LABELS,
+        # --- Migratsiya: mavjud bazalarga yangi ustunlarni qo'shish ---
+        await _run_migrations(db)
+
+        # --- Lug'at so'zlarini yuklash (INSERT OR IGNORE = takrorlanmasligi uchun) ---
+        await db.executemany(
+            "INSERT OR IGNORE INTO labels (word_uz, word_ru, category) VALUES (?, ?, ?)",
+            INITIAL_LABELS,
+        )
+
+        # Gloss ustunini avtomatik to'ldirish (UPPER(word_uz))
+        if db.is_postgres:
+            await db.conn.execute(
+                "UPDATE labels SET gloss = UPPER(word_uz) WHERE gloss IS NULL"
             )
-            await db.commit()
+        else:
+            await db.execute(
+                "UPDATE labels SET gloss = UPPER(word_uz) WHERE gloss IS NULL"
+            )
+
+        await db.commit()
     finally:
         await db.close()
+
+
+async def _run_migrations(db):
+    """Mavjud bazalarga yangi ustunlarni qo'shadi. Agar ustun allaqachon bo'lsa — o'tkazib yuboradi."""
+    # labels jadvaliga yangi ustunlar
+    label_columns = [
+        ("word_en", "TEXT"),
+        ("gloss", "TEXT"),
+        ("difficulty", "INTEGER DEFAULT 1"),
+        ("handshape", "TEXT"),
+        ("location", "TEXT"),
+        ("movement", "TEXT"),
+        ("expression", "TEXT"),
+        ("usage_example", "TEXT"),
+    ]
+    for col_name, col_type in label_columns:
+        await _safe_add_column(db, "labels", col_name, col_type)
+
+    # videos jadvaliga yangi ustunlar
+    video_columns = [
+        ("s3_url", "TEXT"),
+        ("landmarks_url", "TEXT"),
+        ("annotation_notes", "TEXT"),
+    ]
+    for col_name, col_type in video_columns:
+        await _safe_add_column(db, "videos", col_name, col_type)
+
+    # sign_variants jadvalini yaratish (agar mavjud bo'lmasa — SCHEMA da allaqachon bor)
+    # Migratsiya uchun alohida so'rov kerak emas chunki CREATE TABLE IF NOT EXISTS
+
+
+async def _safe_add_column(db, table: str, column: str, col_type: str):
+    """ALTER TABLE ... ADD COLUMN — agar ustun allaqachon bo'lsa xatolik bermaydi."""
+    try:
+        if db.is_postgres:
+            await db.conn.execute(
+                f"ALTER TABLE {table} ADD COLUMN IF NOT EXISTS {column} {col_type}"
+            )
+        else:
+            await db.conn.execute(
+                f"ALTER TABLE {table} ADD COLUMN {column} {col_type}"
+            )
+    except Exception:
+        pass  # Ustun allaqachon mavjud
 
 
 # ------------------- USERS -------------------
@@ -665,6 +897,7 @@ async def get_approved_videos_metadata():
         cursor = await db.execute(
             """SELECT v.video_id, v.user_id, v.telegram_file_id, v.duration_seconds,
                       v.file_size_bytes, v.width, v.height, v.submitted_at,
+                      v.s3_url, v.landmarks_url,
                       l.word_uz, l.word_ru, l.category
                FROM videos v
                JOIN labels l ON v.label_id = l.label_id
@@ -674,3 +907,88 @@ async def get_approved_videos_metadata():
         return await cursor.fetchall()
     finally:
         await db.close()
+
+
+async def get_video_by_id(video_id: int):
+    db = await _connect()
+    try:
+        cursor = await db.execute(
+            """SELECT v.*, l.word_uz, l.word_ru, l.category
+               FROM videos v
+               JOIN labels l ON v.label_id = l.label_id
+               WHERE v.video_id = ?""",
+            (video_id,),
+        )
+        return await cursor.fetchone()
+    finally:
+        await db.close()
+
+
+async def update_video_s3_url(video_id: int, s3_url: str):
+    db = await _connect()
+    try:
+        await db.execute(
+            "UPDATE videos SET s3_url = ? WHERE video_id = ?",
+            (s3_url, video_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def update_video_landmarks_url(video_id: int, landmarks_url: str):
+    db = await _connect()
+    try:
+        await db.execute(
+            "UPDATE videos SET landmarks_url = ? WHERE video_id = ?",
+            (landmarks_url, video_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def add_sign_variant(label_id: int, region: str, video_file_id: str, notes: Optional[str] = None):
+    db = await _connect()
+    try:
+        await db.execute(
+            "INSERT INTO sign_variants (label_id, region, video_file_id, notes) VALUES (?, ?, ?, ?)",
+            (label_id, region, video_file_id, notes),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def get_sign_variants(label_id: int):
+    db = await _connect()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM sign_variants WHERE label_id = ?",
+            (label_id,),
+        )
+        return await cursor.fetchall()
+    finally:
+        await db.close()
+
+
+async def update_label_annotation(
+    label_id: int,
+    handshape: Optional[str] = None,
+    location: Optional[str] = None,
+    movement: Optional[str] = None,
+    expression: Optional[str] = None,
+    usage_example: Optional[str] = None
+):
+    db = await _connect()
+    try:
+        await db.execute(
+            """UPDATE labels
+               SET handshape = ?, location = ?, movement = ?, expression = ?, usage_example = ?
+               WHERE label_id = ?""",
+            (handshape, location, movement, expression, usage_example, label_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
