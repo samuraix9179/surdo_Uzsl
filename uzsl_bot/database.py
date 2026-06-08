@@ -552,7 +552,7 @@ async def get_all_user_ids(only_active: bool = True):
     try:
         query = "SELECT user_id FROM users"
         if only_active:
-            query += " WHERE is_blocked = 0"
+            query += " WHERE is_blocked = FALSE"
         cursor = await db.execute(query)
         return [row["user_id"] for row in await cursor.fetchall()]
     finally:
@@ -564,7 +564,7 @@ async def set_user_blocked(user_id: int, blocked: bool):
     try:
         await db.execute(
             "UPDATE users SET is_blocked = ? WHERE user_id = ?",
-            (1 if blocked else 0, user_id),
+            (blocked, user_id),
         )
         await db.commit()
     finally:
@@ -603,7 +603,7 @@ async def get_labels_needing_videos(limit: int = 10):
     try:
         cursor = await db.execute(
             """SELECT * FROM labels
-               WHERE is_active = 1 AND current_count < target_count
+               WHERE is_active = TRUE AND current_count < target_count
                ORDER BY current_count ASC, word_uz ASC
                LIMIT ?""",
             (limit,),
@@ -667,7 +667,7 @@ async def get_labels_by_category(category: str, limit: int = 10):
     try:
         cursor = await db.execute(
             """SELECT * FROM labels
-               WHERE is_active = 1 AND category = ? AND current_count < target_count
+               WHERE is_active = TRUE AND category = ? AND current_count < target_count
                ORDER BY current_count ASC, word_uz ASC
                LIMIT ?""",
             (category, limit),
