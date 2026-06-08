@@ -20,15 +20,15 @@ sys.modules['huggingface_hub'] = mock_hf
 # Add uzsl_bot to path so we can import from it
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "uzsl_bot"))
 
-import config
+import config  # noqa: E402
 config.DB_PATH = "test_sync.db"
 config.SUPABASE_DB_URL = None  # Force SQLite for testing
 config.HF_TOKEN = "test_token"
 config.HUGGINGFACE_REPO = "test/repo"
 config.BOT_TOKEN = "123456:testtoken"
 
-from database import init_db, create_user, save_video, get_all_labels, get_video_by_id
-from utils.sync_to_huggingface import sync_video_to_huggingface, update_glossary_and_dataset_info
+from database import init_db, create_user, save_video, get_all_labels, get_video_by_id  # noqa: E402
+from utils.sync_to_huggingface import sync_video_to_huggingface  # noqa: E402
 
 
 @pytest.mark.asyncio
@@ -41,14 +41,14 @@ async def test_sync_video_to_huggingface():
     mock_bot_class = MagicMock()
     mock_bot_instance = AsyncMock()
     mock_bot_class.return_value = mock_bot_instance
-    
+
     mock_file = AsyncMock()
     mock_file.download_to_drive = AsyncMock()
     mock_bot_instance.get_file.return_value = mock_file
 
     # Mock extract_landmarks.process_video
     mock_sequence = [{"pose": [0.1, 0.2, 0.3], "face": [], "left_hand": [], "right_hand": []}]
-    
+
     # Mock upload_file_to_s3
     mock_upload = AsyncMock(side_effect=lambda local_path, s3_key: f"https://s3.example.com/{s3_key}")
 
@@ -99,7 +99,7 @@ async def test_sync_video_to_huggingface():
                 config.EXPORT_DIR, "landmarks", video["category"],
                 f"{video['word_uz']}_{video_id}_{user_id}.json"
             )
-            
+
             # Since we mocked the download and processing, let's verify if sync_video_to_huggingface wrote json
             assert os.path.exists(expected_landmarks_path)
             with open(expected_landmarks_path, "r", encoding="utf-8") as f:
@@ -110,17 +110,17 @@ async def test_sync_video_to_huggingface():
             # Verify glossary and dataset_info files were created
             expected_glossary_path = os.path.join(config.EXPORT_DIR, "glossary.json")
             expected_info_path = os.path.join(config.EXPORT_DIR, "dataset_info.json")
-            
+
             assert os.path.exists(expected_glossary_path)
             assert os.path.exists(expected_info_path)
-            
+
             with open(expected_glossary_path, "r", encoding="utf-8") as f:
                 glossary = json.load(f)
                 assert len(glossary) > 0
                 matched_label = next((item for item in glossary if item["word_uz"] == video["word_uz"]), None)
                 assert matched_label is not None
                 assert matched_label["word_uz"] == video["word_uz"]
-                
+
             with open(expected_info_path, "r", encoding="utf-8") as f:
                 info = json.load(f)
                 assert info["total_words"] > 0
