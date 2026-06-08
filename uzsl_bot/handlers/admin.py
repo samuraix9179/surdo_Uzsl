@@ -128,6 +128,11 @@ async def moderation_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     if action == "approve":
         await query.answer("Tasdiqlandi ✅")
         await moderate_video(video_id, "approved", query.from_user.id)
+        
+        # Orqa fonda Hugging Face platformasiga sinxronlash (video + landmark + metadata)
+        from utils.sync_to_huggingface import sync_video_to_huggingface
+        asyncio.create_task(sync_video_to_huggingface(video_id))
+        
         await query.edit_message_caption(
             caption=(query.message.caption or "") + "\n\n✅ *TASDIQLANDI*",
             parse_mode=ParseMode.MARKDOWN,

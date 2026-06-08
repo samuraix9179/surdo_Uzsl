@@ -10,3 +10,6 @@ cmds = [
 
 [start]
 cmd = "python main.py"
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
