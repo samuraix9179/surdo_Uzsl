@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "project": "surdo",
+  "task_source_priority": [
+    "agent_tasks.json",
+    "AGENTS.md"
+  ],
+  "risk_levels": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "merge_policy": {
+    "low": "auto_merge_after_tests",
+    "medium": "auto_merge_after_tests_and_critic",
+    "high": "human_review_required",
+    "critical": "manual_only"
+  },
+  "replenishment_policy": {
+    "minimum_todo_tasks": 2,
+    "batch_size": 2,
+    "always_add_tasks": false,
+    "tasks_per_run": 1,
+    "allowed_risks_for_generated_tasks": [
+      "low",
+      "medium"
+    ],
+    "instruction": "Yangi vazifalarni faqat ro'yxat minimum_todo_tasks darajasidan pastga tushganda qo'shing. Avval bajarilgan yoki bloklangan vazifalarni tekshiring. Yangi vazifalar qo'shishda asosan barqarorlik, testlarni oshirish va xatolarni to'g'irlashga e'tibor qarating.",
+    "max_todo_tasks": 20
+  },
+  "autonomous_loop_policy": {
+    "selection_rule": "High yoki critical risk bilan bloklanmagan birinchi 'todo' statusdagi vazifani tanlang.",
+    "anti_stall_rule": "Agar arxitektura va test natijalaridan yangi past riskli vazifalar yaratish imkoni bo'lsa, foydalanuvchini chalg'itib savol bermang.",
+    "stabilization_first": true,
+    "max_pr_scope": "PR uchun faqat bitta task id",
+    "failure_rule": "Agar CI/testlar muvaffaqiyatsiz bo'lsa, yangi imkoniyatlar qo'shishdan oldin xatolikni tuzatish vazifasiga ustuvorlik bering."
+  },
+  "tasks": [
+    {
+      "id": "verify-task-manifest-schema",
+      "status": "todo",
+      "area": "governance",
+      "risk": "low",
+      "title": "Validate agent task manifest format",
+      "description": "agent_tasks.json faylining to'g'riligini va uning tuzilishini tekshiradigan validator yozish.",
+      "allowed_paths": [
+        "agent_tasks.json",
+        "scripts/validate_agent_tasks.py",
+        "tests/**"
+      ],
+      "acceptance": [
+        "python scripts/validate_agent_tasks.py buyrug'i muvaffaqiyatli ishlaydi",
+        "agar xatolik bo'lsa, skript aniq xato xabarini qaytaradi"
+      ]
+    },
+    {
+      "id": "cleanup-flake8-issues",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Resolve basic flake8 errors",
+      "description": "Loyiha ildizidagi flake8_report.txt hisobotiga asoslanib asosiy sintaktik va formatlash xatolarini to'g'irlash.",
+      "allowed_paths": [
+        "uzsl_bot/**",
+        "uzsl_translator/**",
+        "tests/**"
+      ],
+      "acceptance": [
+        "flake8 hisobotidagi xatoliklar kamayadi",
+        "loyiha testlari muvaffaqiyatli o'tadi"
+      ]
+    }
+  ]
+}

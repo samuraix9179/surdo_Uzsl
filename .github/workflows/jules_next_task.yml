@@ -1,0 +1,37 @@
+name: 2. Trigger Next Self-Improvement Task
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+  schedule:
+    # 24/7 rejimida har 30 daqiqada ishga tushirish
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  next-task:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'schedule' ||
+      (github.event.pull_request.merged == true && github.event.pull_request.user.login == 'google-jules[bot]')
+      
+    steps:
+      - name: Run Google Jules Agent
+        uses: google-labs-code/jules-action@v1
+        with:
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Твоя единственная цель — автономное улучшение и развитие проекта Surdo с использованием архитектуры magda_agent.
+            1. Прочитай AGENTS.md, .gemini/instructions.md, а также когнитивную архитектуру magda_agent.
+            2. Для работы с задачами используй CLI-мост:
+               - Проверить статус пула задач: python -m magda_agent.codex_bridge status
+               - Получить следующую задачу: python -m magda_agent.codex_bridge next-task
+               - Сгенерировать детальный промпт для задачи: python -m magda_agent.codex_bridge render-prompt
+            3. Выполни выбранную задачу строго в рамках allowed_paths и acceptance criteria.
+            4. После успешного выполнения и прохождения тестов (pytest и линтеров) обнови статус задачи в agent_tasks.json на "done" с помощью коммита и сформируй Pull Request.
+            5. Перед отправкой PR обязательно запусти валидатор: python -m magda_agent.codex_bridge validate
+

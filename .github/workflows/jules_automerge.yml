@@ -1,0 +1,45 @@
+name: 1. Auto-Validate and Merge Jules PRs
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-and-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'google-jules[bot]' || contains(github.event.pull_request.labels.*.name, 'jules')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest flake8
+
+      - name: Run Flake8 Linter
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Validate Agent Tasks Manifest
+        run: |
+          python -m magda_agent.codex_bridge validate
+
+      - name: Run Tests
+        run: |
+          if [ -d tests ]; then pytest; fi
+
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.16.3
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: ""
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"

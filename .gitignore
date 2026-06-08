@@ -166,3 +166,8 @@ cython_debug/
 data/
 .gitignore
 
+# Magda-agent runtime files
+semantic_memory_db/
+user_models/user_*.json
+
+
