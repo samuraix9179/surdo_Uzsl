@@ -5,6 +5,7 @@ import logging
 import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
+from telegram import Bot
 
 load_dotenv()
 
@@ -42,9 +43,6 @@ except ImportError:
     except ImportError:
         from s3_storage import upload_file_to_s3
         from extract_landmarks import process_video
-
-from telegram import Bot  # noqa: E402
-
 logger = logging.getLogger(__name__)
 
 # Sozlamalar (.env faylidan o'qiladi)
@@ -191,7 +189,9 @@ async def sync_video_to_huggingface(video_id: int) -> bool:
 
 
 async def update_glossary_and_dataset_info():
-    """Tasdiqlangan va annotatsiya qilingan ma'lumotlar bilan glossary.json va dataset_info.json ni yangilaydi."""
+    """Barcha tasdiqlangan/annotatsiya qilingan ma'lumotlar bilan
+    glossary.json va dataset_info.json ni yangilaydi.
+    """
     try:
         # Hamma approved videolarni olish
         approved_videos = await get_approved_videos_metadata()
