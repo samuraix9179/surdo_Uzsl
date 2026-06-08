@@ -376,9 +376,7 @@ class DBWrapper:
 
     async def executemany(self, query: str, params_list: list):
         if self.is_postgres:
-            count = query.count("?")
-            for i in range(1, count + 1):
-                query = query.replace("?", f"${i}", 1)
+            query = self._translate_query_only(query)
             await self.conn.executemany(query, params_list)
         else:
             await self.conn.executemany(query, params_list)
@@ -390,13 +388,7 @@ class DBWrapper:
     async def close(self):
         await self.conn.close()
 
-    def _translate(self, query: str, params: Optional[tuple]) -> Tuple[str, Optional[tuple]]:
-        if not self.is_postgres:
-            if params:
-                new_params = tuple(1 if x is True else (0 if x is False else x) for x in params)
-                return query, new_params
-            return query, params
-
+    def _translate_query_only(self, query: str) -> str:
         count = query.count("?")
         for i in range(1, count + 1):
             query = query.replace("?", f"${i}", 1)
@@ -407,6 +399,16 @@ class DBWrapper:
         elif "INSERT OR IGNORE INTO labels" in query:
             query = query.replace("INSERT OR IGNORE INTO labels", "INSERT INTO labels")
             query += " ON CONFLICT (word_uz) DO NOTHING"
+        return query
+
+    def _translate(self, query: str, params: Optional[tuple]) -> Tuple[str, Optional[tuple]]:
+        if not self.is_postgres:
+            if params:
+                new_params = tuple(1 if x is True else (0 if x is False else x) for x in params)
+                return query, new_params
+            return query, params
+
+        query = self._translate_query_only(query)
 
         if "INSERT INTO videos" in query and "RETURNING" not in query.upper():
             query += " RETURNING video_id"
