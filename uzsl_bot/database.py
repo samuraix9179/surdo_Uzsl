@@ -422,7 +422,7 @@ async def _connect():
         kwargs = {}
         if "supabase.com" in SUPABASE_DB_URL or "sslmode=require" in SUPABASE_DB_URL:
             kwargs["ssl"] = "require"
-        
+
         conn = await asyncpg.connect(SUPABASE_DB_URL, **kwargs)
         return DBWrapper(conn, is_postgres=True)
     else:
@@ -991,4 +991,3 @@ async def update_label_annotation(
         await db.commit()
     finally:
         await db.close()
-
