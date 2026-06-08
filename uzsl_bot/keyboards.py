@@ -21,7 +21,7 @@ def categories_kb() -> InlineKeyboardMarkup:
     from config import CATEGORIES
     buttons = []
     current_row = []
-    
+
     # Barcha kategoriyalarni 2 tadan qilib joylashtiramiz (erkin_tarjima dan tashqari)
     for key, label in CATEGORIES.items():
         if key == "erkin_tarjima":
@@ -30,10 +30,10 @@ def categories_kb() -> InlineKeyboardMarkup:
         if len(current_row) == 2:
             buttons.append(current_row)
             current_row = []
-            
+
     if current_row:
         buttons.append(current_row)
-        
+
     # Erkin tarjima va bekor qilish tugmalari
     buttons.append([InlineKeyboardButton("✍️ Lug'atda yo'q so'z (Erkin)", callback_data="cat_free")])
     buttons.append([InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")])

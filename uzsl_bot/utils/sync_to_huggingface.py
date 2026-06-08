@@ -5,6 +5,7 @@ import logging
 import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
+from telegram import Bot
 
 load_dotenv()
 
@@ -42,8 +43,6 @@ except ImportError:
     except ImportError:
         from s3_storage import upload_file_to_s3
         from extract_landmarks import process_video
-
-from telegram import Bot
 
 logger = logging.getLogger(__name__)
 
@@ -191,7 +190,9 @@ async def sync_video_to_huggingface(video_id: int) -> bool:
 
 
 async def update_glossary_and_dataset_info():
-    """Barcha tasdiqlangan va annotatsiya qilingan ma'lumotlar bilan glossary.json va dataset_info.json ni yangilaydi."""
+    """Barcha tasdiqlangan/annotatsiya qilingan ma'lumotlar bilan
+    glossary.json va dataset_info.json ni yangilaydi.
+    """
     try:
         # Hamma approved videolarni olish
         approved_videos = await get_approved_videos_metadata()
@@ -204,7 +205,7 @@ async def update_glossary_and_dataset_info():
         for label in all_labels:
             ld = dict(label)
             label_id = ld["label_id"]
-            
+
             # Variantlarni olish
             variants_db = await get_sign_variants(label_id)
             variants = []
@@ -249,7 +250,7 @@ async def update_glossary_and_dataset_info():
             "categories_count": categories_count,
             "last_updated": datetime.now().isoformat()
         }
-        
+
         info_path = os.path.join(EXPORT_DIR, "dataset_info.json")
         with open(info_path, "w", encoding="utf-8") as f:
             json.dump(dataset_info, f, ensure_ascii=False, indent=2)
@@ -257,7 +258,7 @@ async def update_glossary_and_dataset_info():
         # Hugging Face repo-ga bu metadata fayllarni yuklash
         if HF_TOKEN and HF_REPO:
             api = HfApi(token=HF_TOKEN)
-            
+
             # Repozitoriyani tekshirib olish yoki yaratish
             try:
                 create_repo(
