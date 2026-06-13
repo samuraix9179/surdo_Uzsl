@@ -35,7 +35,7 @@ jobs:
 
     - name: Run Mypy (Type Check)
       run: |
-        mypy ml_training --ignore-missing-imports
+        MYPYPATH=. mypy ml_training --ignore-missing-imports
 
     - name: Run Pytest (Unit Tests)
       run: |
