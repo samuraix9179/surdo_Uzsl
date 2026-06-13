@@ -117,7 +117,7 @@
     },
     {
       "id": "add-type-hints-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add type hints to GCN module",
@@ -143,6 +143,20 @@
       "acceptance": [
         "pylint is installed and can be run",
         ".pylintrc exists and configuration is basic"
+      ]
+    },
+    {
+      "id": "add-pylint-to-requirements",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add pylint to requirements",
+      "description": "Add pylint to requirements.txt to improve code quality.",
+      "allowed_paths": [
+        "requirements.txt"
+      ],
+      "acceptance": [
+        "pylint is installed"
       ]
     }
   ]
