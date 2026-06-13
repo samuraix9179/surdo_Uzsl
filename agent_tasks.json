@@ -88,7 +88,7 @@
     },
     {
       "id": "add-pytest-asyncio",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add pytest-asyncio to test requirements",
@@ -98,6 +98,35 @@
       ],
       "acceptance": [
         "pytest runs asynchronously without 'async def functions are not natively supported' errors"
+      ]
+    },
+    {
+      "id": "fix-mypy-gcn-module-resolution",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Fix mypy module resolution error for gcn.py",
+      "description": "Fix the mypy error 'Source file found twice under different module names: gcn and models.gcn' in ml_training/models/gcn.py by adding explicit-package-bases to mypy.ini or adjusting imports.",
+      "allowed_paths": [
+        "mypy.ini",
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "mypy runs without module resolution error for gcn.py"
+      ]
+    },
+    {
+      "id": "add-type-hints-to-gcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add type hints to GCN module",
+      "description": "Add proper return type and argument type hints to the methods in GraphConvolution class (like __init__ and reset_parameters) in ml_training/models/gcn.py.",
+      "allowed_paths": [
+        "ml_training/models/gcn.py"
+      ],
+      "acceptance": [
+        "mypy passes for ml_training/models/gcn.py"
       ]
     }
   ]
