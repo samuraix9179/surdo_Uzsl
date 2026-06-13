@@ -102,7 +102,7 @@
     },
     {
       "id": "fix-mypy-gcn-module-resolution",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Fix mypy module resolution error for gcn.py",
@@ -127,6 +127,22 @@
       ],
       "acceptance": [
         "mypy passes for ml_training/models/gcn.py"
+      ]
+    },
+    {
+      "id": "fix-mypy-cron-import-untyped",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Fix mypy import-untyped error for croniter",
+      "description": "Install types-croniter and types-PyYAML or configure mypy.ini to ignore untyped imports for magda_agent/scheduler/cron.py and magda_agent/skills/exporter.py to resolve the 'Library stubs not installed' errors.",
+      "allowed_paths": [
+        "requirements.txt",
+        "mypy.ini",
+        "magda_agent/**"
+      ],
+      "acceptance": [
+        "mypy magda_agent/ runs without 'import-untyped' errors"
       ]
     }
   ]
