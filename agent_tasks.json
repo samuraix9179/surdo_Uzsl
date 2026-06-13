@@ -102,7 +102,7 @@
     },
     {
       "id": "fix-mypy-gcn-module-resolution",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Fix mypy module resolution error for gcn.py",
@@ -127,6 +127,20 @@
       ],
       "acceptance": [
         "mypy passes for ml_training/models/gcn.py"
+      ]
+    },
+    {
+      "id": "fix-mypy-type-hints-in-cron",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Fix mypy implicit Optional in cron module",
+      "description": "Fix mypy errors related to implicit Optional for the 'name' parameter in magda_agent/scheduler/cron.py by using Optional[str] or str | None.",
+      "allowed_paths": [
+        "magda_agent/scheduler/cron.py"
+      ],
+      "acceptance": [
+        "mypy passes for magda_agent/scheduler/cron.py without implicit Optional errors"
       ]
     }
   ]
