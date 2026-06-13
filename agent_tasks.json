@@ -70,6 +70,39 @@
         "flake8 hisobotidagi xatoliklar kamayadi",
         "loyiha testlari muvaffaqiyatli o'tadi"
       ]
+    },
+    {
+      "id": "fix-mypy-duplicate-module",
+      "status": "done",
+      "area": "quality",
+      "risk": "low",
+      "title": "Mypy duplicate module xatosini to'g'irlash",
+      "description": "ml_training papkasida mypy tomonidan topilgan 'Source file found twice under different module names' xatosini to'g'irlash va mypy tekshiruvidan muvaffaqiyatli o'tishini ta'minlash.",
+      "allowed_paths": [
+        "mypy.ini",
+        "ml_training/**",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "python -m mypy ml_training buyrug'i xatosiz o'tadi"
+      ]
+    },
+    {
+      "id": "add-tests-extract-landmarks",
+      "status": "todo",
+      "area": "testing",
+      "risk": "low",
+      "title": "extract_landmarks uchun unit testlar yozish",
+      "description": "uzsl_bot/utils/extract_landmarks.py faylidagi mantiq uchun pytest unit testlarini qo'shish va test coverage'ni oshirish.",
+      "allowed_paths": [
+        "uzsl_bot/utils/extract_landmarks.py",
+        "tests/test_extract_landmarks.py",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "tests/test_extract_landmarks.py fayli yaratiladi",
+        "pytest tests/test_extract_landmarks.py muvaffaqiyatli ishlaydi"
+      ]
     }
   ]
 }
