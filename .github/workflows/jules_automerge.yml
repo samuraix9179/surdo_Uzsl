@@ -8,7 +8,7 @@ on:
 jobs:
   test-and-merge:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'google-jules[bot]' || contains(github.event.pull_request.labels.*.name, 'jules')
+    if: github.event.pull_request.user.login == 'google-jules[bot]' || github.event.pull_request.user.login == 'samuraix9179' || contains(github.event.pull_request.labels.*.name, 'jules')
     
     steps:
       - name: Checkout repository
