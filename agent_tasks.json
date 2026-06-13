@@ -117,7 +117,7 @@
     },
     {
       "id": "add-type-hints-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add type hints to GCN module",
@@ -143,6 +143,20 @@
       "acceptance": [
         "pylint is installed and can be run",
         ".pylintrc exists and configuration is basic"
+      ]
+    },
+    {
+      "id": "add-type-hints-to-sgcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add type hints to SGCN module",
+      "description": "Add proper type hints to the methods in SpatialGCN class in ml_training/models/sgcn.py to improve code readability and maintainability.",
+      "allowed_paths": [
+        "ml_training/models/sgcn.py"
+      ],
+      "acceptance": [
+        "mypy passes for ml_training/models/sgcn.py"
       ]
     }
   ]
