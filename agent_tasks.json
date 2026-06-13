@@ -56,7 +56,7 @@
     },
     {
       "id": "cleanup-flake8-issues",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Resolve basic flake8 errors",
