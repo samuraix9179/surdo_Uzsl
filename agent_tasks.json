@@ -144,6 +144,22 @@
         "No print statements are used for informational logging in train.py and evaluate.py",
         "Python logging module is properly configured and used"
       ]
+    },
+    {
+      "id": "setup-pylint",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup PyLint for detailed static analysis",
+      "description": "Add pylint to the project dependencies and configure it with a .pylintrc file to provide more rigorous linting capabilities alongside flake8.",
+      "allowed_paths": [
+        "requirements.txt",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint is installed and can be run",
+        ".pylintrc exists and configuration is basic"
+      ]
     }
   ]
 }
