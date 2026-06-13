@@ -16,7 +16,7 @@ jobs:
     if: |
       github.event_name == 'workflow_dispatch' || 
       github.event_name == 'schedule' ||
-      (github.event.pull_request.merged == true && github.event.pull_request.user.login == 'google-jules[bot]')
+      github.event.pull_request.merged == true
       
     steps:
       - name: Run Google Jules Agent
