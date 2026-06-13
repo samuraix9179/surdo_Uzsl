@@ -102,7 +102,7 @@
     },
     {
       "id": "fix-mypy-gcn-module-resolution",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Fix mypy module resolution error for gcn.py",
