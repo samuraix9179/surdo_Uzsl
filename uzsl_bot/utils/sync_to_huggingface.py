@@ -41,8 +41,8 @@ except ImportError:
         from utils.s3_storage import upload_file_to_s3
         from utils.extract_landmarks import process_video
     except ImportError:
-        from s3_storage import upload_file_to_s3
-        from extract_landmarks import process_video
+        from s3_storage import upload_file_to_s3  # type: ignore[no-redef]
+        from extract_landmarks import process_video  # type: ignore[no-redef]
 logger = logging.getLogger(__name__)
 
 # Sozlamalar (.env faylidan o'qiladi)
