@@ -13,3 +13,4 @@ cmd = "python main.py"
 
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.12"
+RAILPACK_PYTHON_VERSION = "3.12"

@@ -13,3 +13,4 @@ cmd = "streamlit run uzsl_bot/utils/dashboard.py --server.port $PORT --server.ad
 
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.12"
+RAILPACK_PYTHON_VERSION = "3.12"
