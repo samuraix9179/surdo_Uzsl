@@ -23,7 +23,6 @@ jobs:
         uses: google-labs-code/jules-action@v1.0.0
         with:
           jules_api_key: ${{ secrets.JULES_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             Твоя единственная цель — автономное улучшение и развитие проекта Surdo с использованием архитектуры magda_agent.
             1. Прочитай AGENTS.md, .gemini/instructions.md, а также когнитивную архитектуру magda_agent.
