@@ -12,4 +12,4 @@ cmds = [
 cmd = "python main.py"
 
 [variables]
-NIXPACKS_PYTHON_VERSION = "3.11"
+NIXPACKS_PYTHON_VERSION = "3.12"
