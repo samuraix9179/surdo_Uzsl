@@ -102,7 +102,7 @@
     },
     {
       "id": "fix-mypy-gcn-module-resolution",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Fix mypy module resolution error for gcn.py",
@@ -127,6 +127,22 @@
       ],
       "acceptance": [
         "mypy passes for ml_training/models/gcn.py"
+      ]
+    },
+    {
+      "id": "refactor-logging-in-ml-training",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Refactor logging in ml_training module",
+      "description": "Replace print statements with proper logging in the ml_training module (specifically train.py or evaluate.py if they use print). This will improve tracking and debugging during training.",
+      "allowed_paths": [
+        "ml_training/train.py",
+        "ml_training/evaluate.py"
+      ],
+      "acceptance": [
+        "No print statements are used for informational logging in train.py and evaluate.py",
+        "Python logging module is properly configured and used"
       ]
     }
   ]
