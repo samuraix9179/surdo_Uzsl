@@ -20,7 +20,7 @@ jobs:
       
     steps:
       - name: Run Google Jules Agent
-        uses: google-labs-code/jules-action@v1
+        uses: google-labs-code/jules-action@v1.0.0
         with:
           jules_api_key: ${{ secrets.JULES_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -34,4 +34,3 @@ jobs:
             3. Выполни выбранную задачу строго в рамках allowed_paths и acceptance criteria.
             4. После успешного выполнения и прохождения тестов (pytest и линтеров) обнови статус задачи в agent_tasks.json на "done" с помощью коммита и сформируй Pull Request.
             5. Перед отправкой PR обязательно запусти валидатор: python -m magda_agent.codex_bridge validate
-
