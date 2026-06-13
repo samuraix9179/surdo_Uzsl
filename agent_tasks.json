@@ -39,7 +39,7 @@
   "tasks": [
     {
       "id": "verify-task-manifest-schema",
-      "status": "todo",
+      "status": "done",
       "area": "governance",
       "risk": "low",
       "title": "Validate agent task manifest format",
