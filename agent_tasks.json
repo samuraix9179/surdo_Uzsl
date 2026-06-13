@@ -70,6 +70,35 @@
         "flake8 hisobotidagi xatoliklar kamayadi",
         "loyiha testlari muvaffaqiyatli o'tadi"
       ]
+    },
+    {
+      "id": "fix-mypy-redefinitions",
+      "status": "done",
+      "area": "quality",
+      "risk": "low",
+      "title": "Fix mypy redefinition errors in utils",
+      "description": "Fix mypy 'no-redef' errors in uzsl_bot/utils/sync_to_huggingface.py and uzsl_bot/utils/export.py by adding ignore comments to fallback imports.",
+      "allowed_paths": [
+        "uzsl_bot/utils/sync_to_huggingface.py",
+        "uzsl_bot/utils/export.py"
+      ],
+      "acceptance": [
+        "mypy uzsl_bot/ tests/ runs successfully without 'no-redef' errors"
+      ]
+    },
+    {
+      "id": "add-pytest-asyncio",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add pytest-asyncio to test requirements",
+      "description": "Add pytest-asyncio to requirements to fix async test execution warnings.",
+      "allowed_paths": [
+        "requirements.txt"
+      ],
+      "acceptance": [
+        "pytest runs asynchronously without 'async def functions are not natively supported' errors"
+      ]
     }
   ]
 }

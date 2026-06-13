@@ -30,8 +30,8 @@ try:
     from utils.s3_storage import upload_file_to_s3
     from utils.sync_to_huggingface import sync_dataset
 except ImportError:
-    from s3_storage import upload_file_to_s3
-    from sync_to_huggingface import sync_dataset
+    from s3_storage import upload_file_to_s3  # type: ignore[no-redef]
+    from sync_to_huggingface import sync_dataset  # type: ignore[no-redef]
 
 
 async def download_all_approved():
