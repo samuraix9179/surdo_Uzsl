@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 
 
-class GraphConvolution(nn.Module): # type: ignore[misc]
+class GraphConvolution(nn.Module):  # type: ignore[misc]
     """Spatial Graph Convolution Layer for skeleton keypoints.
 
     Applies spatial graph convolution based on adjacency matrix:
@@ -52,10 +52,17 @@ class GraphConvolution(nn.Module): # type: ignore[misc]
         return out
 
 
-class TemporalConvolution(nn.Module): # type: ignore[misc]
+class TemporalConvolution(nn.Module):  # type: ignore[misc]
     """1D Temporal Convolution Layer over the frames sequence."""
 
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int = 9, stride: int = 1, padding: int = 4) -> None:
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int = 9,
+        stride: int = 1,
+        padding: int = 4
+    ) -> None:
         super(TemporalConvolution, self).__init__()
         self.conv = nn.Conv2d(
             in_channels,
