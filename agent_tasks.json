@@ -117,7 +117,7 @@
     },
     {
       "id": "add-type-hints-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add type hints to GCN module",
@@ -143,6 +143,20 @@
       "acceptance": [
         "pylint is installed and can be run",
         ".pylintrc exists and configuration is basic"
+      ]
+    },
+    {
+      "id": "fix-mypy-type-hints-in-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add basic mypy type hints to test modules",
+      "description": "Add type hints to basic test functions in tests/ so they are checked by mypy properly when using --disallow-untyped-defs.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "mypy passes locally for test modules with --disallow-untyped-defs enabled for basic functions"
       ]
     }
   ]
