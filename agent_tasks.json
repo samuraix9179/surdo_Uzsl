@@ -161,7 +161,7 @@
     },
     {
       "id": "setup-pylint-uzsl-bot",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on uzsl_bot module",
@@ -186,6 +186,21 @@
       ],
       "acceptance": [
         "docstrings exist for STGCNBlock and SLGCN classes and their methods"
+      ]
+    },
+    {
+      "id": "verify-pylint-on-translator-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on uzsl_translator module",
+      "description": "Run pylint on the uzsl_translator module and resolve high-priority warnings to ensure codebase quality consistency.",
+      "allowed_paths": [
+        "uzsl_translator/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on uzsl_translator without critical errors"
       ]
     }
   ]
