@@ -131,7 +131,7 @@
     },
     {
       "id": "setup-pylint",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Setup PyLint for detailed static analysis",
@@ -157,6 +157,21 @@
       ],
       "acceptance": [
         "docstrings exist for GraphConvolution and TemporalConvolution classes and their methods"
+      ]
+    },
+    {
+      "id": "setup-pylint-uzsl-bot",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on uzsl_bot module",
+      "description": "Run pylint on the uzsl_bot module and resolve high-priority warnings.",
+      "allowed_paths": [
+        "uzsl_bot/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on uzsl_bot without critical errors"
       ]
     }
   ]
