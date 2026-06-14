@@ -147,7 +147,7 @@
     },
     {
       "id": "add-docstrings-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to GCN module",
@@ -172,6 +172,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_bot without critical errors"
+      ]
+    },
+    {
+      "id": "resolve-pylint-issues-ml-training",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Resolve pylint issues in ml_training",
+      "description": "Run pylint on the ml_training module and fix identified issues, such as unused imports and incorrect arguments.",
+      "allowed_paths": [
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "pylint rating for ml_training improves"
       ]
     }
   ]
