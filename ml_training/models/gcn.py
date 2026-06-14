@@ -3,14 +3,14 @@ import torch
 import torch.nn as nn
 
 
-class GraphConvolution(nn.Module):
+class GraphConvolution(nn.Module):  # type: ignore[misc]
     """Spatial Graph Convolution Layer for skeleton keypoints.
 
     Applies spatial graph convolution based on adjacency matrix:
     Y = D^(-1/2) * A_sym * D^(-1/2) * X * W
     """
 
-    def __init__(self, in_channels, out_channels, num_nodes=543):
+    def __init__(self, in_channels: int, out_channels: int, num_nodes: int = 543) -> None:
         super(GraphConvolution, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -23,10 +23,10 @@ class GraphConvolution(nn.Module):
 
         self.reset_parameters()
 
-    def reset_parameters(self):
+    def reset_parameters(self) -> None:
         nn.init.kaiming_uniform_(self.weight, a=math.sqrt(5) if hasattr(self, 'math') else 1e-2)
 
-    def forward(self, x, adjacency):
+    def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
         """Forward pass.
 
         Input shape: (batch_size, num_nodes, in_channels)
@@ -52,10 +52,12 @@ class GraphConvolution(nn.Module):
         return out
 
 
-class TemporalConvolution(nn.Module):
+class TemporalConvolution(nn.Module):  # type: ignore[misc]
     """1D Temporal Convolution Layer over the frames sequence."""
 
-    def __init__(self, in_channels, out_channels, kernel_size=9, stride=1, padding=4):
+    def __init__(
+        self, in_channels: int, out_channels: int, kernel_size: int = 9, stride: int = 1, padding: int = 4
+    ) -> None:
         super(TemporalConvolution, self).__init__()
         self.conv = nn.Conv2d(
             in_channels,
@@ -67,7 +69,7 @@ class TemporalConvolution(nn.Module):
         self.bn = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU(inplace=True)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Input shape: (batch_size, in_channels, num_frames, num_nodes)
 
         Output shape: (batch_size, out_channels, num_frames, num_nodes)
