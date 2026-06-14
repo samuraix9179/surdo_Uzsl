@@ -147,7 +147,7 @@
     },
     {
       "id": "add-docstrings-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to GCN module",
@@ -172,6 +172,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_bot without critical errors"
+      ]
+    },
+    {
+      "id": "add-docstrings-to-sl-gcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add docstrings to SL-GCN module",
+      "description": "Improve code documentation by adding Google-style docstrings to the classes and methods in ml_training/models/sl_gcn.py to enhance readability and maintainability.",
+      "allowed_paths": [
+        "ml_training/models/sl_gcn.py"
+      ],
+      "acceptance": [
+        "docstrings exist for STGCNBlock and SLGCN classes and their methods"
       ]
     }
   ]
