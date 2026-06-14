@@ -147,7 +147,7 @@
     },
     {
       "id": "add-docstrings-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to GCN module",
@@ -172,6 +172,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_bot without critical errors"
+      ]
+    },
+    {
+      "id": "add-docstrings-to-uzsl-bot-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add docstrings to uzsl_bot module",
+      "description": "Improve code documentation by adding Google-style docstrings to classes and methods within the uzsl_bot module.",
+      "allowed_paths": [
+        "uzsl_bot/**"
+      ],
+      "acceptance": [
+        "docstrings exist for major classes and methods in uzsl_bot module"
       ]
     }
   ]
