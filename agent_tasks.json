@@ -176,7 +176,7 @@
     },
     {
       "id": "add-docstrings-to-sl-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to SL-GCN module",
@@ -201,6 +201,21 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_translator without critical errors"
+      ]
+    },
+    {
+      "id": "verify-pylint-on-ml-training-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on ml_training module",
+      "description": "Run pylint on the ml_training module and resolve high-priority warnings to ensure codebase quality consistency.",
+      "allowed_paths": [
+        "ml_training/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on ml_training without critical errors"
       ]
     }
   ]
