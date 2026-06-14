@@ -1,6 +1,6 @@
 import math
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 class GraphConvolution(nn.Module):  # type: ignore[misc]
@@ -8,10 +8,24 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
 
     Applies spatial graph convolution based on adjacency matrix:
     Y = D^(-1/2) * A_sym * D^(-1/2) * X * W
+
+    Attributes:
+        in_channels (int): Number of channels in the input graph.
+        out_channels (int): Number of channels in the output graph.
+        num_nodes (int): Number of nodes in the graph (default: 543).
+        weight (nn.Parameter): Learnable weight matrix.
+        edge_importance (nn.Parameter): Learnable adjacency weight multiplier.
     """
 
     def __init__(self, in_channels: int, out_channels: int, num_nodes: int = 543) -> None:
-        super(GraphConvolution, self).__init__()
+        """Initializes the GraphConvolution layer.
+
+        Args:
+            in_channels (int): Number of channels in the input graph.
+            out_channels (int): Number of channels in the output graph.
+            num_nodes (int, optional): Number of nodes in the graph. Defaults to 543.
+        """
+        super().__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.num_nodes = num_nodes
@@ -24,13 +38,18 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
         self.reset_parameters()
 
     def reset_parameters(self) -> None:
+        """Resets the layer parameters using Kaiming uniform initialization."""
         nn.init.kaiming_uniform_(self.weight, a=math.sqrt(5) if hasattr(self, 'math') else 1e-2)
 
     def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
-        """Forward pass.
+        """Forward pass for the spatial graph convolution.
 
-        Input shape: (batch_size, num_nodes, in_channels)
-        Output shape: (batch_size, num_nodes, out_channels)
+        Args:
+            x (torch.Tensor): The input features of shape (batch_size, num_nodes, in_channels).
+            adjacency (torch.Tensor): The adjacency matrix of shape (num_nodes, num_nodes).
+
+        Returns:
+            torch.Tensor: The output features of shape (batch_size, num_nodes, out_channels).
         """
         # Apply edge importance weights to adjacency
         a_weighted = adjacency * self.edge_importance
@@ -53,9 +72,15 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
 
 
 class TemporalConvolution(nn.Module):  # type: ignore[misc]
-    """1D Temporal Convolution Layer over the frames sequence."""
+    """1D Temporal Convolution Layer over the frames sequence.
 
-    def __init__(
+    Attributes:
+        conv (nn.Conv2d): The 2D convolution layer acting as a 1D temporal convolution.
+        bn (nn.BatchNorm2d): The batch normalization layer.
+        relu (nn.ReLU): The ReLU activation function.
+    """
+
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         in_channels: int,
         out_channels: int,
@@ -63,7 +88,16 @@ class TemporalConvolution(nn.Module):  # type: ignore[misc]
         stride: int = 1,
         padding: int = 4
     ) -> None:
-        super(TemporalConvolution, self).__init__()
+        """Initializes the TemporalConvolution layer.
+
+        Args:
+            in_channels (int): Number of channels in the input.
+            out_channels (int): Number of channels produced by the convolution.
+            kernel_size (int, optional): Size of the convolving kernel. Defaults to 9.
+            stride (int, optional): Stride of the convolution. Defaults to 1.
+            padding (int, optional): Zero-padding added to both sides of the input. Defaults to 4.
+        """
+        super().__init__()
         self.conv = nn.Conv2d(
             in_channels,
             out_channels,
@@ -75,9 +109,13 @@ class TemporalConvolution(nn.Module):  # type: ignore[misc]
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)
+        """Forward pass for the temporal convolution.
 
-        Output shape: (batch_size, out_channels, num_frames, num_nodes)
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
+
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, out_channels, num_frames, num_nodes).
         """
         out = self.conv(x)
         out = self.bn(out)

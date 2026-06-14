@@ -147,7 +147,7 @@
     },
     {
       "id": "add-docstrings-to-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to GCN module",
@@ -172,6 +172,21 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_bot without critical errors"
+      ]
+    },
+    {
+      "id": "add-unit-tests-for-gcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add unit tests for GCN module",
+      "description": "Add comprehensive unit tests for GraphConvolution and TemporalConvolution classes in ml_training/models/gcn.py.",
+      "allowed_paths": [
+        "tests/test_ml.py"
+      ],
+      "acceptance": [
+        "tests cover core functionalities of GraphConvolution and TemporalConvolution",
+        "pytest runs successfully and tests pass"
       ]
     }
   ]
