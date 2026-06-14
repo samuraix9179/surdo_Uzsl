@@ -144,6 +144,20 @@
         "pylint is installed and can be run",
         ".pylintrc exists and configuration is basic"
       ]
+    },
+    {
+      "id": "add-type-hints-to-sgcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add type hints to SGCN module",
+      "description": "Add proper return type and argument type hints to the methods in SGCN class in ml_training/models/sgcn.py.",
+      "allowed_paths": [
+        "ml_training/models/sgcn.py"
+      ],
+      "acceptance": [
+        "mypy passes for ml_training/models/sgcn.py"
+      ]
     }
   ]
 }
