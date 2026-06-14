@@ -176,7 +176,7 @@
     },
     {
       "id": "add-docstrings-to-sl-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add docstrings to SL-GCN module",
@@ -201,6 +201,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on uzsl_translator without critical errors"
+      ]
+    },
+    {
+      "id": "add-type-hints-to-sl-gcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add type hints to SL-GCN module",
+      "description": "Add type hints to classes and methods in ml_training/models/sl_gcn.py to satisfy mypy.",
+      "allowed_paths": [
+        "ml_training/models/sl_gcn.py"
+      ],
+      "acceptance": [
+        "mypy ml_training/models/sl_gcn.py passes without errors"
       ]
     }
   ]
