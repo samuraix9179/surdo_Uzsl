@@ -1,4 +1,4 @@
-import torch.nn as nn
+from torch import nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution
 
 
@@ -9,7 +9,15 @@ class STGCNBlock(nn.Module):
     """
 
     def __init__(self, in_channels, out_channels, num_nodes=543, stride=1):
-        super(STGCNBlock, self).__init__()
+        """Initialize the Spatial Temporal Graph Convolution Block.
+
+        Args:
+            in_channels: Number of input channels.
+            out_channels: Number of output channels.
+            num_nodes: Total number of skeletal joints in the graph. Default is 543.
+            stride: Temporal stride for the temporal convolution. Default is 1.
+        """
+        super().__init__()
         # Spatial Graph Convolution
         self.gcn = GraphConvolution(in_channels, out_channels, num_nodes=num_nodes)
 
@@ -28,7 +36,15 @@ class STGCNBlock(nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x, adjacency):
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)"""
+        """Forward pass for STGCNBlock.
+
+        Args:
+            x: Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
+            adjacency: Adjacency matrix of shape (num_nodes, num_nodes) representing skeleton graph.
+
+        Returns:
+            Output tensor after applying spatial and temporal convolution.
+        """
         bs, in_c, num_frames, num_nodes = x.size()
 
         # Reshape for spatial graph convolution
@@ -50,14 +66,21 @@ class STGCNBlock(nn.Module):
         return self.relu(self.bn(x_tcn_out) + res)
 
 
-class SLGCN(nn.Module):
+class SLGCN(nn.Module):  # pylint: disable=too-many-instance-attributes
     """Skeletal Graph Convolution Network (SL-GCN) for UZSL.
 
     Consists of stacked Spatial-Temporal GCN blocks and a classification head.
     """
 
     def __init__(self, in_channels=3, num_classes=100, num_nodes=543):
-        super(SLGCN, self).__init__()
+        """Initialize the Skeletal Graph Convolution Network.
+
+        Args:
+            in_channels: Number of input channels per node coordinate (e.g., 3 for x,y,z). Default is 3.
+            num_classes: Number of distinct classification categories. Default is 100.
+            num_nodes: Total number of skeletal joints in the graph. Default is 543.
+        """
+        super().__init__()
         self.num_nodes = num_nodes
 
         # Initial skeletal node projection (maps coordinate points (x, y, z) to hidden dimensions)
@@ -75,10 +98,15 @@ class SLGCN(nn.Module):
         self.fc = nn.Linear(256, num_classes)
 
     def forward(self, x, adjacency):
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)
+        """Forward pass for SLGCN.
 
-        in_channels is usually 3 for (x, y, z) coordinates.
-        Output shape: (batch_size, num_classes) probabilities.
+        Args:
+            x: Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
+                in_channels is usually 3 for (x, y, z) coordinates.
+            adjacency: Adjacency matrix representing spatial graph connections.
+
+        Returns:
+            logits: Output tensor of shape (batch_size, num_classes) representing category probabilities.
         """
         # Initial projection
         out = self.projection(x)
