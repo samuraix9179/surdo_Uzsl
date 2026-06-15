@@ -23,10 +23,10 @@ NUM_NODES = 543
 NUM_FRAMES = 60  # Longer frame sequence for continuous sentences
 
 
-class UZSLContinuousDataset(Dataset):
+class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
     """Custom PyTorch Dataset for Continuous UZSL sentences."""
 
-    def __init__(self, data_dir=LANDMARKS_DIR, target_frames=NUM_FRAMES):
+    def __init__(self, data_dir: str = LANDMARKS_DIR, target_frames: int = NUM_FRAMES) -> None:
         self.target_frames = target_frames
         self.samples = []
         self.targets = []
@@ -75,7 +75,7 @@ class UZSLContinuousDataset(Dataset):
                 self.target_lengths.append(len(sentence))
                 self.input_lengths.append(target_frames)
 
-    def _parse_sequence(self, frames):
+    def _parse_sequence(self, frames: list[dict]) -> torch.Tensor:
         seq_len = len(frames)
         tensor_data = torch.zeros(seq_len, NUM_NODES, 3)
 
@@ -114,10 +114,10 @@ class UZSLContinuousDataset(Dataset):
 
         return interpolated.permute(2, 0, 1)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.samples)
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor, int, int]:
         return (
             self.samples[idx],
             self.targets[idx],
@@ -126,7 +126,7 @@ class UZSLContinuousDataset(Dataset):
         )
 
 
-def collate_fn(batch):
+def collate_fn(batch: list[tuple[torch.Tensor, torch.Tensor, int, int]]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     """Custom collate function to handle variable length targets for CTC Loss."""
     inputs, targets, input_lengths, target_lengths = zip(*batch)
     inputs = torch.stack(inputs, 0)
@@ -134,7 +134,7 @@ def collate_fn(batch):
     return inputs, flat_targets, torch.tensor(input_lengths), torch.tensor(target_lengths)
 
 
-def train_continuous():
+def train_continuous() -> None:
     print("⚙️ UZSL Continuous Machine Learning o'qitish boshlandi...")
 
     dataset = UZSLContinuousDataset()

@@ -23,10 +23,10 @@ NUM_NODES = 543
 NUM_FRAMES = 30  # Fixed sliding window frame length
 
 
-class UZSLDataset(Dataset):
+class UZSLDataset(Dataset):  # type: ignore[type-arg]
     """Custom PyTorch Dataset for UZSL skeleton landmarks."""
 
-    def __init__(self, data_dir=LANDMARKS_DIR, target_frames=NUM_FRAMES):
+    def __init__(self, data_dir: str = LANDMARKS_DIR, target_frames: int = NUM_FRAMES) -> None:
         self.target_frames = target_frames
         self.samples = []
         self.labels = []
@@ -60,7 +60,7 @@ class UZSLDataset(Dataset):
             self.samples.append(parsed_sequence)
             self.labels.append(label_idx)
 
-    def _parse_sequence(self, frames):
+    def _parse_sequence(self, frames: list[dict]) -> torch.Tensor:
         """Converts keypoint lists to a normalized, interpolated PyTorch float tensor."""
         seq_len = len(frames)
         tensor_data = torch.zeros(seq_len, NUM_NODES, 3)
@@ -112,14 +112,14 @@ class UZSLDataset(Dataset):
         # Shape layout for ST-Conv: (in_channels=3, num_frames=30, num_nodes=543)
         return interpolated.permute(2, 0, 1)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.samples)
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, int]:
         return self.samples[idx], self.labels[idx]
 
 
-def build_default_adjacency_matrix():
+def build_default_adjacency_matrix() -> torch.Tensor:
     """Generates a default symmetric skeletal adjacency graph matrix for UZSL (543 nodes).
 
     Defines connection weights between hands joints, face anchors, and pose limbs.
@@ -161,7 +161,7 @@ def build_default_adjacency_matrix():
     return adj
 
 
-def train():
+def train() -> None:
     print("⚙️ UZSL Machine Learning o'qitish boshlandi...")
 
     # Load dataset
