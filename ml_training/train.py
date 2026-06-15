@@ -6,8 +6,8 @@ import math
 
 try:
     import torch
-    import torch.nn as nn
-    import torch.optim as optim
+    from torch import nn
+    from torch import optim
     from torch.utils.data import Dataset, DataLoader
 except ImportError:
     print("⚠️ Ushbu o'qitish skriptini ishlatish uchun PyTorch-ni o'rnating:")
@@ -203,7 +203,7 @@ def train():
         correct = 0
         total = 0
 
-        for batch_idx, (inputs, targets) in enumerate(dataloader):
+        for _, (inputs, targets) in enumerate(dataloader):
             inputs = inputs.to(device)
             targets = targets.to(device)
 

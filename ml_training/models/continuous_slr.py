@@ -1,4 +1,4 @@
-import torch.nn as nn
+from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock
 
 
@@ -11,7 +11,7 @@ class ContinuousSLR(nn.Module):
     """
 
     def __init__(self, in_channels=3, num_classes=100, num_nodes=543, hidden_dim=256, num_layers=2):
-        super(ContinuousSLR, self).__init__()
+        super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)
         self.proj = nn.Sequential(

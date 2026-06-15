@@ -11,10 +11,10 @@ except ImportError:
     # PyTorch is optional for the pipeline interface demo
     torch = None
 
-from utils.grammar_translator import translate_uzsl_to_uzbek  # noqa: E402
+from utils.grammar_translator import translate_uzsl_to_uzbek  # noqa: E402  # pylint: disable=import-error
 
 
-class UZSLPipeline:
+class UZSLPipeline:  # pylint: disable=too-few-public-methods
     """End-to-End translation pipeline.
 
     Connects ML sequence keypoint predictions to the Uzbek grammar translator.

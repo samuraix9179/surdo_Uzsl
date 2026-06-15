@@ -219,7 +219,7 @@
     },
     {
       "id": "verify-pylint-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training module",
@@ -244,6 +244,20 @@
       ],
       "acceptance": [
         "mypy passes for ml_training"
+      ]
+    },
+    {
+      "id": "add-docstrings-to-sstcn-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add docstrings to SSTCN module",
+      "description": "Add Google-style docstrings to the SSTCN module to improve documentation.",
+      "allowed_paths": [
+        "ml_training/models/sstcn.py"
+      ],
+      "acceptance": [
+        "SSTCN module is fully documented with Google-style docstrings"
       ]
     }
   ]
