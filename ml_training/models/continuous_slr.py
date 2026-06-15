@@ -11,7 +11,8 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
     Outputs classification logits per time step, compatible with CTC Loss.
     """
 
-    def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543, hidden_dim: int = 256, num_layers: int = 2) -> None:
+    def __init__(self, in_channels: int = 3, num_classes: int = 100,
+                 num_nodes: int = 543, hidden_dim: int = 256, num_layers: int = 2) -> None:
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)
