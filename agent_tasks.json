@@ -190,7 +190,7 @@
     },
     {
       "id": "verify-pylint-on-translator-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on uzsl_translator module",
@@ -215,6 +215,21 @@
       ],
       "acceptance": [
         "mypy passes for ml_training/models/sl_gcn.py with --disallow-untyped-defs"
+      ]
+    },
+    {
+      "id": "verify-pylint-on-ml-training-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on ml_training module",
+      "description": "Run pylint on the ml_training module and resolve high-priority warnings to ensure codebase quality consistency.",
+      "allowed_paths": [
+        "ml_training/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on ml_training without critical errors"
       ]
     }
   ]
