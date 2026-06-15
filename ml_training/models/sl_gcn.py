@@ -1,4 +1,4 @@
-import torch.nn as nn
+from torch import nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution
 
 
@@ -6,10 +6,25 @@ class STGCNBlock(nn.Module):
     """Spatial Temporal Graph Convolution Block.
 
     Applies spatial graph convolution followed by temporal 1D convolution over frames.
+
+    Attributes:
+        gcn (GraphConvolution): Spatial graph convolution layer.
+        tcn (TemporalConvolution): Temporal 1D convolution layer.
+        residual (nn.Sequential): Residual shortcut connection.
+        bn (nn.BatchNorm2d): Batch normalization layer.
+        relu (nn.ReLU): ReLU activation function.
     """
 
     def __init__(self, in_channels, out_channels, num_nodes=543, stride=1):
-        super(STGCNBlock, self).__init__()
+        """Initializes the STGCNBlock.
+
+        Args:
+            in_channels (int): Number of input channels.
+            out_channels (int): Number of output channels.
+            num_nodes (int): Number of nodes in the graph (default: 543).
+            stride (int): Stride for the temporal convolution (default: 1).
+        """
+        super().__init__()
         # Spatial Graph Convolution
         self.gcn = GraphConvolution(in_channels, out_channels, num_nodes=num_nodes)
 
@@ -28,7 +43,15 @@ class STGCNBlock(nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x, adjacency):
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)"""
+        """Forward pass of the ST-GCN Block.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
+            adjacency (torch.Tensor): Adjacency matrix of shape (num_nodes, num_nodes).
+
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, out_channels, num_frames/stride, num_nodes).
+        """
         bs, in_c, num_frames, num_nodes = x.size()
 
         # Reshape for spatial graph convolution
@@ -50,14 +73,32 @@ class STGCNBlock(nn.Module):
         return self.relu(self.bn(x_tcn_out) + res)
 
 
-class SLGCN(nn.Module):
+class SLGCN(nn.Module):  # pylint: disable=too-many-instance-attributes
     """Skeletal Graph Convolution Network (SL-GCN) for UZSL.
 
     Consists of stacked Spatial-Temporal GCN blocks and a classification head.
+
+    Attributes:
+        num_nodes (int): Number of nodes in the graph.
+        projection (nn.Conv2d): Initial skeletal node projection mapping.
+        bn_proj (nn.BatchNorm2d): Batch normalization for projection layer.
+        relu_proj (nn.ReLU): ReLU activation for projection layer.
+        block1 (STGCNBlock): First Spatial-Temporal GCN block.
+        block2 (STGCNBlock): Second Spatial-Temporal GCN block with temporal downsampling.
+        block3 (STGCNBlock): Third Spatial-Temporal GCN block with temporal downsampling.
+        pool (nn.AdaptiveAvgPool2d): Global adaptive average pooling layer.
+        fc (nn.Linear): Fully connected classification layer.
     """
 
     def __init__(self, in_channels=3, num_classes=100, num_nodes=543):
-        super(SLGCN, self).__init__()
+        """Initializes the SL-GCN network.
+
+        Args:
+            in_channels (int): Number of input channels, usually 3 for (x, y, z) coordinates.
+            num_classes (int): Number of classification classes (default: 100).
+            num_nodes (int): Number of nodes in the graph (default: 543).
+        """
+        super().__init__()
         self.num_nodes = num_nodes
 
         # Initial skeletal node projection (maps coordinate points (x, y, z) to hidden dimensions)
@@ -75,10 +116,14 @@ class SLGCN(nn.Module):
         self.fc = nn.Linear(256, num_classes)
 
     def forward(self, x, adjacency):
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)
+        """Forward pass of the SL-GCN network.
 
-        in_channels is usually 3 for (x, y, z) coordinates.
-        Output shape: (batch_size, num_classes) probabilities.
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
+            adjacency (torch.Tensor): Adjacency matrix of shape (num_nodes, num_nodes).
+
+        Returns:
+            torch.Tensor: Logits representing class probabilities of shape (batch_size, num_classes).
         """
         # Initial projection
         out = self.projection(x)
