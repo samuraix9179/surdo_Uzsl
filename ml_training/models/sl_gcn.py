@@ -1,5 +1,5 @@
 import torch
-import torch.nn as nn
+from torch import nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution
 
 
@@ -25,7 +25,7 @@ class STGCNBlock(nn.Module):  # type: ignore[misc]
             num_nodes (int): Number of nodes in the graph. Defaults to 543.
             stride (int): Stride of the temporal convolution. Defaults to 1.
         """
-        super(STGCNBlock, self).__init__()
+        super().__init__()
         # Spatial Graph Convolution
         self.gcn = GraphConvolution(in_channels, out_channels, num_nodes=num_nodes)
 
@@ -75,6 +75,7 @@ class STGCNBlock(nn.Module):  # type: ignore[misc]
 
 
 class SLGCN(nn.Module):  # type: ignore[misc]
+    # pylint: disable=too-many-instance-attributes
     """Skeletal Graph Convolution Network (SL-GCN) for UZSL.
 
     Consists of stacked Spatial-Temporal GCN blocks and a classification head.
@@ -99,7 +100,7 @@ class SLGCN(nn.Module):  # type: ignore[misc]
             num_classes (int): Number of output classes. Defaults to 100.
             num_nodes (int): Number of nodes in the graph. Defaults to 543.
         """
-        super(SLGCN, self).__init__()
+        super().__init__()
         self.num_nodes = num_nodes
 
         # Initial skeletal node projection (maps coordinate points (x, y, z) to hidden dimensions)

@@ -1,6 +1,6 @@
 import math
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 class GraphConvolution(nn.Module):  # type: ignore[misc]
@@ -25,7 +25,7 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
             out_channels (int): Number of output channels.
             num_nodes (int, optional): Number of nodes in the graph. Defaults to 543.
         """
-        super(GraphConvolution, self).__init__()
+        super().__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.num_nodes = num_nodes
@@ -97,7 +97,7 @@ class TemporalConvolution(nn.Module):  # type: ignore[misc]
             stride (int, optional): Stride for the temporal convolution. Defaults to 1.
             padding (int, optional): Padding for the temporal convolution. Defaults to 4.
         """
-        super(TemporalConvolution, self).__init__()
+        super().__init__()
         self.conv = nn.Conv2d(
             in_channels,
             out_channels,
