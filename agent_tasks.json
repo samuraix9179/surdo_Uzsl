@@ -234,7 +234,7 @@
         },
         {
             "id": "verify-mypy-on-ml-training-module",
-            "status": "todo",
+            "status": "done",
             "area": "quality",
             "risk": "low",
             "title": "Verify MyPy on ML Training module",
@@ -260,6 +260,20 @@
             ],
             "acceptance": [
                 "pylint runs successfully on ml_training test files"
+            ]
+        },
+        {
+            "id": "verify-mypy-on-uzsl-bot",
+            "title": "Verify MyPy on UZSL Bot module",
+            "description": "Ensure static typing is fully verified.",
+            "area": "quality",
+            "risk": "low",
+            "status": "todo",
+            "allowed_paths": [
+                "uzsl_bot/"
+            ],
+            "acceptance": [
+                "mypy passes for uzsl_bot"
             ]
         }
     ]

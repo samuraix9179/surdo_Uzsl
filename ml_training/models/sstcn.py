@@ -1,13 +1,13 @@
-from torch import nn
+from torch import nn, Tensor
 
 
-class SeparableSTBlock(nn.Module):
+class SeparableSTBlock(nn.Module):  # type: ignore[misc]
     """Decomposed Spatial-Temporal Convolution block.
 
     Separates spatial channel mixing from temporal feature tracking.
     """
 
-    def __init__(self, in_channels, out_channels, stride=1):
+    def __init__(self, in_channels: int, out_channels: int, stride: int = 1) -> None:
         super().__init__()
 
         # Spatial Depthwise Convolution (mixes landmark point coordinates locally)
@@ -39,7 +39,7 @@ class SeparableSTBlock(nn.Module):
                 nn.BatchNorm2d(out_channels)
             )
 
-    def forward(self, x):
+    def forward(self, x: Tensor) -> Tensor:
         """Input shape: (batch_size, in_channels, num_frames, num_nodes)"""
         out = self.spatial_conv(x)
         out = self.temporal_conv(out)
@@ -47,13 +47,13 @@ class SeparableSTBlock(nn.Module):
         return self.relu(out + self.shortcut(x))
 
 
-class SSTCN(nn.Module):
+class SSTCN(nn.Module):  # type: ignore[misc]
     """Separable Spatial-Temporal Convolution Network (SSTCN) for UZSL.
 
     A highly optimized, lightweight model ideal for fast TFLite mobile GPU inference.
     """
 
-    def __init__(self, in_channels=3, num_classes=100, num_nodes=543):
+    def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543) -> None:
         super().__init__()
         self.num_nodes = num_nodes
 
@@ -73,7 +73,7 @@ class SSTCN(nn.Module):
         self.pool = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Linear(256, num_classes)
 
-    def forward(self, x):
+    def forward(self, x: Tensor) -> Tensor:
         """Input shape: (batch_size, in_channels, num_frames, num_nodes)
 
         Returns: (batch_size, num_classes) probabilities.

@@ -1,8 +1,8 @@
-from torch import nn
+from torch import nn, Tensor
 from ml_training.models.sstcn import SeparableSTBlock
 
 
-class ContinuousSLR(nn.Module):
+class ContinuousSLR(nn.Module):  # type: ignore[misc]
     """Continuous Sign Language Recognition (CSLR) Model.
 
     Combines Separable Spatial-Temporal Convolutions (SSTCN) as a feature extractor,
@@ -10,7 +10,7 @@ class ContinuousSLR(nn.Module):
     Outputs classification logits per time step, compatible with CTC Loss.
     """
 
-    def __init__(self, in_channels=3, num_classes=100, num_nodes=543, hidden_dim=256, num_layers=2):
+    def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543, hidden_dim: int = 256, num_layers: int = 2) -> None:
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)
@@ -41,7 +41,7 @@ class ContinuousSLR(nn.Module):
         # Classification head for CTC (num_classes + 1 for the CTC blank token)
         self.fc = nn.Linear(hidden_dim * 2, num_classes + 1)
 
-    def forward(self, x):
+    def forward(self, x: Tensor) -> Tensor:
         """Forward pass.
 
         Input shape: (batch_size, in_channels, num_frames, num_nodes)
