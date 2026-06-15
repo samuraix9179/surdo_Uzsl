@@ -1,8 +1,9 @@
+import torch
 import torch.nn as nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution
 
 
-class STGCNBlock(nn.Module):
+class STGCNBlock(nn.Module):  # type: ignore[misc]
     """Spatial Temporal Graph Convolution Block.
 
     Applies spatial graph convolution followed by temporal 1D convolution over frames.
@@ -15,7 +16,7 @@ class STGCNBlock(nn.Module):
         relu (nn.ReLU): ReLU activation layer.
     """
 
-    def __init__(self, in_channels, out_channels, num_nodes=543, stride=1):
+    def __init__(self, in_channels: int, out_channels: int, num_nodes: int = 543, stride: int = 1) -> None:
         """Initializes the STGCNBlock.
 
         Args:
@@ -42,7 +43,7 @@ class STGCNBlock(nn.Module):
         self.bn = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU(inplace=True)
 
-    def forward(self, x, adjacency):
+    def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
         """Applies spatial and temporal graph convolutions to the input.
 
         Args:
@@ -73,7 +74,7 @@ class STGCNBlock(nn.Module):
         return self.relu(self.bn(x_tcn_out) + res)
 
 
-class SLGCN(nn.Module):
+class SLGCN(nn.Module):  # type: ignore[misc]
     """Skeletal Graph Convolution Network (SL-GCN) for UZSL.
 
     Consists of stacked Spatial-Temporal GCN blocks and a classification head.
@@ -90,7 +91,7 @@ class SLGCN(nn.Module):
         fc (nn.Linear): Fully connected classification layer.
     """
 
-    def __init__(self, in_channels=3, num_classes=100, num_nodes=543):
+    def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543) -> None:
         """Initializes the SLGCN network.
 
         Args:
@@ -115,7 +116,7 @@ class SLGCN(nn.Module):
         self.pool = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Linear(256, num_classes)
 
-    def forward(self, x, adjacency):
+    def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
         """Performs a forward pass of the SLGCN model.
 
         Args:

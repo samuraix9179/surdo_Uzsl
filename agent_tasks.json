@@ -205,7 +205,7 @@
     },
     {
       "id": "add-type-hints-to-sl-gcn-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Add type hints to SL-GCN module",
@@ -230,6 +230,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on ml_training without critical errors"
+      ]
+    },
+    {
+      "id": "verify-mypy-on-ml-training-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify MyPy on ML Training module",
+      "description": "Ensure static typing is fully verified.",
+      "allowed_paths": [
+        "ml_training/"
+      ],
+      "acceptance": [
+        "mypy passes for ml_training"
       ]
     }
   ]
