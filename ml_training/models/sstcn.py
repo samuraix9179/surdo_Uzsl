@@ -1,4 +1,4 @@
-import torch.nn as nn
+from torch import nn
 
 
 class SeparableSTBlock(nn.Module):
@@ -8,7 +8,7 @@ class SeparableSTBlock(nn.Module):
     """
 
     def __init__(self, in_channels, out_channels, stride=1):
-        super(SeparableSTBlock, self).__init__()
+        super().__init__()
 
         # Spatial Depthwise Convolution (mixes landmark point coordinates locally)
         self.spatial_conv = nn.Conv2d(
@@ -54,7 +54,7 @@ class SSTCN(nn.Module):
     """
 
     def __init__(self, in_channels=3, num_classes=100, num_nodes=543):
-        super(SSTCN, self).__init__()
+        super().__init__()
         self.num_nodes = num_nodes
 
         # Initial Feature Projector

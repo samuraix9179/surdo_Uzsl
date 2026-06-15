@@ -6,8 +6,8 @@ import glob
 
 try:
     import torch
-    import torch.nn as nn
-    import torch.optim as optim
+    from torch import nn
+    from torch import optim
     import torch.nn.functional as F
     from torch.utils.data import Dataset, DataLoader
 except ImportError:
@@ -158,7 +158,7 @@ def train_continuous():
 
     for epoch in range(num_epochs):
         epoch_loss = 0.0
-        for batch_idx, (inputs, targets, input_lens, target_lens) in enumerate(dataloader):
+        for _, (inputs, targets, input_lens, target_lens) in enumerate(dataloader):
             inputs = inputs.to(device)
             targets = targets.to(device)
 

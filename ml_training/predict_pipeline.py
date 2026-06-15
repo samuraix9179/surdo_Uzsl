@@ -15,6 +15,7 @@ from utils.grammar_translator import translate_uzsl_to_uzbek  # noqa: E402
 
 
 class UZSLPipeline:
+    # pylint: disable=too-few-public-methods
     """End-to-End translation pipeline.
 
     Connects ML sequence keypoint predictions to the Uzbek grammar translator.
