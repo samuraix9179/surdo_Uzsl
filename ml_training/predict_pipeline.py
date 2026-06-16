@@ -11,6 +11,7 @@ except ImportError:
     # PyTorch is optional for the pipeline interface demo
     torch = None
 
+from typing import Optional
 from utils.grammar_translator import translate_uzsl_to_uzbek  # noqa: E402
 
 
@@ -21,7 +22,7 @@ class UZSLPipeline:
     Connects ML sequence keypoint predictions to the Uzbek grammar translator.
     """
 
-    def __init__(self, model_path=None, model_type="SSTCN"):
+    def __init__(self, model_path: Optional[str] = None, model_type: str = "SSTCN") -> None:
         self.model_type = model_type
         self.model = None
         self.device = "cpu"
