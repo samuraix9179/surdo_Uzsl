@@ -21,7 +21,7 @@ class UZSLPipeline:
     Connects ML sequence keypoint predictions to the Uzbek grammar translator.
     """
 
-    def __init__(self, model_path=None, model_type="SSTCN"):
+    def __init__(self, model_path: str | None = None, model_type: str = "SSTCN") -> None:
         self.model_type = model_type
         self.model = None
         self.device = "cpu"
