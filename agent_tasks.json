@@ -248,7 +248,7 @@
     },
     {
       "id": "setup-pylint-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training tests",
@@ -274,6 +274,21 @@
       ],
       "acceptance": [
         "All public functions and classes have valid Google-style docstrings."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-utils",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on utils module",
+      "description": "Run pylint on the utils module within uzsl_bot to keep code quality high.",
+      "allowed_paths": [
+        "uzsl_bot/utils/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on uzsl_bot/utils test files"
       ]
     }
   ]
