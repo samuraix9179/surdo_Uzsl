@@ -128,7 +128,9 @@ class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
         )
 
 
-def collate_fn(batch: list[tuple[torch.Tensor, torch.Tensor, int, int]]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+def collate_fn(
+    batch: list[tuple[torch.Tensor, torch.Tensor, int, int]]
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     """Custom collate function to handle variable length targets for CTC Loss."""
     inputs, targets, input_lengths, target_lengths = zip(*batch)
     inputs = torch.stack(inputs, 0)
