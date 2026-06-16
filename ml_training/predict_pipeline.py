@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Optional
 
 # Add root and uzsl_bot directories to sys.path for importing bot components
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -21,7 +22,7 @@ class UZSLPipeline:
     Connects ML sequence keypoint predictions to the Uzbek grammar translator.
     """
 
-    def __init__(self, model_path=None, model_type="SSTCN"):
+    def __init__(self, model_path: Optional[str] = None, model_type: str = "SSTCN") -> None:
         self.model_type = model_type
         self.model = None
         self.device = "cpu"
