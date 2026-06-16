@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 
 try:
@@ -8,7 +9,7 @@ except ImportError:
     YOLO = None
 
 
-def prepare_mock_yolo_dataset(base_dir="yolo_dataset"):
+def prepare_mock_yolo_dataset(base_dir: str = "yolo_dataset") -> None:
     """Prepares directory structure and mock images for YOLOv8 classification."""
     classes = ["A", "B", "C", "I", "O", "U"]
     splits = ["train", "val"]
@@ -24,7 +25,7 @@ def prepare_mock_yolo_dataset(base_dir="yolo_dataset"):
                 f.write("DUMMY IMAGE BYTES")
 
 
-def train_yolo():
+def train_yolo() -> None:
     print("⚙️ UZSL YOLOv8 Statik Daktil klassifikatsiyasini o'qitish boshlandi...")
 
     if YOLO is None:

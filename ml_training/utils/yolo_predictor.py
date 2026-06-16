@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import Any
 try:
     from ultralytics import YOLO
 except ImportError:
@@ -7,7 +9,7 @@ except ImportError:
 class YOLOSignPredictor:
     """Wrapper class for YOLOv8 static sign and dactyl letter classification."""
 
-    def __init__(self, model_path="yolov8n-cls.pt"):
+    def __init__(self, model_path: str = "yolov8n-cls.pt") -> None:
         self.model = None
         if YOLO is not None:
             try:
@@ -17,7 +19,7 @@ class YOLOSignPredictor:
             except Exception as e:
                 print(f"⚠️ YOLO model loading failed: {e}")
 
-    def predict_dactyl(self, source) -> dict:
+    def predict_dactyl(self, source: Any) -> dict:
         """Classifies static hand shape from rasm/frame.
 
         :param source: Path to image, numpy array, or PIL image.
