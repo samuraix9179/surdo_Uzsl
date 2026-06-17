@@ -248,7 +248,7 @@
     },
     {
       "id": "setup-pylint-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training tests",
@@ -274,6 +274,21 @@
       ],
       "acceptance": [
         "All public functions and classes have valid Google-style docstrings."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-ml-training-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify MyPy on ML Training tests",
+      "description": "Ensure static typing is fully verified for the tests covering the ml_training module.",
+      "allowed_paths": [
+        "tests/test_ml.py",
+        "mypy.ini"
+      ],
+      "acceptance": [
+        "mypy passes for tests/test_ml.py"
       ]
     }
   ]
