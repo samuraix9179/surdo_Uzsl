@@ -248,7 +248,7 @@
     },
     {
       "id": "setup-pylint-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training tests",
@@ -274,6 +274,21 @@
       ],
       "acceptance": [
         "All public functions and classes have valid Google-style docstrings."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-ml-training-models",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on ml_training models",
+      "description": "Run pylint on the models within the ml_training module to keep code quality high.",
+      "allowed_paths": [
+        "ml_training/models/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on ml_training model files"
       ]
     }
   ]
