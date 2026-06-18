@@ -248,7 +248,7 @@
     },
     {
       "id": "setup-pylint-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training tests",
@@ -274,6 +274,21 @@
       ],
       "acceptance": [
         "All public functions and classes have valid Google-style docstrings."
+      ]
+    },
+    {
+      "id": "verify-flake8-on-ml-training-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify Flake8 on ML Training tests",
+      "description": "Run flake8 on tests within the ml_training module to keep code quality high.",
+      "allowed_paths": [
+        "ml_training/**",
+        "tests/**"
+      ],
+      "acceptance": [
+        "flake8 runs successfully on ml_training test files"
       ]
     }
   ]
