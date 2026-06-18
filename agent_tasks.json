@@ -248,7 +248,7 @@
     },
     {
       "id": "setup-pylint-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on ml_training tests",
@@ -274,6 +274,21 @@
       ],
       "acceptance": [
         "All public functions and classes have valid Google-style docstrings."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-tests-database",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on database tests",
+      "description": "Run pylint on tests within the tests module (database part) if they exist to keep code quality high.",
+      "allowed_paths": [
+        "tests/test_database.py",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on test_database.py"
       ]
     }
   ]
