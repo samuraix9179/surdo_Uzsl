@@ -332,16 +332,16 @@ submit_handler = ConversationHandler(
         ],
         WAITING_FREE_TEXT: [
             MessageHandler(
-                (filters.TEXT | filters.VIDEO | filters.VIDEO_NOTE | filters.Animation |
-                 filters.Document | filters.PHOTO) & ~filters.COMMAND,
+                (filters.TEXT | filters.VIDEO | filters.VIDEO_NOTE | filters.ANIMATION |
+                 filters.DOCUMENT | filters.PHOTO) & ~filters.COMMAND,
                 receive_free_text
             ),
             CommandHandler("cancel", cancel_cmd),
         ],
         WAITING_VIDEO: [
             MessageHandler(
-                (filters.VIDEO | filters.VIDEO_NOTE | filters.Animation |
-                 filters.Document | filters.PHOTO) & ~filters.COMMAND,
+                (filters.VIDEO | filters.VIDEO_NOTE | filters.ANIMATION |
+                 filters.DOCUMENT | filters.PHOTO) & ~filters.COMMAND,
                 receive_video
             ),
             CallbackQueryHandler(skip_label, pattern="^skip_label$"),
