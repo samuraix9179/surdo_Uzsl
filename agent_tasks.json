@@ -293,17 +293,17 @@
       ]
     },
     {
-      "id": "verify-pylint-on-ml-training-module",
+      "id": "verify-flake8-on-ml-training-module",
       "status": "todo",
       "area": "quality",
       "risk": "low",
-      "title": "Verify pylint on ML Training module",
-      "description": "Ensure that the `ml_training/` module strictly adheres to codebase linting rules.",
+      "title": "Verify flake8 on ML Training module",
+      "description": "Ensure that the `ml_training/` module strictly adheres to codebase flake8 linting rules.",
       "allowed_paths": [
         "ml_training/"
       ],
       "acceptance": [
-        "Running `pylint ml_training/` yields a score of 10.0/10."
+        "Running `flake8 ml_training/` yields no errors."
       ]
     }
   ]
