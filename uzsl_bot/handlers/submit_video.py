@@ -114,7 +114,9 @@ async def receive_free_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text or update.message.caption
     if not text:
         if update.message.document:
-            await update.message.reply_text("❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring.")
+            await update.message.reply_text(
+                "❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring."
+            )
             return WAITING_FREE_TEXT
         await update.message.reply_text("Iltimos, avval ko'rsatmoqchi bo'lgan so'zingizni matn ko'rinishida yuboring.")
         return WAITING_FREE_TEXT
@@ -130,9 +132,11 @@ async def receive_free_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["is_free_translation"] = True
 
     if update.message.document:
-        await update.message.reply_text("❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring.")
+        await update.message.reply_text(
+            "❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring."
+        )
         # Proceed to send instructions so they can resend as video
-        
+
     video = update.message.video or update.message.video_note or update.message.animation
     if video and not update.message.document:
         return await receive_video(update, context)
@@ -196,7 +200,9 @@ async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
 
     if update.message.document:
-        await update.message.reply_text("❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring.")
+        await update.message.reply_text(
+            "❌ Iltimos, videoni fayl (document) ko'rinishida emas, oddiy video qilib yuboring."
+        )
         return WAITING_VIDEO
 
     video = update.message.video or update.message.video_note or update.message.animation
@@ -325,11 +331,19 @@ submit_handler = ConversationHandler(
             CallbackQueryHandler(cancel_callback, pattern="^submit_cancel$"),
         ],
         WAITING_FREE_TEXT: [
-            MessageHandler((filters.TEXT | filters.VIDEO | filters.VIDEO_NOTE | filters.Animation | filters.Document | filters.PHOTO) & ~filters.COMMAND, receive_free_text),
+            MessageHandler(
+                (filters.TEXT | filters.VIDEO | filters.VIDEO_NOTE | filters.Animation |
+                 filters.Document | filters.PHOTO) & ~filters.COMMAND,
+                receive_free_text
+            ),
             CommandHandler("cancel", cancel_cmd),
         ],
         WAITING_VIDEO: [
-            MessageHandler((filters.VIDEO | filters.VIDEO_NOTE | filters.Animation | filters.Document | filters.PHOTO) & ~filters.COMMAND, receive_video),
+            MessageHandler(
+                (filters.VIDEO | filters.VIDEO_NOTE | filters.Animation |
+                 filters.Document | filters.PHOTO) & ~filters.COMMAND,
+                receive_video
+            ),
             CallbackQueryHandler(skip_label, pattern="^skip_label$"),
             CallbackQueryHandler(cancel_callback, pattern="^submit_cancel$"),
             CommandHandler("cancel", cancel_cmd),
