@@ -1,3 +1,5 @@
+"""Separable Spatial-Temporal Convolution Network (SSTCN) architecture."""
+
 import torch
 from torch import nn
 

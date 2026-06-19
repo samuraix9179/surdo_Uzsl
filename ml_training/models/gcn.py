@@ -1,3 +1,5 @@
+"""Graph Convolutional layers for skeleton-based models."""
+
 import math
 import torch
 from torch import nn

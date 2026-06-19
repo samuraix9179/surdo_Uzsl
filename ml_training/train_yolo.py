@@ -1,3 +1,5 @@
+"""Train YOLOv8 models for static dactyl classification."""
+
 import os
 
 try:
@@ -25,6 +27,7 @@ def prepare_mock_yolo_dataset(base_dir: str = "yolo_dataset") -> None:
 
 
 def train_yolo() -> None:
+    """Trains the YOLOv8 model for static dactyl classification."""
     print("⚙️ UZSL YOLOv8 Statik Daktil klassifikatsiyasini o'qitish boshlandi...")
 
     if YOLO is None:

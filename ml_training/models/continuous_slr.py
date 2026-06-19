@@ -1,3 +1,5 @@
+"""Continuous Sign Language Recognition (CSLR) architecture."""
+
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock

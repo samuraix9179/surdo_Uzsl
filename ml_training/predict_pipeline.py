@@ -1,3 +1,5 @@
+"""End-to-End prediction pipeline for Sign Language Translation."""
+
 import os
 import sys
 from typing import Optional
