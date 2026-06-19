@@ -1,3 +1,7 @@
+"""UZSL Machine Learning module for Isolated Sign Language Recognition.
+
+Provides dataloading, adjacency graph setup, and core training loop.
+"""
 from __future__ import annotations
 import json
 import os
@@ -164,6 +168,7 @@ def build_default_adjacency_matrix() -> torch.Tensor:
 
 
 def train() -> None:
+    """Trains the isolated sign language recognition model."""
     print("⚙️ UZSL Machine Learning o'qitish boshlandi...")
 
     # Load dataset

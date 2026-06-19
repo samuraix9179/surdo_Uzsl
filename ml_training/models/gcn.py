@@ -1,3 +1,7 @@
+"""Graph Convolutional Network building blocks for sign language models.
+
+Provides standard graph and temporal convolutions.
+"""
 import math
 import torch
 from torch import nn

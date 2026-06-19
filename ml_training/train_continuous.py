@@ -1,3 +1,7 @@
+"""UZSL Machine Learning module for Continuous Sign Language Recognition.
+
+Provides custom dataloading for CTC loss and the continuous training loop.
+"""
 from __future__ import annotations
 import os
 import sys
@@ -139,6 +143,7 @@ def collate_fn(
 
 
 def train_continuous() -> None:
+    """Trains the continuous sign language recognition model."""
     print("⚙️ UZSL Continuous Machine Learning o'qitish boshlandi...")
 
     dataset = UZSLContinuousDataset()

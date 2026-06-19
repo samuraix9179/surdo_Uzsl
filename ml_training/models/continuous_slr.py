@@ -1,3 +1,7 @@
+"""Continuous Sign Language Recognition (CSLR) module.
+
+Provides a model architecture capable of CTC-loss-based continuous prediction.
+"""
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock

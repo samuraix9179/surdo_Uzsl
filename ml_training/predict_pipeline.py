@@ -1,3 +1,7 @@
+"""UZSL End-to-End Prediction Pipeline.
+
+Provides UZSLPipeline to process landmarks and translate to Uzbek.
+"""
 import os
 import sys
 from typing import Optional

@@ -1,3 +1,7 @@
+"""Separable Spatial-Temporal Convolutional Network (SSTCN) module.
+
+Provides a lightweight architecture for isolated sign language recognition.
+"""
 import torch
 from torch import nn
 
