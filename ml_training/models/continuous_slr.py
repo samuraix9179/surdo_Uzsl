@@ -1,3 +1,5 @@
+"""Continuous Sign Language Recognition model definitions."""
+
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock

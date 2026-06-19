@@ -1,3 +1,5 @@
+"""Spatial-Temporal Graph Convolutional Network module."""
+
 import torch
 from torch import nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution

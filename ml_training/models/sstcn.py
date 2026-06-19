@@ -1,3 +1,5 @@
+"""Separable Spatial-Temporal Convolution Network module."""
+
 import torch
 from torch import nn
 

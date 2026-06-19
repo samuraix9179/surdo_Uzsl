@@ -1,3 +1,5 @@
+"""Training script for continuous sign language recognition models."""
+
 from __future__ import annotations
 import os
 import sys
@@ -139,6 +141,7 @@ def collate_fn(
 
 
 def train_continuous() -> None:
+    """Train continuous sign language model using CTC loss."""
     print("⚙️ UZSL Continuous Machine Learning o'qitish boshlandi...")
 
     dataset = UZSLContinuousDataset()

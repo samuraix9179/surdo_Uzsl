@@ -1,3 +1,5 @@
+"""Prediction pipeline for sign language translation."""
+
 import os
 import sys
 from typing import Optional
