@@ -1,3 +1,4 @@
+"""Training script for UZSL classification models."""
 from __future__ import annotations
 import json
 import os
@@ -164,6 +165,7 @@ def build_default_adjacency_matrix() -> torch.Tensor:
 
 
 def train() -> None:
+    """Executes the training loop for the selected model architecture."""
     print("⚙️ UZSL Machine Learning o'qitish boshlandi...")
 
     # Load dataset

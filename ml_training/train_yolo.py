@@ -1,3 +1,4 @@
+"""YOLO model training script."""
 import os
 
 try:
@@ -25,6 +26,7 @@ def prepare_mock_yolo_dataset(base_dir: str = "yolo_dataset") -> None:
 
 
 def train_yolo() -> None:
+    """Executes the YOLOv8 training loop."""
     print("⚙️ UZSL YOLOv8 Statik Daktil klassifikatsiyasini o'qitish boshlandi...")
 
     if YOLO is None:

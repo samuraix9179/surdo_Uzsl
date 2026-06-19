@@ -1,3 +1,4 @@
+"""Training script for UZSL continuous sentence models."""
 from __future__ import annotations
 import os
 import sys
@@ -139,6 +140,7 @@ def collate_fn(
 
 
 def train_continuous() -> None:
+    """Executes the continuous training loop using CTC Loss."""
     print("⚙️ UZSL Continuous Machine Learning o'qitish boshlandi...")
 
     dataset = UZSLContinuousDataset()

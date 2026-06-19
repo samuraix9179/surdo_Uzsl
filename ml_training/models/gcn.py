@@ -1,3 +1,4 @@
+"""Graph Convolutional Network block for spatial feature extraction."""
 import math
 import torch
 from torch import nn

@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-pylint-on-ml-training-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pylint on ML Training module",
+      "description": "Ensure that the `ml_training/` module strictly adheres to codebase linting rules.",
+      "allowed_paths": [
+        "ml_training/"
+      ],
+      "acceptance": [
+        "Running `pylint ml_training/` yields a score of 10.0/10."
       ]
     }
   ]

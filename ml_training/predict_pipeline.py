@@ -1,3 +1,4 @@
+"""End-to-End translation prediction pipeline."""
 import os
 import sys
 from typing import Optional
