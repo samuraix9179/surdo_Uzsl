@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,22 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "refactor-hardcoded-paths-in-ml-training",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "low",
+      "title": "Refactor hardcoded paths in ML Training",
+      "description": "Refactor hardcoded dataset paths in ml_training/train.py and train_yolo.py to use configurable environment variables or CLI arguments.",
+      "allowed_paths": [
+        "ml_training/"
+      ],
+      "acceptance": [
+        "Paths like 'yolo_dataset' and '../uzsl_bot/exports' are not hardcoded.",
+        "A constant or environment variable is used instead.",
+        "ml_training module tests pass."
       ]
     }
   ]
