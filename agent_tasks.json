@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,21 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "add-type-hints-to-uzsl-bot",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add type hints to uzsl_bot module",
+      "description": "Systematically add static type hints (Mypy) to function signatures and classes within uzsl_bot/ to improve code quality.",
+      "allowed_paths": [
+        "uzsl_bot/"
+      ],
+      "acceptance": [
+        "All public functions and classes in uzsl_bot/ have explicit type hints.",
+        "Mypy passes successfully."
       ]
     }
   ]

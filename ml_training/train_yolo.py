@@ -1,3 +1,4 @@
+"""Train YOLOv8 model for static sign and dactyl letter classification."""
 import os
 
 try:
@@ -9,7 +10,11 @@ except ImportError:
 
 
 def prepare_mock_yolo_dataset(base_dir: str = "yolo_dataset") -> None:
-    """Prepares directory structure and mock images for YOLOv8 classification."""
+    """Prepare directory structure and mock images for YOLOv8 classification.
+
+    Args:
+        base_dir (str): Base directory for the mock dataset. Defaults to "yolo_dataset".
+    """
     classes = ["A", "B", "C", "I", "O", "U"]
     splits = ["train", "val"]
 
@@ -25,6 +30,7 @@ def prepare_mock_yolo_dataset(base_dir: str = "yolo_dataset") -> None:
 
 
 def train_yolo() -> None:
+    """Train YOLOv8 classification model."""
     print("⚙️ UZSL YOLOv8 Statik Daktil klassifikatsiyasini o'qitish boshlandi...")
 
     if YOLO is None:

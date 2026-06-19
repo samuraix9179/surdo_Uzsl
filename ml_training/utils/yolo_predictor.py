@@ -1,3 +1,4 @@
+"""YOLO model wrapper for static sign and dactyl letter classification."""
 from typing import Any
 
 try:
@@ -10,6 +11,11 @@ class YOLOSignPredictor:
     """Wrapper class for YOLOv8 static sign and dactyl letter classification."""
 
     def __init__(self, model_path: str = "yolov8n-cls.pt") -> None:
+        """Initialize the YOLOSignPredictor.
+
+        Args:
+            model_path (str): Path to the YOLOv8 classification model weights. Defaults to "yolov8n-cls.pt".
+        """
         self.model = None
         if YOLO is not None:
             try:
@@ -20,10 +26,13 @@ class YOLOSignPredictor:
                 print(f"⚠️ YOLO model loading failed: {e}")
 
     def predict_dactyl(self, source: Any) -> dict[str, Any]:
-        """Classifies static hand shape from rasm/frame.
+        """Classify static hand shape from rasm/frame.
 
-        :param source: Path to image, numpy array, or PIL image.
-        :return: Dict containing predicted class name and confidence score.
+        Args:
+            source: Path to image, numpy array, or PIL image.
+
+        Returns:
+            dict[str, Any]: Dict containing predicted class name and confidence score.
         """
         if self.model is None:
             # Fallback mock prediction if YOLO is not installed or model is not loaded
