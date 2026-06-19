@@ -35,7 +35,7 @@ def categories_kb() -> InlineKeyboardMarkup:
         buttons.append(current_row)
 
     # Erkin tarjima va bekor qilish tugmalari
-    buttons.append([InlineKeyboardButton("✍️ Lug'atda yo'q so'z (Erkin)", callback_data="cat_free")])
+    buttons.append([InlineKeyboardButton("✍️ Erkin so'zlar", callback_data="cat_free")])
     buttons.append([InlineKeyboardButton("❌ Bekor qilish", callback_data="submit_cancel")])
     return InlineKeyboardMarkup(buttons)
 

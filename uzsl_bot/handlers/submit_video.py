@@ -34,8 +34,8 @@ INSTRUCTIONS = (
 
 async def _show_categories(message, context):
     await message.reply_text(
-        "Quyidagi kategoriyalardan birini tanlang yoki lug'atda yo'q so'zni kiritib "
-        "video yuborish uchun **✍️ Lug'atda yo'q so'z (Erkin)** tugmasini bosing:\n\n"
+        "Quyidagi kategoriyalardan birini tanlang yoki erkin so'zlarni kiritib "
+        "video yuborish uchun **✍️ Erkin so'zlar** tugmasini bosing:\n\n"
         "_Kategoriyalar mavjud so'zlarni guruhlab osonroq topish uchun xizmat qiladi._",
         reply_markup=categories_kb(),
         parse_mode="Markdown",
@@ -68,7 +68,7 @@ async def category_chosen(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
     if data == "cat_free":
         await query.message.reply_text(
-            "✍️ *Lug'atda yo'q so'z yuborish (Erkin tarjima) rejimiga o'tdingiz.*\n\n"
+            "✍️ *Erkin so'zlar yuborish (Erkin tarjima) rejimiga o'tdingiz.*\n\n"
             "Ushbu videoda qaysi so'z yoki gapni imo-ishorada ko'rsatmoqchisiz? "
             "Iltimos, uning o'zbekcha tarjimasini yozib yuboring (Masalan: *yaxshi boring*, *rahmat*).\n\n"
             "/cancel — bekor qilish",
@@ -111,9 +111,9 @@ async def back_to_categories(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
 
 async def receive_free_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
+    text = update.message.text or update.message.caption
     if not text:
-        await update.message.reply_text("Iltimos, faqat matn yuboring.")
+        await update.message.reply_text("Iltimos, avval ko'rsatmoqchi bo'lgan so'zingizni matn ko'rinishida yuboring.")
         return WAITING_FREE_TEXT
 
     word_uz = text.strip()
@@ -126,7 +126,12 @@ async def receive_free_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["current_label_word"] = word_uz
     context.user_data["is_free_translation"] = True
 
-    instructions = INSTRUCTIONS.format(word=word_uz)
+    video = update.message.video or update.message.video_note
+    if video:
+        return await receive_video(update, context)
+
+    safe_word = word_uz.replace("_", "\\_").replace("*", "\\*").replace("[", "\\[").replace("`", "\\`")
+    instructions = INSTRUCTIONS.format(word=safe_word)
     await update.message.reply_text(
         instructions,
         parse_mode="Markdown",
@@ -236,8 +241,9 @@ async def receive_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Orqa fonda avtomatik moderatsiyani ishga tushirish (MediaPipe)
     asyncio.create_task(auto_moderate_video(video_id, video.file_id, label_word))
 
+    safe_label_word = label_word.replace("_", "\\_").replace("*", "\\*").replace("[", "\\[").replace("`", "\\`")
     await update.message.reply_text(
-        f"✅ Rahmat! Sizning '*{label_word}*' videongiz qabul qilindi.\n"
+        f"✅ Rahmat! Sizning '*{safe_label_word}*' videongiz qabul qilindi.\n"
         "Tizim avtomatik tekshiruvdan o'tkazmoqda, so'ngra moderatorlar ko'rib chiqishadi.",
         parse_mode="Markdown",
         reply_markup=main_menu_kb(),
@@ -308,7 +314,7 @@ submit_handler = ConversationHandler(
             CallbackQueryHandler(cancel_callback, pattern="^submit_cancel$"),
         ],
         WAITING_FREE_TEXT: [
-            MessageHandler(filters.TEXT & ~filters.COMMAND, receive_free_text),
+            MessageHandler((filters.TEXT | filters.VIDEO | filters.VIDEO_NOTE) & ~filters.COMMAND, receive_free_text),
             CommandHandler("cancel", cancel_cmd),
         ],
         WAITING_VIDEO: [
