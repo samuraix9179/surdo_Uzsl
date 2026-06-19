@@ -1,1 +1,1 @@
-# Makes models a Python package
+"""ML training models package."""

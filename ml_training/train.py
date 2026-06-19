@@ -1,3 +1,4 @@
+"""Main ML training module for UZSL skeleton landmarks using SSTCN/SL-GCN."""
 from __future__ import annotations
 import json
 import os
@@ -29,6 +30,7 @@ class UZSLDataset(Dataset):  # type: ignore[type-arg]
     """Custom PyTorch Dataset for UZSL skeleton landmarks."""
 
     def __init__(self, data_dir: str = LANDMARKS_DIR, target_frames: int = NUM_FRAMES) -> None:
+        """Initialize the UZSLDataset."""
         self.target_frames = target_frames
         self.samples: list[torch.Tensor] = []
         self.labels: list[int] = []
@@ -63,7 +65,7 @@ class UZSLDataset(Dataset):  # type: ignore[type-arg]
             self.labels.append(label_idx)
 
     def _parse_sequence(self, frames: list[dict[str, Any]]) -> torch.Tensor:
-        """Converts keypoint lists to a normalized, interpolated PyTorch float tensor."""
+        """Convert keypoint lists to a normalized, interpolated PyTorch float tensor."""
         seq_len = len(frames)
         tensor_data = torch.zeros(seq_len, NUM_NODES, 3)
 
@@ -115,14 +117,16 @@ class UZSLDataset(Dataset):  # type: ignore[type-arg]
         return interpolated.permute(2, 0, 1)
 
     def __len__(self) -> int:
+        """Return the number of samples in the dataset."""
         return len(self.samples)
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, int]:
+        """Return a sample and its label at the given index."""
         return self.samples[idx], self.labels[idx]
 
 
 def build_default_adjacency_matrix() -> torch.Tensor:
-    """Generates a default symmetric skeletal adjacency graph matrix for UZSL (543 nodes).
+    """Generate a default symmetric skeletal adjacency graph matrix for UZSL (543 nodes).
 
     Defines connection weights between hands joints, face anchors, and pose limbs.
     """
@@ -164,6 +168,7 @@ def build_default_adjacency_matrix() -> torch.Tensor:
 
 
 def train() -> None:
+    """Train the main UZSL ML model."""
     print("⚙️ UZSL Machine Learning o'qitish boshlandi...")
 
     # Load dataset

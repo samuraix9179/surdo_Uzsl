@@ -1,1 +1,1 @@
-# Makes ml_training a Python package
+"""ML training package for UZSL project."""
