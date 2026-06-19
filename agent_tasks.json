@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,21 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-type-hints-on-ml-training-models-package",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify type hints on ML Training models package",
+      "description": "Ensure that the continuous_slr model and other models have complete strict MyPy type hints and verify.",
+      "allowed_paths": [
+        "ml_training/models/"
+      ],
+      "acceptance": [
+        "All model classes and methods in ml_training/models/ have proper type hints",
+        "MyPy verification passes successfully"
       ]
     }
   ]
