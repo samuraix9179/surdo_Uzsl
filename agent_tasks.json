@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-pylint-on-uzsl-bot",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify PyLint on UZSL Bot module",
+      "description": "Ensure the uzsl_bot module passes PyLint checks to maintain code quality.",
+      "allowed_paths": [
+        "uzsl_bot/"
+      ],
+      "acceptance": [
+        "PyLint checks pass on uzsl_bot code."
       ]
     }
   ]
