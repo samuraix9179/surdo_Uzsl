@@ -1,3 +1,5 @@
+"""Module docstring for continuous_slr.py."""
+
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock
@@ -19,6 +21,7 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
         hidden_dim: int = 256,
         num_layers: int = 2
     ) -> None:
+        """Initialize continuous SLR."""
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)

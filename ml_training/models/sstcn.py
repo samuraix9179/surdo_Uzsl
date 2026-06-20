@@ -1,3 +1,5 @@
+"""Module docstring for sstcn.py."""
+
 import torch
 from torch import nn
 
@@ -9,6 +11,7 @@ class SeparableSTBlock(nn.Module):  # type: ignore[misc]
     """
 
     def __init__(self, in_channels: int, out_channels: int, stride: int = 1) -> None:
+        """Initialize TCN block."""
         super().__init__()
 
         # Spatial Depthwise Convolution (mixes landmark point coordinates locally)
@@ -41,7 +44,7 @@ class SeparableSTBlock(nn.Module):  # type: ignore[misc]
             )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)"""
+        """Input shape: (batch_size, in_channels, num_frames, num_nodes)."""
         out = self.spatial_conv(x)
         out = self.temporal_conv(out)
         out = self.bn(out)
@@ -55,6 +58,7 @@ class SSTCN(nn.Module):  # type: ignore[misc]
     """
 
     def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543) -> None:
+        """Initialize TCN block."""
         super().__init__()
         self.num_nodes = num_nodes
 
@@ -75,7 +79,7 @@ class SSTCN(nn.Module):  # type: ignore[misc]
         self.fc = nn.Linear(256, num_classes)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Input shape: (batch_size, in_channels, num_frames, num_nodes)
+        """Input shape: (batch_size, in_channels, num_frames, num_nodes).
 
         Returns: (batch_size, num_classes) probabilities.
         """
