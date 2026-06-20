@@ -1,3 +1,8 @@
+"""
+yolo_predictor.py module.
+
+This module contains functionality for ML training.
+"""
 from typing import Any
 
 try:
@@ -10,6 +15,7 @@ class YOLOSignPredictor:
     """Wrapper class for YOLOv8 static sign and dactyl letter classification."""
 
     def __init__(self, model_path: str = "yolov8n-cls.pt") -> None:
+        """Initialize YOLOSignPredictor."""
         self.model = None
         if YOLO is not None:
             try:
