@@ -38,7 +38,7 @@ class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
 
         Args:
             data_dir (str): Path to directory with landmark data. Defaults to LANDMARKS_DIR.
-            target_frames (int): Target frame count (not strictly used here since it's continuous). Defaults to NUM_FRAMES.
+            target_frames (int): Target frame count (not strictly used here). Defaults to NUM_FRAMES.
         """
         self.target_frames = target_frames
         self.samples: list[torch.Tensor] = []
