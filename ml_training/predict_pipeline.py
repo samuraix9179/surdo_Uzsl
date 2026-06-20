@@ -1,3 +1,8 @@
+"""End-to-End translation pipeline module for UZSL.
+
+Connects ML sequence keypoint predictions to the Uzbek grammar translator.
+"""
+
 import os
 import sys
 from typing import Optional
@@ -23,6 +28,12 @@ class UZSLPipeline:
     """
 
     def __init__(self, model_path: Optional[str] = None, model_type: str = "SSTCN") -> None:
+        """Initialize the UZSL Pipeline with a specified model.
+
+        Args:
+            model_path (Optional[str]): Path to model weights. Defaults to None.
+            model_type (str): Type of model to load ("SSTCN" or "SLGCN"). Defaults to "SSTCN".
+        """
         self.model_type = model_type
         self.model = None
         self.device = "cpu"
@@ -54,7 +65,7 @@ class UZSLPipeline:
                     self.model = None
 
     def process_landmarks(self, sequence_data: list) -> str:
-        """Processes raw frames sequence, predicts sign words, and translates to Uzbek.
+        """Process raw frames sequence, predict sign words, and translate to Uzbek.
 
         :param sequence_data: List of frames containing pose, face, hands coordinates
         :return: Normal Uzbek sentence string

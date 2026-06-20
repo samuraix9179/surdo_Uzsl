@@ -1,3 +1,8 @@
+"""YOLOv8 Predictor Utility module.
+
+Wrapper for YOLOv8 based static sign language predictions.
+"""
+
 from typing import Any
 
 try:
@@ -10,6 +15,11 @@ class YOLOSignPredictor:
     """Wrapper class for YOLOv8 static sign and dactyl letter classification."""
 
     def __init__(self, model_path: str = "yolov8n-cls.pt") -> None:
+        """Initialize the YOLO Predictor.
+
+        Args:
+            model_path (str): Path to the YOLOv8 classification model weights. Defaults to "yolov8n-cls.pt".
+        """
         self.model = None
         if YOLO is not None:
             try:
