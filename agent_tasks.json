@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,22 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "write-unit-tests-for-ml-training-models",
+      "status": "todo",
+      "area": "testing",
+      "risk": "low",
+      "title": "Write unit tests for ML Training models",
+      "description": "Add unit tests to ensure stability of models inside ml_training/models.",
+      "allowed_paths": [
+        "tests/test_ml.py",
+        "ml_training/models/"
+      ],
+      "acceptance": [
+        "All model classes have basic unit tests verifying their forward pass.",
+        "Test suite passes."
       ]
     }
   ]
