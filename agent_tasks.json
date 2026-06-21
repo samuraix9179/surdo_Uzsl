@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-docstrings-on-translator-module",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify docstrings on uzsl_translator module",
+      "description": "Ensure all functions and classes in uzsl_translator have Google-style docstrings.",
+      "allowed_paths": [
+        "uzsl_translator/"
+      ],
+      "acceptance": [
+        "All public functions and classes have valid Google-style docstrings."
       ]
     }
   ]
