@@ -1,3 +1,4 @@
+"""Continuous SLR model definitions for UZSL."""
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock
@@ -19,6 +20,15 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
         hidden_dim: int = 256,
         num_layers: int = 2
     ) -> None:
+        """Initialize the ContinuousSLR model.
+
+        Args:
+            in_channels: Number of input channels.
+            num_classes: Number of output classes.
+            num_nodes: Number of nodes.
+            hidden_dim: Dimension of LSTM hidden state.
+            num_layers: Number of LSTM layers.
+        """
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)
