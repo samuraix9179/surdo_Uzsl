@@ -1,3 +1,4 @@
+"""Module docstring."""
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock
@@ -19,6 +20,7 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
         hidden_dim: int = 256,
         num_layers: int = 2
     ) -> None:
+        """Initialize."""
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)
@@ -52,7 +54,7 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass.
 
-        Input shape: (batch_size, in_channels, num_frames, num_nodes)
+        Input shape (batch_size, in_channels, num_frames, num_nodes).
         Output shape: (batch_size, num_frames, num_classes + 1)
         """
         # Feature extraction
