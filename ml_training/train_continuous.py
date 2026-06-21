@@ -1,3 +1,4 @@
+"""Training scripts for continuous sign language recognition models."""
 from __future__ import annotations
 import os
 import sys
@@ -29,6 +30,7 @@ class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
     """Custom PyTorch Dataset for Continuous UZSL sentences."""
 
     def __init__(self, data_dir: str = LANDMARKS_DIR, target_frames: int = NUM_FRAMES) -> None:
+        """Initialize the continuous gesture dataset."""
         self.target_frames = target_frames
         self.samples: list[torch.Tensor] = []
         self.targets: list[torch.Tensor] = []
@@ -117,9 +119,11 @@ class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
         return interpolated.permute(2, 0, 1)
 
     def __len__(self) -> int:
+        """Return the number of samples in the dataset."""
         return len(self.samples)
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor, int, int]:
+        """Get a sample, sequence, and lengths by index."""
         return (
             self.samples[idx],
             self.targets[idx],
@@ -131,7 +135,7 @@ class UZSLContinuousDataset(Dataset):  # type: ignore[type-arg]
 def collate_fn(
     batch: list[tuple[torch.Tensor, torch.Tensor, int, int]]
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-    """Custom collate function to handle variable length targets for CTC Loss."""
+    """Pad sequences for a batch to identical lengths to handle variable length targets for CTC Loss."""
     inputs, targets, input_lengths, target_lengths = zip(*batch)
     inputs = torch.stack(inputs, 0)
     flat_targets = torch.cat(targets, 0)
@@ -139,6 +143,7 @@ def collate_fn(
 
 
 def train_continuous() -> None:
+    """Execute the continuous models training loop."""
     print("⚙️ UZSL Continuous Machine Learning o'qitish boshlandi...")
 
     dataset = UZSLContinuousDataset()

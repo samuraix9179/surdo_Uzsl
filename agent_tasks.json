@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-flake8-on-tests-directory",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify flake8 on tests directory",
+      "description": "Run flake8 on the tests directory to ensure PEP8 compliance.",
+      "allowed_paths": [
+        "tests/"
+      ],
+      "acceptance": [
+        "flake8 tests/ runs without any errors or warnings."
       ]
     }
   ]
