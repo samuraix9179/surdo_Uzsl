@@ -1,3 +1,5 @@
+"""Module containing the SL-GCN (Skeletal Graph Convolution Network) model."""
+
 import torch
 from torch import nn
 from ml_training.models.gcn import GraphConvolution, TemporalConvolution
@@ -17,7 +19,7 @@ class STGCNBlock(nn.Module):  # type: ignore[misc]
     """
 
     def __init__(self, in_channels: int, out_channels: int, num_nodes: int = 543, stride: int = 1) -> None:
-        """Initializes the STGCNBlock.
+        """Initialize the STGCNBlock.
 
         Args:
             in_channels (int): Number of channels in the input sequence.
@@ -44,7 +46,7 @@ class STGCNBlock(nn.Module):  # type: ignore[misc]
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
-        """Applies spatial and temporal graph convolutions to the input.
+        """Apply spatial and temporal graph convolutions to the input.
 
         Args:
             x (torch.Tensor): Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
@@ -93,7 +95,7 @@ class SLGCN(nn.Module):  # type: ignore[misc]
     """
 
     def __init__(self, in_channels: int = 3, num_classes: int = 100, num_nodes: int = 543) -> None:
-        """Initializes the SLGCN network.
+        """Initialize the SLGCN network.
 
         Args:
             in_channels (int): Number of channels in the input sequence. Defaults to 3.
@@ -118,7 +120,7 @@ class SLGCN(nn.Module):  # type: ignore[misc]
         self.fc = nn.Linear(256, num_classes)
 
     def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
-        """Performs a forward pass of the SLGCN model.
+        """Perform a forward pass of the SLGCN model.
 
         Args:
             x (torch.Tensor): Input tensor of shape (batch_size, in_channels, num_frames, num_nodes).
