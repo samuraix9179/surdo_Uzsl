@@ -1,3 +1,4 @@
+"""Graph Convolution Network modules."""
 import math
 import torch
 from torch import nn
@@ -18,7 +19,7 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
     """
 
     def __init__(self, in_channels: int, out_channels: int, num_nodes: int = 543) -> None:
-        """Initializes the GraphConvolution layer.
+        """Initialize the GraphConvolution layer.
 
         Args:
             in_channels (int): Number of input channels.
@@ -38,7 +39,7 @@ class GraphConvolution(nn.Module):  # type: ignore[misc]
         self.reset_parameters()
 
     def reset_parameters(self) -> None:
-        """Resets the learnable parameters of the layer."""
+        """Reset the learnable parameters of the layer."""
         nn.init.kaiming_uniform_(self.weight, a=math.sqrt(5) if hasattr(self, 'math') else 1e-2)
 
     def forward(self, x: torch.Tensor, adjacency: torch.Tensor) -> torch.Tensor:
@@ -88,7 +89,7 @@ class TemporalConvolution(nn.Module):  # type: ignore[misc]
         stride: int = 1,
         padding: int = 4
     ) -> None:
-        """Initializes the TemporalConvolution layer.
+        """Initialize the TemporalConvolution layer.
 
         Args:
             in_channels (int): Number of input channels.

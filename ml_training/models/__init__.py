@@ -1,1 +1,1 @@
-# Makes models a Python package
+"""Models package."""
