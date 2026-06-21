@@ -1,1 +1,1 @@
-# Makes ml_training a Python package
+"""Machine Learning Training modules for Sign Language Recognition."""

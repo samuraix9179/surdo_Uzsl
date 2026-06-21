@@ -1,3 +1,4 @@
+"""Continuous Sign Language Recognition (CSLR) model architectures."""
 import torch
 from torch import nn
 from ml_training.models.sstcn import SeparableSTBlock
@@ -19,6 +20,15 @@ class ContinuousSLR(nn.Module):  # type: ignore[misc]
         hidden_dim: int = 256,
         num_layers: int = 2
     ) -> None:
+        """Initialize the ContinuousSLRModel.
+
+        Args:
+            in_channels: Number of input feature channels.
+            num_classes: Number of output vocabulary classes.
+            num_nodes: Number of spatial nodes.
+            hidden_dim: Hidden dimension for RNN sequence modeling.
+            num_layers: Number of RNN layers.
+        """
         super().__init__()
 
         # Spatial-Temporal Feature Extractor (reusing SeparableSTBlock)

@@ -1,3 +1,5 @@
+"""Inference pipeline for executing Sign Language Recognition models."""
+
 import os
 import sys
 from typing import Optional
@@ -23,6 +25,12 @@ class UZSLPipeline:
     """
 
     def __init__(self, model_path: Optional[str] = None, model_type: str = "SSTCN") -> None:
+        """Initialize the prediction pipeline.
+
+        Args:
+            model_path: Path to the trained SLR model checkpoint.
+            model_type: The type of model to load (e.g., 'SSTCN').
+        """
         self.model_type = model_type
         self.model = None
         self.device = "cpu"
@@ -54,7 +62,7 @@ class UZSLPipeline:
                     self.model = None
 
     def process_landmarks(self, sequence_data: list) -> str:
-        """Processes raw frames sequence, predicts sign words, and translates to Uzbek.
+        """Process raw frames sequence, predict sign words, and translate to Uzbek.
 
         :param sequence_data: List of frames containing pose, face, hands coordinates
         :return: Normal Uzbek sentence string
