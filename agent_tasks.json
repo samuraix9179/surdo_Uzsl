@@ -278,7 +278,7 @@
     },
     {
       "id": "setup-pylint-on-translator-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on translator tests",
@@ -304,6 +304,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on tests for ml_training."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-translator-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify MyPy on translator tests",
+      "description": "Run mypy on tests within the uzsl_translator module if they exist to keep static typing quality high.",
+      "allowed_paths": [
+        "uzsl_translator/**",
+        "tests/**",
+        "mypy.ini"
+      ],
+      "acceptance": [
+        "mypy runs successfully on translator test files"
       ]
     }
   ]
