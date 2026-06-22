@@ -278,7 +278,7 @@
     },
     {
       "id": "setup-pylint-on-translator-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on translator tests",
@@ -304,6 +304,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on tests for ml_training."
+      ]
+    },
+    {
+      "id": "verify-flake8-on-translator",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify flake8 on translator",
+      "description": "Run flake8 on the uzsl_translator module to ensure basic formatting consistency.",
+      "allowed_paths": [
+        "uzsl_translator/**"
+      ],
+      "acceptance": [
+        "flake8 passes successfully on uzsl_translator files"
       ]
     }
   ]
