@@ -7,6 +7,13 @@ from telegram.ext import Application, PicklePersistence, ContextTypes
 from config import BOT_TOKEN, DATA_DIR, PERSISTENCE_PATH, ADMIN_IDS
 from database import init_db
 
+# ConversationHandler'larda CallbackQueryHandler boshqa handler turlari bilan aralash
+# ishlatilgani uchun per_message=False to'g'ri xatti-harakatdir. PTB chiqaradigan
+# bog'liq ogohlantirish shunchaki ma'lumot uchun — uni maqsadli ravishda o'chiramiz.
+import warnings
+from telegram.warnings import PTBUserWarning
+warnings.filterwarnings("ignore", message=r".*per_message.*", category=PTBUserWarning)
+
 # Handlerlar
 from handlers.start import (
     registration_handler, delete_data_handler, delete_callback_handler,
