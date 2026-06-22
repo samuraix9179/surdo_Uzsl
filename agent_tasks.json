@@ -264,7 +264,7 @@
     },
     {
       "id": "verify-docstrings-on-ml-training-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify docstrings on ML Training module",
@@ -290,6 +290,20 @@
       ],
       "acceptance": [
         "pylint runs successfully on translator test files"
+      ]
+    },
+    {
+      "id": "verify-pydocstyle-on-ml-training-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on ml_training tests",
+      "description": "Ensure all test files for ml_training conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on tests for ml_training."
       ]
     }
   ]
