@@ -12,22 +12,23 @@ from database import init_db
 # bog'liq ogohlantirish shunchaki ma'lumot uchun — uni maqsadli ravishda o'chiramiz.
 import warnings
 from telegram.warnings import PTBUserWarning
-warnings.filterwarnings("ignore", message=r".*per_message.*", category=PTBUserWarning)
 
 # Handlerlar
 from handlers.start import (
     registration_handler, delete_data_handler, delete_callback_handler,
-)
-from handlers.submit_video import submit_handler
+)  # noqa: E402
+from handlers.submit_video import submit_handler  # noqa: E402
 from handlers.profile import (
     profile_handler, leaderboard_handler, labels_handler,
     help_handler, menu_callback_handler, translate_handler,
-)
+)  # noqa: E402
 from handlers.admin import (
     admin_panel_handler, stats_handler, moderate_handler, export_handler,
     moderation_action_handler, rejection_handler, admin_menu_handler,
     addlabel_conv, broadcast_conv, upload_example_conv,
-)
+)  # noqa: E402
+
+warnings.filterwarnings("ignore", message=r".*per_message.*", category=PTBUserWarning)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
