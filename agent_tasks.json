@@ -278,7 +278,7 @@
     },
     {
       "id": "setup-pylint-on-translator-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on translator tests",
@@ -304,6 +304,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on tests for ml_training."
+      ]
+    },
+    {
+      "id": "verify-flake8-on-ml-training",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify flake8 on ml_training module",
+      "description": "Run flake8 on the ml_training module to ensure code style consistency.",
+      "allowed_paths": [
+        "ml_training/**",
+        ".flake8"
+      ],
+      "acceptance": [
+        "flake8 runs successfully on ml_training module"
       ]
     }
   ]
