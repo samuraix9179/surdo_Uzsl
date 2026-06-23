@@ -37,6 +37,10 @@ jobs:
       run: |
         mypy ml_training --ignore-missing-imports
 
+    - name: Run PyLint
+      run: |
+        PYTHONPATH=$(pwd)/uzsl_bot:$PYTHONPATH pylint tests/
+
     - name: Run Pytest (Unit Tests)
       run: |
         pytest --ignore=magda_agent
