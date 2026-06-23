@@ -15,15 +15,16 @@ from telegram.warnings import PTBUserWarning
 warnings.filterwarnings("ignore", message=r".*per_message.*", category=PTBUserWarning)
 
 # Handlerlar
-from handlers.start import (
+# noqa: E402
+from handlers.start import (  # noqa: E402
     registration_handler, delete_data_handler, delete_callback_handler,
 )
-from handlers.submit_video import submit_handler
-from handlers.profile import (
+from handlers.submit_video import submit_handler  # noqa: E402
+from handlers.profile import (  # noqa: E402
     profile_handler, leaderboard_handler, labels_handler,
     help_handler, menu_callback_handler, translate_handler,
 )
-from handlers.admin import (
+from handlers.admin import (  # noqa: E402
     admin_panel_handler, stats_handler, moderate_handler, export_handler,
     moderation_action_handler, rejection_handler, admin_menu_handler,
     addlabel_conv, broadcast_conv, upload_example_conv,
