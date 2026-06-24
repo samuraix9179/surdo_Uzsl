@@ -278,7 +278,7 @@
     },
     {
       "id": "setup-pylint-on-translator-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on translator tests",
@@ -304,6 +304,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on tests for ml_training."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify MyPy on tests directory",
+      "description": "Run mypy on the tests directory to ensure static typing correctness.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "mypy passes for the tests directory."
       ]
     }
   ]
