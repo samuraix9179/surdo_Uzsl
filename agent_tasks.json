@@ -278,7 +278,7 @@
     },
     {
       "id": "setup-pylint-on-translator-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Run pylint on translator tests",
@@ -304,6 +304,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on tests for ml_training."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-bot-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify PyLint on bot tests",
+      "description": "Run pylint on the remaining tests in the tests/ directory to ensure all tests maintain high code quality.",
+      "allowed_paths": [
+        "tests/**",
+        ".pylintrc"
+      ],
+      "acceptance": [
+        "pylint runs successfully on test files"
       ]
     }
   ]
