@@ -1,3 +1,4 @@
+"""Tests for syncing videos and database interactions."""
 import os
 import sys
 import json
