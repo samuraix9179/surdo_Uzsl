@@ -1,3 +1,4 @@
+"""Test the synchronization functionality with huggingface."""
 import os
 import sys
 import json
