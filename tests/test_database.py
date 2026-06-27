@@ -1,3 +1,5 @@
+"""Tests for the database interactions and schema."""
+
 import sys
 import os
 import pytest
@@ -20,6 +22,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Verify core database workflow spanning user creation, updates, and deletion."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
