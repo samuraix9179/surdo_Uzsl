@@ -1,3 +1,4 @@
+"""Tests for video synchronization functionality."""
 import os
 import sys
 import json
