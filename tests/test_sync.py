@@ -1,3 +1,5 @@
+"""Integration tests to verify synchronization between bot and ML components."""
+
 import os
 import sys
 import json
