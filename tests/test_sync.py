@@ -1,3 +1,5 @@
+"""Tests for the HuggingFace synchronization."""
+
 import os
 import sys
 import json
