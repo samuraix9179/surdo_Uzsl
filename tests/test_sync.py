@@ -1,3 +1,4 @@
+"""Tests for the sync-to-HuggingFace utility module."""
 import os
 import sys
 import json
