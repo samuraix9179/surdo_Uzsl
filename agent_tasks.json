@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pydocstyle-on-root-files",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on root python files",
+      "description": "Ensure root python files like main.py or setup files conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "*.py",
+        "uzsl_bot/*.py"
+      ],
+      "acceptance": [
+        "pydocstyle passes on root level python scripts and uzsl_bot files."
       ]
     }
   ]

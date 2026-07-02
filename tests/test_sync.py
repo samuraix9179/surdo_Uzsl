@@ -1,3 +1,5 @@
+"""Test suite for Hugging Face Hub synchronization."""
+
 import os
 import sys
 import json
