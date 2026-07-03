@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-ml-training-tests-run-coverage",
+      "title": "Setup test coverage on ml_training tests",
+      "description": "Ensure we have code coverage tools set up and tested on ml_training module.",
+      "area": "quality",
+      "risk": "low",
+      "status": "todo",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Test coverage passes successfully"
       ]
     }
   ]
