@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "replenish-xtbul5ept0",
+      "title": "Verify flake8 on test_ml.py",
+      "description": "Ensure test_ml.py passes flake8 checks without any linting errors.",
+      "area": "quality",
+      "risk": "low",
+      "status": "todo",
+      "allowed_paths": [
+        "tests/test_ml.py"
+      ],
+      "acceptance": [
+        "flake8 passes on test_ml.py cleanly."
       ]
     }
   ]

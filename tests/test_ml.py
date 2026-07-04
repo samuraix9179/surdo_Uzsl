@@ -1,3 +1,4 @@
+"""Test suite for ml_training modules including model instantiation."""
 import sys
 import os
 import pytest
