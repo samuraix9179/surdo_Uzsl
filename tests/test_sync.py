@@ -1,3 +1,4 @@
+"""Tests for synchronization logic and background sync tasks."""
 import os
 import sys
 import json
