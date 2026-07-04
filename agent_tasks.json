@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "replenishment-task-1f327c51-86fe-47d3-b574-646d152ea810",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify code coverage on ML training module",
+      "description": "Ensure ML training module has basic test coverage metrics tracked.",
+      "allowed_paths": [
+        "tests/**",
+        "ml_training/**",
+        ".github/**"
+      ],
+      "acceptance": [
+        "Code coverage tools are verified or basic setup is checked."
       ]
     }
   ]
