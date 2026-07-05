@@ -1,324 +1,338 @@
 {
-  "schema_version": 1,
-  "project": "surdo",
-  "task_source_priority": [
-    "agent_tasks.json",
-    "AGENTS.md"
-  ],
-  "risk_levels": [
-    "low",
-    "medium",
-    "high",
-    "critical"
-  ],
-  "merge_policy": {
-    "low": "auto_merge_after_tests",
-    "medium": "auto_merge_after_tests_and_critic",
-    "high": "human_review_required",
-    "critical": "manual_only"
-  },
-  "replenishment_policy": {
-    "minimum_todo_tasks": 2,
-    "batch_size": 2,
-    "always_add_tasks": false,
-    "tasks_per_run": 1,
-    "allowed_risks_for_generated_tasks": [
-      "low",
-      "medium"
-    ],
-    "instruction": "Yangi vazifalarni faqat ro'yxat minimum_todo_tasks darajasidan pastga tushganda qo'shing. Avval bajarilgan yoki bloklangan vazifalarni tekshiring. Yangi vazifalar qo'shishda asosan barqarorlik, testlarni oshirish va xatolarni to'g'irlashga e'tibor qarating.",
-    "max_todo_tasks": 20
-  },
-  "autonomous_loop_policy": {
-    "selection_rule": "High yoki critical risk bilan bloklanmagan birinchi 'todo' statusdagi vazifani tanlang.",
-    "anti_stall_rule": "Agar arxitektura va test natijalaridan yangi past riskli vazifalar yaratish imkoni bo'lsa, foydalanuvchini chalg'itib savol bermang.",
-    "stabilization_first": true,
-    "max_pr_scope": "PR uchun faqat bitta task id",
-    "failure_rule": "Agar CI/testlar muvaffaqiyatsiz bo'lsa, yangi imkoniyatlar qo'shishdan oldin xatolikni tuzatish vazifasiga ustuvorlik bering."
-  },
-  "tasks": [
-    {
-      "id": "verify-task-manifest-schema",
-      "status": "done",
-      "area": "governance",
-      "risk": "low",
-      "title": "Validate agent task manifest format",
-      "description": "agent_tasks.json faylining to'g'riligini va uning tuzilishini tekshiradigan validator yozish.",
-      "allowed_paths": [
+    "schema_version": 1,
+    "project": "surdo",
+    "task_source_priority": [
         "agent_tasks.json",
-        "scripts/validate_agent_tasks.py",
-        "tests/**"
-      ],
-      "acceptance": [
-        "python scripts/validate_agent_tasks.py buyrug'i muvaffaqiyatli ishlaydi",
-        "agar xatolik bo'lsa, skript aniq xato xabarini qaytaradi"
-      ]
+        "AGENTS.md"
+    ],
+    "risk_levels": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+    ],
+    "merge_policy": {
+        "low": "auto_merge_after_tests",
+        "medium": "auto_merge_after_tests_and_critic",
+        "high": "human_review_required",
+        "critical": "manual_only"
     },
-    {
-      "id": "cleanup-flake8-issues",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Resolve basic flake8 errors",
-      "description": "Loyiha ildizidagi flake8_report.txt hisobotiga asoslanib asosiy sintaktik va formatlash xatolarini to'g'irlash.",
-      "allowed_paths": [
-        "uzsl_bot/**",
-        "uzsl_translator/**",
-        "tests/**"
-      ],
-      "acceptance": [
-        "flake8 hisobotidagi xatoliklar kamayadi",
-        "loyiha testlari muvaffaqiyatli o'tadi"
-      ]
+    "replenishment_policy": {
+        "minimum_todo_tasks": 2,
+        "batch_size": 2,
+        "always_add_tasks": false,
+        "tasks_per_run": 1,
+        "allowed_risks_for_generated_tasks": [
+            "low",
+            "medium"
+        ],
+        "instruction": "Yangi vazifalarni faqat ro'yxat minimum_todo_tasks darajasidan pastga tushganda qo'shing. Avval bajarilgan yoki bloklangan vazifalarni tekshiring. Yangi vazifalar qo'shishda asosan barqarorlik, testlarni oshirish va xatolarni to'g'irlashga e'tibor qarating.",
+        "max_todo_tasks": 20
     },
-    {
-      "id": "fix-mypy-redefinitions",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Fix mypy redefinition errors in utils",
-      "description": "Fix mypy 'no-redef' errors in uzsl_bot/utils/sync_to_huggingface.py and uzsl_bot/utils/export.py by adding ignore comments to fallback imports.",
-      "allowed_paths": [
-        "uzsl_bot/utils/sync_to_huggingface.py",
-        "uzsl_bot/utils/export.py"
-      ],
-      "acceptance": [
-        "mypy uzsl_bot/ tests/ runs successfully without 'no-redef' errors"
-      ]
+    "autonomous_loop_policy": {
+        "selection_rule": "High yoki critical risk bilan bloklanmagan birinchi 'todo' statusdagi vazifani tanlang.",
+        "anti_stall_rule": "Agar arxitektura va test natijalaridan yangi past riskli vazifalar yaratish imkoni bo'lsa, foydalanuvchini chalg'itib savol bermang.",
+        "stabilization_first": true,
+        "max_pr_scope": "PR uchun faqat bitta task id",
+        "failure_rule": "Agar CI/testlar muvaffaqiyatsiz bo'lsa, yangi imkoniyatlar qo'shishdan oldin xatolikni tuzatish vazifasiga ustuvorlik bering."
     },
-    {
-      "id": "add-pytest-asyncio",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Add pytest-asyncio to test requirements",
-      "description": "Add pytest-asyncio to requirements to fix async test execution warnings.",
-      "allowed_paths": [
-        "requirements.txt"
-      ],
-      "acceptance": [
-        "pytest runs asynchronously without 'async def functions are not natively supported' errors"
-      ]
-    },
-    {
-      "id": "fix-mypy-gcn-module-resolution",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Fix mypy module resolution error for gcn.py",
-      "description": "Fix the mypy error 'Source file found twice under different module names: gcn and models.gcn' in ml_training/models/gcn.py by adding explicit-package-bases to mypy.ini or adjusting imports.",
-      "allowed_paths": [
-        "mypy.ini",
-        "ml_training/**"
-      ],
-      "acceptance": [
-        "mypy runs without module resolution error for gcn.py"
-      ]
-    },
-    {
-      "id": "add-type-hints-to-gcn-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Add type hints to GCN module",
-      "description": "Add proper return type and argument type hints to the methods in GraphConvolution class (like __init__ and reset_parameters) in ml_training/models/gcn.py.",
-      "allowed_paths": [
-        "ml_training/models/gcn.py"
-      ],
-      "acceptance": [
-        "mypy passes for ml_training/models/gcn.py"
-      ]
-    },
-    {
-      "id": "setup-pylint",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Setup PyLint for detailed static analysis",
-      "description": "Add pylint to the project dependencies and configure it with a .pylintrc file to provide more rigorous linting capabilities alongside flake8.",
-      "allowed_paths": [
-        "requirements.txt",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint is installed and can be run",
-        ".pylintrc exists and configuration is basic"
-      ]
-    },
-    {
-      "id": "add-docstrings-to-gcn-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Add docstrings to GCN module",
-      "description": "Improve code documentation by adding Google-style docstrings to the classes and methods in ml_training/models/gcn.py to enhance readability and maintainability.",
-      "allowed_paths": [
-        "ml_training/models/gcn.py"
-      ],
-      "acceptance": [
-        "docstrings exist for GraphConvolution and TemporalConvolution classes and their methods"
-      ]
-    },
-    {
-      "id": "setup-pylint-uzsl-bot",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Run pylint on uzsl_bot module",
-      "description": "Run pylint on the uzsl_bot module and resolve high-priority warnings.",
-      "allowed_paths": [
-        "uzsl_bot/**",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint runs successfully on uzsl_bot without critical errors"
-      ]
-    },
-    {
-      "id": "add-docstrings-to-sl-gcn-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Add docstrings to SL-GCN module",
-      "description": "Improve code documentation by adding Google-style docstrings to the classes and methods in ml_training/models/sl_gcn.py to enhance readability and maintainability.",
-      "allowed_paths": [
-        "ml_training/models/sl_gcn.py"
-      ],
-      "acceptance": [
-        "docstrings exist for STGCNBlock and SLGCN classes and their methods"
-      ]
-    },
-    {
-      "id": "verify-pylint-on-translator-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Run pylint on uzsl_translator module",
-      "description": "Run pylint on the uzsl_translator module and resolve high-priority warnings to ensure codebase quality consistency.",
-      "allowed_paths": [
-        "uzsl_translator/**",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint runs successfully on uzsl_translator without critical errors"
-      ]
-    },
-    {
-      "id": "add-type-hints-to-sl-gcn-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Add type hints to SL-GCN module",
-      "description": "Improve code maintainability by adding type hints to the methods in ml_training/models/sl_gcn.py to enhance static typing support.",
-      "allowed_paths": [
-        "ml_training/models/sl_gcn.py"
-      ],
-      "acceptance": [
-        "mypy passes for ml_training/models/sl_gcn.py with --disallow-untyped-defs"
-      ]
-    },
-    {
-      "id": "verify-pylint-on-ml-training-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Run pylint on ml_training module",
-      "description": "Run pylint on the ml_training module and resolve high-priority warnings to ensure codebase quality consistency.",
-      "allowed_paths": [
-        "ml_training/**",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint runs successfully on ml_training without critical errors"
-      ]
-    },
-    {
-      "id": "verify-mypy-on-ml-training-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Verify MyPy on ML Training module",
-      "description": "Ensure static typing is fully verified.",
-      "allowed_paths": [
-        "ml_training/"
-      ],
-      "acceptance": [
-        "mypy passes for ml_training"
-      ]
-    },
-    {
-      "id": "setup-pylint-on-ml-training-tests",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Run pylint on ml_training tests",
-      "description": "Run pylint on tests within the ml_training module if they exist to keep code quality high.",
-      "allowed_paths": [
-        "ml_training/**",
-        "tests/**",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint runs successfully on ml_training test files"
-      ]
-    },
-    {
-      "id": "verify-docstrings-on-ml-training-module",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Verify docstrings on ML Training module",
-      "description": "Ensure all functions and classes in ml_training have Google-style docstrings.",
-      "allowed_paths": [
-        "ml_training/"
-      ],
-      "acceptance": [
-        "All public functions and classes have valid Google-style docstrings."
-      ]
-    },
-    {
-      "id": "setup-pylint-on-translator-tests",
-      "status": "done",
-      "area": "quality",
-      "risk": "low",
-      "title": "Run pylint on translator tests",
-      "description": "Run pylint on tests within the uzsl_translator module if they exist to keep code quality high.",
-      "allowed_paths": [
-        "uzsl_translator/**",
-        "tests/**",
-        ".pylintrc"
-      ],
-      "acceptance": [
-        "pylint runs successfully on translator test files"
-      ]
-    },
-    {
-      "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
-      "area": "quality",
-      "risk": "low",
-      "title": "Verify pydocstyle on ml_training tests",
-      "description": "Ensure all test files for ml_training conform to pydocstyle guidelines.",
-      "allowed_paths": [
-        "tests/**"
-      ],
-      "acceptance": [
-        "pydocstyle passes on tests for ml_training."
-      ]
-    },
-    {
-      "id": "verify-pydocstyle-on-translator-module",
-      "status": "todo",
-      "area": "quality",
-      "risk": "low",
-      "title": "Verify pydocstyle on translator module",
-      "description": "Ensure all python code in translator module conforms to pydocstyle guidelines.",
-      "allowed_paths": [
-        "uzsl_translator/**"
-      ],
-      "acceptance": [
-        "pydocstyle passes on python files for uzsl_translator."
-      ]
-    }
-  ]
+    "tasks": [
+        {
+            "id": "verify-task-manifest-schema",
+            "status": "done",
+            "area": "governance",
+            "risk": "low",
+            "title": "Validate agent task manifest format",
+            "description": "agent_tasks.json faylining to'g'riligini va uning tuzilishini tekshiradigan validator yozish.",
+            "allowed_paths": [
+                "agent_tasks.json",
+                "scripts/validate_agent_tasks.py",
+                "tests/**"
+            ],
+            "acceptance": [
+                "python scripts/validate_agent_tasks.py buyrug'i muvaffaqiyatli ishlaydi",
+                "agar xatolik bo'lsa, skript aniq xato xabarini qaytaradi"
+            ]
+        },
+        {
+            "id": "cleanup-flake8-issues",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Resolve basic flake8 errors",
+            "description": "Loyiha ildizidagi flake8_report.txt hisobotiga asoslanib asosiy sintaktik va formatlash xatolarini to'g'irlash.",
+            "allowed_paths": [
+                "uzsl_bot/**",
+                "uzsl_translator/**",
+                "tests/**"
+            ],
+            "acceptance": [
+                "flake8 hisobotidagi xatoliklar kamayadi",
+                "loyiha testlari muvaffaqiyatli o'tadi"
+            ]
+        },
+        {
+            "id": "fix-mypy-redefinitions",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Fix mypy redefinition errors in utils",
+            "description": "Fix mypy 'no-redef' errors in uzsl_bot/utils/sync_to_huggingface.py and uzsl_bot/utils/export.py by adding ignore comments to fallback imports.",
+            "allowed_paths": [
+                "uzsl_bot/utils/sync_to_huggingface.py",
+                "uzsl_bot/utils/export.py"
+            ],
+            "acceptance": [
+                "mypy uzsl_bot/ tests/ runs successfully without 'no-redef' errors"
+            ]
+        },
+        {
+            "id": "add-pytest-asyncio",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Add pytest-asyncio to test requirements",
+            "description": "Add pytest-asyncio to requirements to fix async test execution warnings.",
+            "allowed_paths": [
+                "requirements.txt"
+            ],
+            "acceptance": [
+                "pytest runs asynchronously without 'async def functions are not natively supported' errors"
+            ]
+        },
+        {
+            "id": "fix-mypy-gcn-module-resolution",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Fix mypy module resolution error for gcn.py",
+            "description": "Fix the mypy error 'Source file found twice under different module names: gcn and models.gcn' in ml_training/models/gcn.py by adding explicit-package-bases to mypy.ini or adjusting imports.",
+            "allowed_paths": [
+                "mypy.ini",
+                "ml_training/**"
+            ],
+            "acceptance": [
+                "mypy runs without module resolution error for gcn.py"
+            ]
+        },
+        {
+            "id": "add-type-hints-to-gcn-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Add type hints to GCN module",
+            "description": "Add proper return type and argument type hints to the methods in GraphConvolution class (like __init__ and reset_parameters) in ml_training/models/gcn.py.",
+            "allowed_paths": [
+                "ml_training/models/gcn.py"
+            ],
+            "acceptance": [
+                "mypy passes for ml_training/models/gcn.py"
+            ]
+        },
+        {
+            "id": "setup-pylint",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Setup PyLint for detailed static analysis",
+            "description": "Add pylint to the project dependencies and configure it with a .pylintrc file to provide more rigorous linting capabilities alongside flake8.",
+            "allowed_paths": [
+                "requirements.txt",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint is installed and can be run",
+                ".pylintrc exists and configuration is basic"
+            ]
+        },
+        {
+            "id": "add-docstrings-to-gcn-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Add docstrings to GCN module",
+            "description": "Improve code documentation by adding Google-style docstrings to the classes and methods in ml_training/models/gcn.py to enhance readability and maintainability.",
+            "allowed_paths": [
+                "ml_training/models/gcn.py"
+            ],
+            "acceptance": [
+                "docstrings exist for GraphConvolution and TemporalConvolution classes and their methods"
+            ]
+        },
+        {
+            "id": "setup-pylint-uzsl-bot",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Run pylint on uzsl_bot module",
+            "description": "Run pylint on the uzsl_bot module and resolve high-priority warnings.",
+            "allowed_paths": [
+                "uzsl_bot/**",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint runs successfully on uzsl_bot without critical errors"
+            ]
+        },
+        {
+            "id": "add-docstrings-to-sl-gcn-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Add docstrings to SL-GCN module",
+            "description": "Improve code documentation by adding Google-style docstrings to the classes and methods in ml_training/models/sl_gcn.py to enhance readability and maintainability.",
+            "allowed_paths": [
+                "ml_training/models/sl_gcn.py"
+            ],
+            "acceptance": [
+                "docstrings exist for STGCNBlock and SLGCN classes and their methods"
+            ]
+        },
+        {
+            "id": "verify-pylint-on-translator-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Run pylint on uzsl_translator module",
+            "description": "Run pylint on the uzsl_translator module and resolve high-priority warnings to ensure codebase quality consistency.",
+            "allowed_paths": [
+                "uzsl_translator/**",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint runs successfully on uzsl_translator without critical errors"
+            ]
+        },
+        {
+            "id": "add-type-hints-to-sl-gcn-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Add type hints to SL-GCN module",
+            "description": "Improve code maintainability by adding type hints to the methods in ml_training/models/sl_gcn.py to enhance static typing support.",
+            "allowed_paths": [
+                "ml_training/models/sl_gcn.py"
+            ],
+            "acceptance": [
+                "mypy passes for ml_training/models/sl_gcn.py with --disallow-untyped-defs"
+            ]
+        },
+        {
+            "id": "verify-pylint-on-ml-training-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Run pylint on ml_training module",
+            "description": "Run pylint on the ml_training module and resolve high-priority warnings to ensure codebase quality consistency.",
+            "allowed_paths": [
+                "ml_training/**",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint runs successfully on ml_training without critical errors"
+            ]
+        },
+        {
+            "id": "verify-mypy-on-ml-training-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Verify MyPy on ML Training module",
+            "description": "Ensure static typing is fully verified.",
+            "allowed_paths": [
+                "ml_training/"
+            ],
+            "acceptance": [
+                "mypy passes for ml_training"
+            ]
+        },
+        {
+            "id": "setup-pylint-on-ml-training-tests",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Run pylint on ml_training tests",
+            "description": "Run pylint on tests within the ml_training module if they exist to keep code quality high.",
+            "allowed_paths": [
+                "ml_training/**",
+                "tests/**",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint runs successfully on ml_training test files"
+            ]
+        },
+        {
+            "id": "verify-docstrings-on-ml-training-module",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Verify docstrings on ML Training module",
+            "description": "Ensure all functions and classes in ml_training have Google-style docstrings.",
+            "allowed_paths": [
+                "ml_training/"
+            ],
+            "acceptance": [
+                "All public functions and classes have valid Google-style docstrings."
+            ]
+        },
+        {
+            "id": "setup-pylint-on-translator-tests",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Run pylint on translator tests",
+            "description": "Run pylint on tests within the uzsl_translator module if they exist to keep code quality high.",
+            "allowed_paths": [
+                "uzsl_translator/**",
+                "tests/**",
+                ".pylintrc"
+            ],
+            "acceptance": [
+                "pylint runs successfully on translator test files"
+            ]
+        },
+        {
+            "id": "verify-pydocstyle-on-ml-training-tests",
+            "status": "done",
+            "area": "quality",
+            "risk": "low",
+            "title": "Verify pydocstyle on ml_training tests",
+            "description": "Ensure all test files for ml_training conform to pydocstyle guidelines.",
+            "allowed_paths": [
+                "tests/**"
+            ],
+            "acceptance": [
+                "pydocstyle passes on tests for ml_training."
+            ]
+        },
+        {
+            "id": "verify-pydocstyle-on-translator-module",
+            "status": "todo",
+            "area": "quality",
+            "risk": "low",
+            "title": "Verify pydocstyle on translator module",
+            "description": "Ensure all python code in translator module conforms to pydocstyle guidelines.",
+            "allowed_paths": [
+                "uzsl_translator/**"
+            ],
+            "acceptance": [
+                "pydocstyle passes on python files for uzsl_translator."
+            ]
+        },
+        {
+            "id": "verify-pydocstyle-on-translator-tests",
+            "status": "todo",
+            "area": "quality",
+            "risk": "low",
+            "title": "Verify pydocstyle on translator tests",
+            "description": "Ensure all test files for translator conform to pydocstyle guidelines.",
+            "allowed_paths": [
+                "tests/**"
+            ],
+            "acceptance": [
+                "pydocstyle passes on tests for translator."
+            ]
+        }
+    ]
 }
