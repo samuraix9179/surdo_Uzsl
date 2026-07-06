@@ -1,3 +1,4 @@
+"""Test module for synchronizing videos to Hugging Face."""
 import os
 import sys
 import json
