@@ -34,7 +34,7 @@ from utils.sync_to_huggingface import sync_video_to_huggingface  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_sync_video_to_huggingface():
-    """sync_video_to_huggingface funksiyasi videoni yuklab olib, landmarks ajratib S3 ga yuklashini tekshiradi."""  # noqa: D401
+    """Videoni yuklab olib, landmarks ajratib S3 ga yuklashini tekshiradi."""  # noqa: D401
     if os.path.exists("test_sync.db"):
         os.remove("test_sync.db")
 
