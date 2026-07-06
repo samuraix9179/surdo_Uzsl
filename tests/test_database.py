@@ -1,3 +1,4 @@
+"""Test module for test_database.py functionality."""
 import sys
 import os
 import pytest
@@ -20,6 +21,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Test function test_database_workflow."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
@@ -105,7 +107,7 @@ async def test_labels_expanded_to_100_plus():
 
 @pytest.mark.asyncio
 async def test_get_video_by_id():
-    """get_video_by_id funksiyasi video, label va user ma'lumotlarini qaytarishini tekshiradi."""
+    """get_video_by_id funksiyasi video, label va user ma'lumotlarini qaytarishini tekshiradi."""  # noqa: D401
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
