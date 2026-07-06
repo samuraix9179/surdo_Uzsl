@@ -1,3 +1,5 @@
+"""Tests for video synchronization to Hugging Face functionality."""
+
 import os
 import sys
 import json
