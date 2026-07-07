@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-on-moderator-module-50878660",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup Pytest on Moderator Module",
+      "description": "Ensure tests are correctly set up and pass for the moderator module.",
+      "allowed_paths": [
+        "tests/**",
+        "uzsl_bot/utils/moderator.py"
+      ],
+      "acceptance": [
+        "pytest passes on moderator module tests without errors."
       ]
     }
   ]
