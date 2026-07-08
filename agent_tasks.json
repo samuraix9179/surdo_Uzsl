@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-tests-44fc00e6",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Refactor ml_training tests",
+      "description": "Improve coverage and stability of ml_training tests.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Test coverage is improved."
       ]
     }
   ]
