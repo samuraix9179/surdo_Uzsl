@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-duplicate-code-8126bf84",
+      "status": "todo",
+      "area": "refactor",
+      "risk": "low",
+      "title": "Refactor duplicate code in ml_training",
+      "description": "Identify and refactor any duplicated logic across ml_training tests or utils.",
+      "allowed_paths": [
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "Duplicate code logic extracted to common functions where applicable."
       ]
     }
   ]
