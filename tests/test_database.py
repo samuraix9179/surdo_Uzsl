@@ -1,3 +1,5 @@
+"""Test suite for the database module."""
+
 import sys
 import os
 import pytest
@@ -20,6 +22,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Verify standard database operations including CRUD for users and videos."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
