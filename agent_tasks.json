@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-ci-for-ml-training-a6b52ba3",
+      "status": "todo",
+      "area": "ci",
+      "risk": "medium",
+      "title": "Setup CI for ml_training",
+      "description": "Configure CI workflow to run tests and linters for ml_training module.",
+      "allowed_paths": [
+        ".github/workflows/ml_training.yml"
+      ],
+      "acceptance": [
+        "CI workflow for ml_training is established and green."
       ]
     }
   ]
