@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-on-ml-training-14ea67d2",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest on ml_training module",
+      "description": "Ensure pytest can run successfully on ml_training files.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Pytest runs without errors on ml_training module tests."
       ]
     }
   ]
