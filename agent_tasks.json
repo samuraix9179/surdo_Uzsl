@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-asyncio-v0-23-533f174c",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup Pytest-Asyncio v0.23",
+      "description": "Ensure pytest-asyncio is installed and configured.",
+      "allowed_paths": [
+        "tests/**",
+        "requirements.txt"
+      ],
+      "acceptance": [
+        "Pytest passes for asyncio tasks."
       ]
     }
   ]
