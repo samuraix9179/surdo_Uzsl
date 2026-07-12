@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "dummy-task-3ed6acbc",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "low",
+      "title": "Dummy task",
+      "description": "This is a dummy task.",
+      "allowed_paths": [
+        "*"
+      ],
+      "acceptance": [
+        "Dummy task completed."
       ]
     }
   ]
