@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,23 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-coverage-107a5b52",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Set up Pytest Coverage",
+      "description": "Configure pytest-cov to ensure our tests are actually testing the code. Add it as a pre-commit check or separate test run.",
+      "allowed_paths": [
+        "tests/**",
+        ".pre-commit-config.yaml",
+        "pytest.ini"
+      ],
+      "acceptance": [
+        "pytest-cov is installed and configured.",
+        "A coverage report can be generated."
       ]
     }
   ]
