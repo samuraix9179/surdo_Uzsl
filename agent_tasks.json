@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-on-continuous-slr-cf61c6b0",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest on continuous_slr models",
+      "description": "Create tests for continuous SLR models to verify correctness of output.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Pytest passes on tests for continuous SLR."
       ]
     }
   ]
