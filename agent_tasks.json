@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pylint-on-database-tests-afffb3f9",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pylint on database tests",
+      "description": "Ensure the test_database.py file conforms to pylint guidelines and add pylint command for it.",
+      "allowed_paths": [
+        "tests/test_database.py"
+      ],
+      "acceptance": [
+        "Pylint passes on tests/test_database.py without errors or warnings."
       ]
     }
   ]
