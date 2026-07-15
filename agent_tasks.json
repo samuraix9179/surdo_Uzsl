@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-black-on-ml-training-tests-d128f664",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup black formatter on ml_training tests",
+      "description": "Format all test files for ml_training to conform to black guidelines.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "black passes on tests for ml_training."
       ]
     }
   ]
