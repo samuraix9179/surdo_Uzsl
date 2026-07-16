@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-main-3dbbbf8f",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run pylint on the main entry points",
+      "description": "Ensure pylint passes on the main entry points to keep code quality high.",
+      "allowed_paths": [
+        "uzsl_bot/main.py",
+        "ml_training/train.py",
+        "ml_training/predict_pipeline.py"
+      ],
+      "acceptance": [
+        "pylint runs successfully on the main entry points"
       ]
     }
   ]
