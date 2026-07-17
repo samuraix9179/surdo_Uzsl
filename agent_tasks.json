@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-ml-training-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify mypy on ml_training tests",
+      "description": "Run mypy static type checking on ml_training test files to ensure typing consistency.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "mypy passes without errors on ml_training test files."
       ]
     }
   ]
