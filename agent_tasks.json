@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -308,7 +308,7 @@
     },
     {
       "id": "verify-pydocstyle-on-translator-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on translator module",
@@ -318,6 +318,34 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pydocstyle-on-uzsl-bot-1c52ec4f",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on uzsl_bot module",
+      "description": "Ensure all files for uzsl_bot conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "uzsl_bot/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on uzsl_bot module."
+      ]
+    },
+    {
+      "id": "cleanup-uzsl-bot-pydocstyle-f1438bae",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Cleanup pydocstyle errors in uzsl_bot",
+      "description": "Fix missing docstrings and formatting errors in uzsl_bot module.",
+      "allowed_paths": [
+        "uzsl_bot/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on uzsl_bot module."
       ]
     }
   ]
