@@ -1,3 +1,5 @@
+"""Unit tests for validate_agent_tasks module."""
+
 import pytest
 from scripts.validate_agent_tasks import validate_manifest, ValidationError
 

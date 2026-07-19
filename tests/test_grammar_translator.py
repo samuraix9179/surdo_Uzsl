@@ -1,3 +1,5 @@
+"""Unit tests for grammar_translator module."""
+
 import sys
 import os
 

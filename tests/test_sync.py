@@ -1,3 +1,5 @@
+"""Unit tests for sync module."""
+
 import os
 import sys
 import json
