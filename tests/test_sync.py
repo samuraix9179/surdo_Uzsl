@@ -1,3 +1,5 @@
+"""Unit tests for database sync functions."""
+
 import os
 import sys
 import json
