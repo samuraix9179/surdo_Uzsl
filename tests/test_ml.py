@@ -1,3 +1,4 @@
+"""Test module for ML components in Surdo project."""
 import sys
 import os
 import pytest
