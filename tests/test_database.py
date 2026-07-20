@@ -1,3 +1,5 @@
+"""Test module for verifying SQLite database operations and workflows."""
+
 import sys
 import os
 import pytest
@@ -20,6 +22,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Verify end-to-end database operations including user, video, and label management."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")

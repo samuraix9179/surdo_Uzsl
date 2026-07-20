@@ -1,3 +1,5 @@
+"""Test module for verifying moderator functions such as video quality analysis."""
+
 import sys
 import os
 from unittest.mock import MagicMock, patch
@@ -19,6 +21,7 @@ from utils.moderator import analyze_video_quality_sync  # noqa: E402
 
 @patch('os.path.exists', return_value=True)
 def test_analyze_video_quality_sync_valid(mock_exists):
+    """Verify that a valid video with proper face and hand landmarks passes validation."""
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, True, False]
@@ -62,6 +65,7 @@ def test_analyze_video_quality_sync_valid(mock_exists):
 
 @patch('os.path.exists', return_value=True)
 def test_analyze_video_quality_sync_invalid_face(mock_exists):
+    """Verify that a video missing face landmarks is correctly flagged as invalid."""
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, False]
