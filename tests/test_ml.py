@@ -1,3 +1,5 @@
+"""Test machine learning models and pipelines for UZSL project."""
+
 import sys
 import os
 import pytest
