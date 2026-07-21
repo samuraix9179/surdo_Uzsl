@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,23 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-translator-core-742b86de",
+      "title": "Refactor translator core module",
+      "description": "Refactor the core logic of the translator module to improve maintainability and performance. Break down large functions and add unit tests.",
+      "area": "core",
+      "status": "todo",
+      "risk": "medium",
+      "acceptance": [
+        "Core functions in translator module are smaller and more modular",
+        "New unit tests cover the refactored logic",
+        "All existing tests pass"
+      ],
+      "allowed_paths": [
+        "uzsl_translator/**",
+        "tests/**"
       ]
     }
   ]
