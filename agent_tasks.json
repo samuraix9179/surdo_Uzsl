@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-yolo-predictor-utils",
+      "status": "todo",
+      "area": "ml",
+      "risk": "low",
+      "title": "Refactor YOLO predictor utils",
+      "description": "Refactor YOLO predictor to use updated configurations.",
+      "allowed_paths": [
+        "ml_training/utils/**"
+      ],
+      "acceptance": [
+        "Code is refactored."
       ]
     }
   ]

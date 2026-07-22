@@ -1,9 +1,11 @@
+"""Tests for the test_validate_agent_tasks module."""
 import pytest
 from scripts.validate_agent_tasks import validate_manifest, ValidationError
 
 
 @pytest.fixture
 def valid_manifest():
+    """Fixture providing a valid manifest."""
     return {
         "schema_version": 1,
         "project": "surdo",
@@ -47,47 +49,55 @@ def valid_manifest():
 
 
 def test_valid_manifest(valid_manifest):
+    """Test that a valid manifest passes validation."""
     warnings = validate_manifest(valid_manifest)
     assert isinstance(warnings, list)
 
 
 def test_missing_schema_version(valid_manifest):
+    """Test that missing schema version fails validation."""
     del valid_manifest["schema_version"]
     with pytest.raises(ValidationError, match="schema_version must be 1"):
         validate_manifest(valid_manifest)
 
 
 def test_invalid_schema_version(valid_manifest):
+    """Test that invalid schema version fails validation."""
     valid_manifest["schema_version"] = 2
     with pytest.raises(ValidationError, match="schema_version must be 1"):
         validate_manifest(valid_manifest)
 
 
 def test_missing_tasks(valid_manifest):
+    """Test that missing tasks field fails validation."""
     del valid_manifest["tasks"]
     with pytest.raises(ValidationError, match="tasks must be a non-empty array"):
         validate_manifest(valid_manifest)
 
 
 def test_empty_tasks(valid_manifest):
+    """Test that empty tasks array fails validation."""
     valid_manifest["tasks"] = []
     with pytest.raises(ValidationError, match="tasks must be a non-empty array"):
         validate_manifest(valid_manifest)
 
 
 def test_invalid_task_status(valid_manifest):
+    """Test that invalid task status fails validation."""
     valid_manifest["tasks"][0]["status"] = "unknown_status"
     with pytest.raises(ValidationError, match="unknown status 'unknown_status'"):
         validate_manifest(valid_manifest)
 
 
 def test_missing_task_fields(valid_manifest):
+    """Test that missing task fields fails validation."""
     del valid_manifest["tasks"][0]["title"]
     with pytest.raises(ValidationError, match="missing fields"):
         validate_manifest(valid_manifest)
 
 
 def test_duplicate_task_id(valid_manifest):
+    """Test that duplicate task ID fails validation."""
     valid_manifest["tasks"][1]["id"] = "task-1"
     with pytest.raises(ValidationError, match="duplicate task id: task-1"):
         validate_manifest(valid_manifest)
