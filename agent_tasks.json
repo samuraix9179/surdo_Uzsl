@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-coverage-for-ml-training-07ae303804",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup test coverage for ml_training",
+      "description": "Ensure pytest-cov is configured to run tests specifically targeting ml_training.",
+      "allowed_paths": [
+        "tests/**",
+        "pyproject.toml"
+      ],
+      "acceptance": [
+        "pytest --cov=ml_training runs without errors."
       ]
     }
   ]
