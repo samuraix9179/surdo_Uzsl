@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "add-new-translator-test-case",
+      "status": "todo",
+      "area": "testing",
+      "risk": "low",
+      "title": "Add a new translator test case",
+      "description": "Increase test coverage for translator by adding a new unit test.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "New test case passes successfully",
+        "pylint and pydocstyle run successfully on tests"
       ]
     }
   ]
