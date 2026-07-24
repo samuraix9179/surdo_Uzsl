@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-ci-workflow",
+      "title": "Setup CI workflow",
+      "description": "Setup a basic GitHub Actions CI workflow to run pytest and linters on PRs.",
+      "area": "ops",
+      "risk": "medium",
+      "status": "todo",
+      "prerequisites": [],
+      "allowed_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "acceptance": [
+        "CI workflow runs pytest, pylint, and pydocstyle on PRs and push to main."
       ]
     }
   ]
