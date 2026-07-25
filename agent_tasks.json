@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,23 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-coverage-for-ml-training",
+      "title": "Setup pytest coverage for ml_training module",
+      "description": "Configure pytest to generate coverage reports for the ml_training module to identify untested code paths.",
+      "status": "todo",
+      "area": "testing",
+      "risk": "low",
+      "allowed_paths": [
+        "pytest.ini",
+        ".github/workflows/test.yml",
+        "requirements.txt"
+      ],
+      "acceptance": [
+        "pytest generates coverage report for ml_training",
+        "CI workflow runs coverage report"
       ]
     }
   ]
