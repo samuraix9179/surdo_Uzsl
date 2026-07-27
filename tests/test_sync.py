@@ -1,3 +1,4 @@
+"""Tests for database synchronization between local SQLite and remote PostgreSQL."""
 import os
 import sys
 import json
