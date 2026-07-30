@@ -1,3 +1,4 @@
+"""Test suite for ml."""
 import sys
 import os
 import pytest
