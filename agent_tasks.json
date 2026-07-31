@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pytest-on-ml-training-tests-295cdf05",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pytest on ml_training tests",
+      "description": "Ensure pytest runs successfully and handles missing torch installation by skipping tests.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "pytest passes or skips cleanly on ml_training tests."
       ]
     }
   ]
