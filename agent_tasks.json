@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-database-queries-for-performance",
+      "status": "todo",
+      "area": "backend",
+      "risk": "medium",
+      "title": "Refactor database queries for performance",
+      "description": "Optimize SQLite database queries in uzsl_bot/utils/database.py to use connection pooling or caching for better performance under load.",
+      "allowed_paths": [
+        "uzsl_bot/utils/database.py",
+        "tests/test_database.py"
+      ],
+      "acceptance": [
+        "Database queries are refactored to use a more performant approach.",
+        "Tests pass."
       ]
     }
   ]
