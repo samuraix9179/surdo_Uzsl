@@ -1,3 +1,4 @@
+"""Tests for the database operations."""
 import sys
 import os
 import pytest
@@ -20,6 +21,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Test the full database workflow."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
