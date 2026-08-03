@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-tests-structure-4904f88e",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Refactor tests structure and naming",
+      "description": "Organize tests into subdirectories mapping the module structure and ensure consistent naming.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Tests are refactored.",
+        "pytest passes."
       ]
     }
   ]
