@@ -1,3 +1,4 @@
+"""Tests for the project."""
 import sys
 import os
 import pytest
