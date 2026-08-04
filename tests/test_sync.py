@@ -1,3 +1,4 @@
+"""Tests for the project."""
 import os
 import sys
 import json
