@@ -1,3 +1,4 @@
+"""Tests for the test_grammar_translator module."""
 import sys
 import os
 
@@ -8,6 +9,7 @@ from utils.grammar_translator import translate_uzsl_to_uzbek  # noqa: E402
 
 
 def test_grammar_translator():
+    """Test test grammar translator."""
     test_cases = [
         (["men", "do'kon", "bormoq"], "Men do'konga boryapman."),
         (["sen", "shifoxona", "kelmoq"], "Sen shifoxonaga kelyapsan."),
