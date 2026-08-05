@@ -1,3 +1,4 @@
+"""Test cases for synchronization features in the bot."""
 import os
 import sys
 import json
