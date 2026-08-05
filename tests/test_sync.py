@@ -1,3 +1,4 @@
+"""Tests for data synchronization tools."""
 import os
 import sys
 import json
