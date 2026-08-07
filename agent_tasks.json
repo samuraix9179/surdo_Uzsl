@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-redundant-code-in-ml-training",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "medium",
+      "title": "Refactor redundant code in ml_training",
+      "description": "Identify and refactor redundant utility functions within the ml_training module.",
+      "allowed_paths": [
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "Redundant code is consolidated.",
+        "All tests in ml_training continue to pass."
       ]
     }
   ]
