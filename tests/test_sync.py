@@ -1,3 +1,4 @@
+"""Unit tests for synchronous operations."""
 import os
 import sys
 import json
