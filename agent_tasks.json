@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-translator-tests",
+      "title": "Verify pylint on translator tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "description": "Ensure pylint passes on the tests/test_grammar_translator.py file to maintain code quality.",
+      "allowed_paths": [
+        "tests/test_grammar_translator.py"
+      ],
+      "acceptance": [
+        "pylint passes cleanly on tests/test_grammar_translator.py."
       ]
     }
   ]
