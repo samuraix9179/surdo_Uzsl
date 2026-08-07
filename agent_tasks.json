@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "add-pydocstyle-pre-commit-hook",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add pydocstyle pre-commit hook",
+      "description": "Add pydocstyle to the pre-commit configuration to enforce docstring standards automatically.",
+      "allowed_paths": [
+        ".pre-commit-config.yaml"
+      ],
+      "acceptance": [
+        "pydocstyle is configured as a pre-commit hook.",
+        "pre-commit run --all-files executes pydocstyle successfully."
       ]
     }
   ]
