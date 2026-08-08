@@ -1,3 +1,4 @@
+"""Test module for database synchronization components."""
 import os
 import sys
 import json
