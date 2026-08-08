@@ -1,3 +1,5 @@
+"""Module containing unit tests for the ML training models and pipelines."""
+
 import sys
 import os
 import pytest
