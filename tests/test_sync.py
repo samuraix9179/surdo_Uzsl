@@ -1,3 +1,5 @@
+"""Unit tests for sync_to_huggingface utilities."""
+
 import os
 import sys
 import json
