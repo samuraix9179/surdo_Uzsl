@@ -1,3 +1,4 @@
+"""Tests for the database module workflows."""
 import sys
 import os
 import pytest
@@ -20,6 +21,7 @@ from database import (  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_database_workflow():
+    """Test basic database workflow."""
     # Remove test db if exists
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
@@ -83,7 +85,7 @@ async def test_database_workflow():
 
 @pytest.mark.asyncio
 async def test_labels_expanded_to_100_plus():
-    """100+ ta so'z yuklanganligi va kategoriyalar to'g'riligini tekshiradi."""
+    """Verify that 100+ words are loaded and categories are correct."""
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
@@ -105,7 +107,7 @@ async def test_labels_expanded_to_100_plus():
 
 @pytest.mark.asyncio
 async def test_get_video_by_id():
-    """get_video_by_id funksiyasi video, label va user ma'lumotlarini qaytarishini tekshiradi."""
+    """Verify that get_video_by_id returns video, label, and user information."""
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
@@ -134,7 +136,7 @@ async def test_get_video_by_id():
 
 @pytest.mark.asyncio
 async def test_update_video_s3_url_and_landmarks():
-    """Video uchun s3_url va landmarks_url saqlash va o'qishni tekshiradi."""
+    """Verify saving and reading s3_url and landmarks_url for a video."""
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
@@ -168,7 +170,7 @@ async def test_update_video_s3_url_and_landmarks():
 
 @pytest.mark.asyncio
 async def test_sign_variants():
-    """Hududiy variantlar qo'shish va olish."""
+    """Test adding and retrieving regional sign variants."""
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
@@ -193,7 +195,7 @@ async def test_sign_variants():
 
 @pytest.mark.asyncio
 async def test_update_label_annotation():
-    """Label uchun annotatsiya maydonlarini yangilash."""
+    """Test updating annotation fields for a label."""
     if os.path.exists("test_bot.db"):
         os.remove("test_bot.db")
     try:
