@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "replenishment-task-6524f42f",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify formatting in uzsl_bot modules",
+      "description": "Ensure uzsl_bot modules conform to PEP8 formatting rules.",
+      "allowed_paths": [
+        "uzsl_bot/**"
+      ],
+      "acceptance": [
+        "flake8 passes on uzsl_bot module."
       ]
     }
   ]
