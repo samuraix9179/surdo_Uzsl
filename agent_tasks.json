@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pydocstyle-on-translator-tests",
+      "title": "Setup pydocstyle on translator tests",
+      "area": "quality",
+      "risk": "low",
+      "description": "Ensure pydocstyle is configured to check tests in uzsl_translator module.",
+      "allowed_paths": [
+        "tests/**",
+        ".pylintrc"
+      ],
+      "status": "todo",
+      "dependencies": [],
+      "acceptance": [
+        "Pydocstyle runs on tests for translator without any errors."
       ]
     }
   ]
