@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-uzsl-bot",
+      "title": "Verify pylint on uzsl_bot",
+      "area": "quality",
+      "status": "todo",
+      "risk": "low",
+      "description": "Run pylint on the uzsl_bot directory and fix any issues.",
+      "allowed_paths": [
+        "uzsl_bot/**",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "pylint passes on uzsl_bot directory."
       ]
     }
   ]
