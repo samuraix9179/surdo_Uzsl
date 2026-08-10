@@ -38,6 +38,20 @@
   },
   "tasks": [
     {
+      "id": "verify-pydocstyle-on-moderator-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on moderator tests",
+      "description": "Ensure all test files for the moderator module conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on test_moderator.py."
+      ]
+    },
+    {
       "id": "verify-task-manifest-schema",
       "status": "done",
       "area": "governance",
@@ -294,7 +308,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
