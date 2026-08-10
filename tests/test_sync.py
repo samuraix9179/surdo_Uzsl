@@ -1,3 +1,4 @@
+"""Tests for async synchronization behaviors."""
 import os
 import sys
 import json
