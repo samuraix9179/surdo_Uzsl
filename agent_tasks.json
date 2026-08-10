@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-translator-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify mypy on translator tests",
+      "description": "Run mypy on tests/test_grammar_translator.py to ensure static typing correctness.",
+      "allowed_paths": [
+        "tests/test_grammar_translator.py"
+      ],
+      "acceptance": [
+        "mypy passes on tests/test_grammar_translator.py."
       ]
     }
   ]
