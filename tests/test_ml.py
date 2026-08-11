@@ -1,3 +1,5 @@
+"""Test suite for the UZSL ml_training module."""
+
 import sys
 import os
 import pytest
