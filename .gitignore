@@ -171,3 +171,4 @@ semantic_memory_db/
 user_models/user_*.json
 
 
+test_bot.db
