@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-mypy-uzsl-bot",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify mypy on uzsl_bot",
+      "description": "Ensure static type checking passes on the uzsl_bot module.",
+      "allowed_paths": [
+        "uzsl_bot/**",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "mypy passes on the uzsl_bot module."
       ]
     }
   ]
