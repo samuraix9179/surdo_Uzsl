@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-flake8-on-translator-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Run flake8 on tests for translator",
+      "description": "Ensure tests for translator adhere to flake8 standards.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "flake8 runs cleanly on tests for translator."
       ]
     }
   ]
