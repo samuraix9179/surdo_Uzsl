@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-mypy-on-translator-module",
+      "title": "Verify mypy on translator module",
+      "area": "quality",
+      "description": "Ensure the translator module conforms to mypy guidelines.",
+      "status": "todo",
+      "risk": "low",
+      "prerequisites": [],
+      "allowed_paths": [
+        "uzsl_bot/utils/grammar_translator.py"
+      ],
+      "acceptance": [
+        "mypy passes on uzsl_bot/utils/grammar_translator.py."
       ]
     }
   ]
