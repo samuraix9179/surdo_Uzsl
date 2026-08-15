@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-coverage-4fe12840",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest coverage reporting",
+      "description": "Add pytest-cov to requirements and configure coverage reporting for the test suite.",
+      "allowed_paths": [
+        "requirements.txt",
+        "pyproject.toml"
+      ],
+      "acceptance": [
+        "pytest-cov is installed.",
+        "pytest can be run with --cov flag successfully."
       ]
     }
   ]
