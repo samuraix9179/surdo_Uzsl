@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pylint-on-moderator-module",
+      "title": "Verify pylint on moderator module",
+      "description": "Ensure the moderator module passes pylint checks.",
+      "area": "quality",
+      "risk": "low",
+      "status": "todo",
+      "allowed_paths": [
+        "uzsl_bot/moderator.py",
+        "uzsl_bot/moderator/**"
+      ],
+      "acceptance": [
+        "pylint passes on the moderator module without errors."
       ]
     }
   ]
