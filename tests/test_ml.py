@@ -1,3 +1,4 @@
+"""Test suite for machine learning pipelines and models in ml_training."""
 import sys
 import os
 import pytest
