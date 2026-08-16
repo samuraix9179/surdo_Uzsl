@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-on-uzsl-translator-4461add6-b2e1-4eaf-afd0-256fb92f449d",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest on uzsl_translator",
+      "description": "Ensure basic tests are set up and passing for the uzsl_translator module.",
+      "allowed_paths": [
+        "tests/**",
+        "uzsl_translator/**"
+      ],
+      "acceptance": [
+        "pytest passes on tests for uzsl_translator."
       ]
     }
   ]
