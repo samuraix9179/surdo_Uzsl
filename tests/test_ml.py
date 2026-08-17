@@ -1,3 +1,5 @@
+"""Test cases for machine learning components of the project."""
+
 import sys
 import os
 import pytest
