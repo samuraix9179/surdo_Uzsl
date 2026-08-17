@@ -1,3 +1,5 @@
+"""Test module for Machine Learning training and prediction features."""
+
 import sys
 import os
 import pytest
