@@ -1,3 +1,5 @@
+"""Tests for the machine learning and sign language recognition models."""
+
 import sys
 import os
 import pytest
