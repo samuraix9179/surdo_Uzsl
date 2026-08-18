@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-magic-numbers-f208d6df",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "low",
+      "title": "Refactor magic numbers in submit_video.py",
+      "description": "Extract hardcoded max file sizes and timeouts into configurable constants in uzsl_bot/handlers/submit_video.py.",
+      "allowed_paths": [
+        "uzsl_bot/handlers/submit_video.py"
+      ],
+      "acceptance": [
+        "Magic numbers are extracted into uppercase constants at module level.",
+        "Tests still pass."
       ]
     }
   ]
