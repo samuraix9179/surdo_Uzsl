@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-model-hyperparameters-27bc06a5",
+      "status": "todo",
+      "area": "architecture",
+      "risk": "medium",
+      "title": "Refactor model hyperparameters",
+      "description": "Refactor ml_training models to use a unified configuration class.",
+      "allowed_paths": [
+        "ml_training/models/**"
+      ],
+      "acceptance": [
+        "Models utilize a centralized config system."
       ]
     }
   ]
