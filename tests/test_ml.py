@@ -1,3 +1,4 @@
+"""Test suite for the Machine Learning module and models."""
 import sys
 import os
 import pytest
