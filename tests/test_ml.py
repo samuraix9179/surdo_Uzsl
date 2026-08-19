@@ -1,3 +1,5 @@
+"""Tests for the machine learning training and inference pipeline."""
+
 import sys
 import os
 import pytest
