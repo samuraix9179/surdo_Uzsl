@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-legacy-methods-d9f09114",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "low",
+      "title": "Refactor legacy methods",
+      "description": "Refactor legacy deprecated methods in ml_training utilities.",
+      "allowed_paths": [
+        "ml_training/utils/**"
+      ],
+      "acceptance": [
+        "Legacy methods refactored or removed."
       ]
     }
   ]
