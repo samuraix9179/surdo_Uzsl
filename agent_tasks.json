@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-github-action-bd26a155",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest in Github Actions",
+      "description": "Configure GitHub action workflow to run pytest automatically.",
+      "allowed_paths": [
+        ".github/workflows/**"
+      ],
+      "acceptance": [
+        "Github action config for pytest created and correct."
       ]
     }
   ]

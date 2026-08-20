@@ -1,3 +1,5 @@
+"""Test module for verifying ml_training components including ContinuousSLR, UZSLPipeline, and YOLO predictor."""
+
 import sys
 import os
 import pytest
