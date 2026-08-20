@@ -1,3 +1,4 @@
+"""Unit tests for database operations."""
 import sys
 import os
 import pytest
