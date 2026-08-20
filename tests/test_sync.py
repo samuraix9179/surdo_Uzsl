@@ -1,3 +1,4 @@
+"""Tests for the database synchronization workflow."""
 import os
 import sys
 import json
