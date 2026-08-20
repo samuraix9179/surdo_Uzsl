@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "replenishment-10ed253b",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest on new features",
+      "description": "Ensure new features are properly tested.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Tests added and pass successfully."
       ]
     }
   ]
