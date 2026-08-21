@@ -1,3 +1,5 @@
+"""Tests for the machine learning modules including pipelines and model components."""
+
 import sys
 import os
 import pytest
