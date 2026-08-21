@@ -1,3 +1,5 @@
+"""Tests for the ml_training module and its components."""
+
 import sys
 import os
 import pytest
