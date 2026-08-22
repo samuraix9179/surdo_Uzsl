@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-flake8-on-ml-training-tests-d83885c1",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup flake8 on ml_training tests",
+      "description": "Run flake8 to enforce PEP 8 style guides on the test files in the ml_training module.",
+      "allowed_paths": [
+        "tests/**",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "flake8 passes on tests for ml_training without any warnings or errors."
       ]
     }
   ]
