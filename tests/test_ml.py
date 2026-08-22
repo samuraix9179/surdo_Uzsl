@@ -1,3 +1,5 @@
+"""Tests for the machine learning modules including continuous SLR and YOLO prediction."""
+
 import sys
 import os
 import pytest
