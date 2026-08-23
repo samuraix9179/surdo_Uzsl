@@ -1,3 +1,4 @@
+"""Tests for the moderator logic."""
 import sys
 import os
 from unittest.mock import MagicMock, patch
@@ -19,6 +20,7 @@ from utils.moderator import analyze_video_quality_sync  # noqa: E402
 
 @patch('os.path.exists', return_value=True)
 def test_analyze_video_quality_sync_valid(mock_exists):
+    """Test analyzer returning valid result."""
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, True, False]
@@ -62,6 +64,7 @@ def test_analyze_video_quality_sync_valid(mock_exists):
 
 @patch('os.path.exists', return_value=True)
 def test_analyze_video_quality_sync_invalid_face(mock_exists):
+    """Test analyzer rejecting video with insufficient face visibility."""
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, False]
