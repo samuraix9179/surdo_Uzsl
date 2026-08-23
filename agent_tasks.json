@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "verify-pydocstyle-on-sync-and-translator",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on remaining unlinted files",
+      "description": "Ensure files like sync_to_huggingface.py and grammar_translator.py conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "utils/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on remaining python files."
       ]
     }
   ]
