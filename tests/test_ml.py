@@ -1,3 +1,5 @@
+"""Test module for verifying machine learning models and pipelines."""
+
 import sys
 import os
 import pytest
