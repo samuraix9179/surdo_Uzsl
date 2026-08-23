@@ -1,3 +1,5 @@
+"""Tests for module."""
+
 import sys
 import os
 import pytest
