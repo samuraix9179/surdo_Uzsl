@@ -1,3 +1,5 @@
+"""Tests for module."""
+
 import os
 import sys
 import json
