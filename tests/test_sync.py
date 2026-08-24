@@ -1,3 +1,4 @@
+"""Test file for test_sync.py module."""
 import os
 import sys
 import json
