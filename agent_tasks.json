@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pydocstyle-on-uzsl-bot-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pydocstyle on uzsl_bot tests",
+      "description": "Ensure pydocstyle is set up to verify tests for uzsl_bot and add a CI step or run it locally.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on tests for uzsl_bot module."
       ]
     }
   ]
