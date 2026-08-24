@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-ml-training-scripts",
+      "status": "todo",
+      "area": "feature",
+      "risk": "low",
+      "title": "Refactor ml_training scripts",
+      "description": "Refactor some of the repetitive parts in ml_training scripts to a central utils class.",
+      "allowed_paths": [
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "Refactored scripts properly use the new utils class."
       ]
     }
   ]
