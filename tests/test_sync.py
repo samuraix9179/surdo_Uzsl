@@ -1,3 +1,4 @@
+"""Tests for Sync."""
 import os
 import sys
 import json
