@@ -1,3 +1,4 @@
+"""Test suite for the ML training module, including continuous SLR and YOLO predictors."""
 import sys
 import os
 import pytest
