@@ -1,3 +1,5 @@
+"""Test sync."""
+
 import os
 import sys
 import json
