@@ -1,3 +1,4 @@
+"""Test suite for database sync operations."""
 import os
 import sys
 import json
