@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "add-pytest-for-video-download",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add PyTest for video download handler",
+      "description": "Add tests to verify the video download logic handles errors properly.",
+      "allowed_paths": [
+        "tests/**",
+        "uzsl_bot/handlers/**"
+      ],
+      "acceptance": [
+        "Tests for video download are added and pass."
       ]
     }
   ]

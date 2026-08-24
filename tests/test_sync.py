@@ -1,3 +1,4 @@
+"""Test suite for syncing videos and landmarks to Hugging Face."""
 import os
 import sys
 import json
