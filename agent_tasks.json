@@ -55,6 +55,20 @@
       ]
     },
     {
+      "id": "add-some-tests",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Add tests",
+      "description": "Add missing tests.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "Tests pass."
+      ]
+    },
+    {
       "id": "cleanup-flake8-issues",
       "status": "done",
       "area": "quality",
@@ -294,7 +308,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
