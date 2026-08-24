@@ -38,6 +38,22 @@
   },
   "tasks": [
     {
+      "id": "add-model-accuracy-metrics-to-predict-pipeline",
+      "status": "todo",
+      "area": "feature",
+      "risk": "low",
+      "title": "Add model accuracy metrics to predict pipeline",
+      "description": "Implement tracking and logging of model accuracy metrics (confidence scores and prediction latency) during inference in predict_pipeline.py.",
+      "allowed_paths": [
+        "ml_training/predict_pipeline.py"
+      ],
+      "acceptance": [
+        "Prediction latency is calculated and logged during process_landmarks.",
+        "Model confidence scores are tracked and aggregated.",
+        "pylint, flake8, and pydocstyle pass on ml_training/predict_pipeline.py."
+      ]
+    },
+    {
       "id": "verify-task-manifest-schema",
       "status": "done",
       "area": "governance",
@@ -294,7 +310,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
