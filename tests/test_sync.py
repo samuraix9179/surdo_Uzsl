@@ -1,3 +1,4 @@
+"""test_sync tests."""
 import os
 import sys
 import json
