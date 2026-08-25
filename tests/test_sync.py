@@ -1,3 +1,5 @@
+"""Tests for the test_sync.py module."""
+
 import os
 import sys
 import json
