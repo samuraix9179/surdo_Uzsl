@@ -38,6 +38,20 @@
   },
   "tasks": [
     {
+      "id": "verify-pydocstyle-on-translator",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Verify pydocstyle on grammar translator module",
+      "description": "Ensure all files in the grammar translator module conform to pydocstyle guidelines.",
+      "allowed_paths": [
+        "translator/**"
+      ],
+      "acceptance": [
+        "pydocstyle passes on all grammar translator files."
+      ]
+    },
+    {
       "id": "verify-task-manifest-schema",
       "status": "done",
       "area": "governance",
@@ -294,7 +308,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
