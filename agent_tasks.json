@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-ml-training-config-loader",
+      "status": "todo",
+      "area": "engineering",
+      "risk": "low",
+      "title": "Refactor ml_training config loader",
+      "description": "Improve configuration loading for ml_training to support different environment settings robustly.",
+      "allowed_paths": [
+        "ml_training/**"
+      ],
+      "acceptance": [
+        "Config loader works reliably for varied environments."
       ]
     }
   ]
