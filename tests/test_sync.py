@@ -1,3 +1,4 @@
+"""Test suite for sync modules."""
 import os
 import sys
 import json
