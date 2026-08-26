@@ -1,3 +1,4 @@
+"""Test Sync module for UZSL project."""
 import os
 import sys
 import json
