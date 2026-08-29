@@ -1,3 +1,4 @@
+"""Verify the test_sync.py functionality."""
 import os
 import sys
 import json
