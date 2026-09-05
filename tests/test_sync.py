@@ -1,3 +1,5 @@
+"""Tests for the synchronous video analysis."""
+
 import os
 import sys
 import json
