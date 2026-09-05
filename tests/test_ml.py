@@ -1,3 +1,4 @@
+"""Module for testing functionality."""
 import sys
 import os
 import pytest
