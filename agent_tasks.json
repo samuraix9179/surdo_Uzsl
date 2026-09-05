@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-database-module-2d882f4d",
+      "title": "Refactor database module for performance",
+      "area": "database",
+      "description": "Optimize database queries in the database module.",
+      "status": "todo",
+      "risk": "low",
+      "allowed_paths": [
+        "uzsl_bot/database.py"
+      ],
+      "acceptance": [
+        "Queries are optimized",
+        "Tests pass"
       ]
     }
   ]
