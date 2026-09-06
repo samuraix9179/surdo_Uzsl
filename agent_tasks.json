@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-model-training-utils-09a3b758",
+      "status": "todo",
+      "area": "refactoring",
+      "risk": "medium",
+      "title": "Refactor model training utils",
+      "description": "Refactor the YOLO predictor and model training utility scripts for better maintainability.",
+      "allowed_paths": [
+        "ml_training/utils/**"
+      ],
+      "acceptance": [
+        "Utility scripts are refactored successfully",
+        "Tests pass after refactoring"
       ]
     }
   ]
