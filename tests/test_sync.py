@@ -1,3 +1,5 @@
+"""Verify the sync functionality."""
+
 import os
 import sys
 import json
