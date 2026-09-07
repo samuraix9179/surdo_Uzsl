@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,21 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-grammar-translator-4d2e815d",
+      "title": "Refactor grammar translator",
+      "area": "enhancement",
+      "risk": "low",
+      "description": "Refactor grammar translator module for better performance and readability.",
+      "status": "todo",
+      "allowed_paths": [
+        "uzsl_translator/**"
+      ],
+      "acceptance": [
+        "Grammar translator module is refactored.",
+        "Tests pass."
       ]
     }
   ]
