@@ -1,3 +1,4 @@
+"""Test file synchronization and directory handling."""
 import os
 import sys
 import json
