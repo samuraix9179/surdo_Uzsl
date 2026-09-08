@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-pytest-asyncio-scope-7097d148",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Setup pytest-asyncio strict scope",
+      "description": "Configure pytest-asyncio to avoid the DeprecationWarning and future crashes when asyncio mode is set.",
+      "allowed_paths": [
+        "pyproject.toml"
+      ],
+      "acceptance": [
+        "pytest-asyncio warning about default_fixture_loop_scope is resolved."
       ]
     }
   ]
