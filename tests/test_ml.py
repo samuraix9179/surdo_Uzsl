@@ -1,3 +1,5 @@
+"""Module containing tests."""
+
 import sys
 import os
 import pytest
