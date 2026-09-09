@@ -1,3 +1,4 @@
+"""Test module."""
 import os
 import sys
 import json
@@ -33,7 +34,7 @@ from utils.sync_to_huggingface import sync_video_to_huggingface  # noqa: E402
 
 @pytest.mark.asyncio
 async def test_sync_video_to_huggingface():
-    """sync_video_to_huggingface funksiyasi videoni yuklab olib, landmarks ajratib S3 ga yuklashini tekshiradi."""
+    """Verify sync video to huggingface."""
     if os.path.exists("test_sync.db"):
         os.remove("test_sync.db")
 

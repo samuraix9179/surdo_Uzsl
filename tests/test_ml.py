@@ -1,3 +1,4 @@
+"""Test module."""
 import sys
 import os
 import pytest
@@ -16,7 +17,7 @@ from ml_training.utils.yolo_predictor import YOLOSignPredictor  # noqa: E402
 
 
 def test_continuous_slr_shape():
-    """Verify the ContinuousSLR network output shapes."""
+    """Verify continuous slr shape."""
     if torch is None:
         pytest.skip("PyTorch is not installed")
 
@@ -45,7 +46,7 @@ def test_continuous_slr_shape():
 
 
 def test_uzsl_pipeline():
-    """Verify that UZSLPipeline maps predictions to natural Uzbek sentences."""
+    """Verify uzsl pipeline."""
     pipeline = UZSLPipeline()
     dummy_sequence = [{"pose": [0.0] * 99, "left_hand": [0.0] * 63, "right_hand": [0.0] * 63}] * 30
 
@@ -56,7 +57,7 @@ def test_uzsl_pipeline():
 
 
 def test_yolo_predictor():
-    """Verify that YOLOSignPredictor returns class and confidence."""
+    """Verify yolo predictor."""
     predictor = YOLOSignPredictor()
     pred = predictor.predict_dactyl("dummy_image.jpg")
 
