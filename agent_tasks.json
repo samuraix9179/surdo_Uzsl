@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "setup-bandit-security-checks-1711f50b",
+      "status": "todo",
+      "area": "security",
+      "risk": "low",
+      "title": "Set up bandit security checks for uzsl_bot",
+      "description": "Run bandit security analysis on the uzsl_bot directory and fix any high severity issues.",
+      "allowed_paths": [
+        "uzsl_bot/**",
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "bandit passes on uzsl_bot without high severity errors",
+        "manifest updated"
       ]
     }
   ]
