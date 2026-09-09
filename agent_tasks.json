@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,22 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-model-evaluation-f8d39a82",
+      "status": "todo",
+      "area": "maintenance",
+      "risk": "low",
+      "title": "Refactor model evaluation functions",
+      "description": "Refactor and modularize model evaluation metrics into a separate utility module.",
+      "allowed_paths": [
+        "ml_training/utils/**",
+        "tests/**"
+      ],
+      "acceptance": [
+        "Model evaluation metrics are moved to a separate utility module.",
+        "Tests pass."
       ]
     }
   ]
