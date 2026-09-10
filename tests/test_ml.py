@@ -1,3 +1,4 @@
+"""Verify machine learning models and training pipelines."""
 import sys
 import os
 import pytest
