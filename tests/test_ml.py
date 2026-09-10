@@ -1,3 +1,5 @@
+"""Tests for the ml_training module."""
+
 import sys
 import os
 import pytest
@@ -51,7 +53,7 @@ def test_uzsl_pipeline():
 
     output_sentence = pipeline.process_landmarks(dummy_sequence)
 
-    # The default mock returns ['men', 'do'kon', 'bormoq'] which conjugates to:
+    # The default mock returns ['men', "do'kon", 'bormoq'] which conjugates to:
     assert output_sentence == "Men do'konga boryapman."
 
 
