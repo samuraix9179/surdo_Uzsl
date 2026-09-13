@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,23 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "refactor-model-hyperparameters-be41bb2e",
+      "title": "Refactor Model Hyperparameters configuration",
+      "description": "Extract hardcoded hyperparameters in ML models into a centralized configuration file.",
+      "area": "ml_training",
+      "status": "todo",
+      "risk": "low",
+      "prerequisites": [],
+      "allowed_paths": [
+        "ml_training/models/**",
+        "ml_training/config.py"
+      ],
+      "acceptance": [
+        "Hyperparameters are no longer hardcoded in model definitions.",
+        "A central config.py manages hyperparameter loading."
       ]
     }
   ]
