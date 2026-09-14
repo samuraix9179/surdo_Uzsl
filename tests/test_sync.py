@@ -1,3 +1,4 @@
+"""Module containing unit tests for video synchronization to Huggingface."""
 import os
 import sys
 import json
