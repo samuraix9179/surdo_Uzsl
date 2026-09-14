@@ -1,3 +1,4 @@
+"""Test module for synchronization and concurrent processing."""
 import os
 import sys
 import json
