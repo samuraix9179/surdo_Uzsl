@@ -294,7 +294,7 @@
     },
     {
       "id": "verify-pydocstyle-on-ml-training-tests",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on ml_training tests",
@@ -318,6 +318,20 @@
       ],
       "acceptance": [
         "pydocstyle passes on python files for uzsl_translator."
+      ]
+    },
+    {
+      "id": "replenishment-task-f1862f42",
+      "status": "todo",
+      "area": "quality",
+      "risk": "low",
+      "title": "Evaluate codebase for additional test coverage",
+      "description": "Analyze existing components and suggest areas for additional test coverage.",
+      "allowed_paths": [
+        "tests/**"
+      ],
+      "acceptance": [
+        "A report or test skeleton is provided."
       ]
     }
   ]
