@@ -1,3 +1,5 @@
+"""Unit tests for the UZSL ml_training module."""
+
 import sys
 import os
 import pytest
@@ -56,7 +58,7 @@ def test_uzsl_pipeline():
 
 
 def test_yolo_predictor():
-    """Verify that YOLOSignPredictor returns class and confidence."""
+    """Verify the YOLO predictor extracts bounding boxes correctly."""
     predictor = YOLOSignPredictor()
     pred = predictor.predict_dactyl("dummy_image.jpg")
 
