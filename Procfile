@@ -1,1 +1,1 @@
-worker: python uzsl_bot/main.py
+worker: python -u uzsl_bot/main.py

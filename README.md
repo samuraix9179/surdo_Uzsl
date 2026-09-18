@@ -48,3 +48,45 @@ Ushbu ochiq manbalar va mahalliy ko'ngillilar yordamida yig'iladigan **O'zbek Su
 Batafsil ma'lumotlar:
 *   Mobil ilova uchun: [starter_kod.md](file:///d:/Loyihalar/surdo_uzsl/starter_kod.md) va [uzsl_translator/README.md](file:///d:/Loyihalar/surdo_uzsl/uzsl_translator/README.md)
 *   Telegram bot va dataset yuklab olish uchun: [telegram_bot_tz.md](file:///d:/Loyihalar/surdo_uzsl/telegram_bot_tz.md) va [uzsl_bot/README.md](file:///d:/Loyihalar/surdo_uzsl/uzsl_bot/README.md)
+
+---
+
+## 🚀 Infrlo uchun xavfsiz deploy (UZSL Telegram bot)
+
+Quyidagi qiymatlar Infrlo paneli uchun **kutiladigan** konfiguratsiya (polling worker arxitekturasi asosida):
+
+- **Runtime**: Python 3.12
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `python -u uzsl_bot/main.py`
+- **Mode**: Worker / Background process (web service emas)
+
+### Muhit o'zgaruvchilari (Environment Variables)
+
+Minimal majburiy:
+- `BOT_TOKEN`
+
+Loyihada ishlatiladigan qo'shimcha sozlamalar:
+- `ADMIN_IDS`
+- `HF_TOKEN`
+- `HUGGINGFACE_REPO`
+- `HF_S3_ENDPOINT`
+- `HF_ACCESS_KEY_ID`
+- `HF_SECRET_ACCESS_KEY`
+- `HF_BUCKET_NAME`
+- `SUPABASE_DB_URL` (ixtiyoriy; berilmasa SQLite ishlatiladi)
+- `OPENAI_API_KEY`
+- `OPENAI_BASE_URL`
+- `OPENAI_MODEL`
+
+> Sirlarni (`BOT_TOKEN`, `HF_TOKEN`, `OPENAI_API_KEY`, DB credentiallar) repoga commit qilmang. Faqat Infrlo Secrets/Environment Variables bo'limiga kiriting.
+
+### SQLite bo'yicha muhim izoh
+
+Bot hozircha SQLite (`data/bot.db`) bilan ishlaydi. Container qayta yaratilsa yoki ephemeral storage ishlatilsa lokal DB yo'qolishi mumkin. Shu sabab ishlab chiqarish muhitida persistent disk/volume sozlamasi talab etiladi.
+
+### Tezkor tekshiruv buyruqlari
+
+```bash
+python -m pytest tests/test_database.py tests/test_sync.py
+python -m py_compile uzsl_bot/main.py uzsl_bot/database.py
+```
