@@ -72,6 +72,7 @@ def test_import_moderator_without_cv2_or_mediapipe():
 
     assert callable(module.analyze_video_quality_sync)
 
+
 @patch('os.path.exists', return_value=True)
 def test_analyze_video_quality_sync_valid(_mock_exists):
     module = _load_moderator_module()
