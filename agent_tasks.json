@@ -308,7 +308,7 @@
     },
     {
       "id": "verify-pydocstyle-on-translator-module",
-      "status": "todo",
+      "status": "done",
       "area": "quality",
       "risk": "low",
       "title": "Verify pydocstyle on translator module",
@@ -333,6 +333,20 @@
       "acceptance": [
         "Pylint passes on tests/test_moderator.py"
       ]
+    },
+    {
+      "id": "replenish-todo-879c2cb9",
+      "title": "Replenish task queue",
+      "area": "chore",
+      "risk": "low",
+      "description": "Replenish the agent task queue with new chores as it falls below minimum threshold.",
+      "allowed_paths": [
+        "agent_tasks.json"
+      ],
+      "acceptance": [
+        "Task queue has been replenished"
+      ],
+      "status": "todo"
     }
   ]
 }
