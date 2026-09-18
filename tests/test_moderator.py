@@ -1,24 +1,86 @@
-import sys
+import builtins
+import importlib
 import os
+import sys
+import types
 from unittest.mock import MagicMock, patch
 
-# Inject mock modules in sys.modules BEFORE importing utils.moderator
-mock_mp = MagicMock()
-mock_holistic_class = MagicMock()
-mock_mp.solutions.holistic.Holistic = mock_holistic_class
-sys.modules['mediapipe'] = mock_mp
-
-mock_cv2 = MagicMock()
-sys.modules['cv2'] = mock_cv2
-
 # Add uzsl_bot to path so we can import from it
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "uzsl_bot"))
+UZSL_BOT_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "uzsl_bot"
+)
+if UZSL_BOT_PATH not in sys.path:
+    sys.path.append(UZSL_BOT_PATH)
 
-from utils.moderator import analyze_video_quality_sync  # noqa: E402
 
+def _load_moderator_module():
+    """Load utils.moderator with lightweight dependency stubs."""
+    sys.modules.pop("utils.moderator", None)
+
+    config_module = types.ModuleType("config")
+    config_module.BOT_TOKEN = "test-token"
+
+    database_module = types.ModuleType("database")
+
+    async def _noop(*_args, **_kwargs):
+        return None
+
+    database_module.moderate_video = _noop
+    database_module.get_video_owner = _noop
+
+    telegram_module = types.ModuleType("telegram")
+    telegram_module.Bot = MagicMock()
+
+    with patch.dict(
+        sys.modules,
+        {
+            "config": config_module,
+            "database": database_module,
+            "telegram": telegram_module
+        },
+        clear=False
+    ):
+        return importlib.import_module("utils.moderator")
+
+
+def _build_lazy_import_hook(mock_cv2, mock_mp, imported_modules):
+    real_import = builtins.__import__
+
+    def _import_with_mocks(name, globals=None, locals=None, fromlist=(), level=0):  # pylint: disable=redefined-builtin
+        if name == "cv2":
+            imported_modules.append(name)
+            return mock_cv2
+        if name == "mediapipe":
+            imported_modules.append(name)
+            return mock_mp
+        return real_import(name, globals, locals, fromlist, level)
+
+    return _import_with_mocks
+
+
+def test_import_moderator_without_cv2_or_mediapipe():
+    real_import = builtins.__import__
+
+    def _guarded_import(name, globals=None, locals=None, fromlist=(), level=0):  # pylint: disable=redefined-builtin
+        if name in {"cv2", "mediapipe"}:
+            raise AssertionError(f"unexpected eager import: {name}")
+        return real_import(name, globals, locals, fromlist, level)
+
+    with patch("builtins.__import__", side_effect=_guarded_import):
+        module = _load_moderator_module()
+
+    assert callable(module.analyze_video_quality_sync)
 
 @patch('os.path.exists', return_value=True)
-def test_analyze_video_quality_sync_valid(mock_exists):
+def test_analyze_video_quality_sync_valid(_mock_exists):
+    module = _load_moderator_module()
+    mock_cv2 = MagicMock()
+    mock_mp = MagicMock()
+    mock_holistic_class = MagicMock()
+    mock_mp.solutions.holistic.Holistic = mock_holistic_class
+    imported_modules = []
+
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, True, False]
@@ -52,16 +114,28 @@ def test_analyze_video_quality_sync_valid(mock_exists):
 
     holistic_inst.process.side_effect = [res1, res2, res3]
 
-    analysis = analyze_video_quality_sync("dummy_path.mp4")
+    with patch(
+        "builtins.__import__",
+        side_effect=_build_lazy_import_hook(mock_cv2, mock_mp, imported_modules)
+    ):
+        analysis = module.analyze_video_quality_sync("dummy_path.mp4")
 
     assert analysis["ok"] is True
     assert analysis["face_ratio"] == 1.0
     assert analysis["left_hand_ratio"] == 1/3
     assert analysis["right_hand_ratio"] == 1/3
+    assert imported_modules == ["cv2", "mediapipe"]
 
 
 @patch('os.path.exists', return_value=True)
-def test_analyze_video_quality_sync_invalid_face(mock_exists):
+def test_analyze_video_quality_sync_invalid_face(_mock_exists):
+    module = _load_moderator_module()
+    mock_cv2 = MagicMock()
+    mock_mp = MagicMock()
+    mock_holistic_class = MagicMock()
+    mock_mp.solutions.holistic.Holistic = mock_holistic_class
+    imported_modules = []
+
     # Setup cv2.VideoCapture mock
     cap_inst = mock_cv2.VideoCapture.return_value
     cap_inst.isOpened.side_effect = [True, True, False]
@@ -88,7 +162,12 @@ def test_analyze_video_quality_sync_invalid_face(mock_exists):
 
     holistic_inst.process.side_effect = [res1, res2]
 
-    analysis = analyze_video_quality_sync("dummy_path.mp4")
+    with patch(
+        "builtins.__import__",
+        side_effect=_build_lazy_import_hook(mock_cv2, mock_mp, imported_modules)
+    ):
+        analysis = module.analyze_video_quality_sync("dummy_path.mp4")
 
     assert analysis["ok"] is False
     assert analysis["rejection_reason"] == "incomplete"
+    assert imported_modules == ["cv2", "mediapipe"]

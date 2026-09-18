@@ -3,8 +3,6 @@ import logging
 import os
 import sys
 import tempfile
-import cv2
-import mediapipe as mp
 from telegram import Bot
 
 # Add parent directory to path to import database and config
@@ -17,6 +15,9 @@ logger = logging.getLogger(__name__)
 
 def analyze_video_quality_sync(video_path: str) -> dict:
     """MediaPipe Holistic yordamida videoda yuz va qo'llar ko'rinishini tahlil qiladi."""
+    import cv2
+    import mediapipe as mp
+
     if not os.path.exists(video_path):
         return {"ok": False, "reason": "Video file not found", "rejection_reason": "other"}
 
