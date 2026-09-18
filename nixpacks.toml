@@ -9,7 +9,7 @@ cmds = [
 ]
 
 [start]
-cmd = "streamlit run uzsl_bot/utils/dashboard.py --server.port $PORT --server.address 0.0.0.0"
+cmd = "python -u uzsl_bot/main.py"
 
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.12"

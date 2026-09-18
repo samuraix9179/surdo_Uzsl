@@ -69,8 +69,8 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> N
 def main():
     if not BOT_TOKEN:
         raise RuntimeError(
-            "BOT_TOKEN topilmadi. .env faylida BOT_TOKEN ni belgilang "
-            "(.env.example dan nusxa oling)."
+            "BOT_TOKEN topilmadi. Environment variable sifatida BOT_TOKEN ni "
+            "sozlang (.env.example dagi nomdan foydalaning)."
         )
 
     os.makedirs(DATA_DIR, exist_ok=True)

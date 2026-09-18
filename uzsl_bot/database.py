@@ -1,3 +1,5 @@
+import os
+
 import aiosqlite
 import asyncpg
 from typing import Optional, Tuple
@@ -428,6 +430,9 @@ async def _connect():
         conn = await asyncpg.connect(SUPABASE_DB_URL, **kwargs)
         return DBWrapper(conn, is_postgres=True)
     else:
+        db_dir = os.path.dirname(DB_PATH)
+        if db_dir:
+            os.makedirs(db_dir, exist_ok=True)
         conn = await aiosqlite.connect(DB_PATH)
         conn.row_factory = aiosqlite.Row
         await conn.execute("PRAGMA foreign_keys = ON")
